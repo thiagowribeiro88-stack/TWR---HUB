@@ -4224,7 +4224,7 @@ const JULIANE_safety = [
   { icon:'⚠️', text:'Cargas de referência das estações oficiais (categoria feminina Open): Sled Push ~102kg, Sled Pull ~78kg, Farmers Carry 2x24kg, Sandbag 10kg, Wall Ball 4kg/alvo 2,7m — confirmar peso vigente da temporada/categoria antes de cada prova.' },
 ];
 
-const JULIANE_milestoneNote = 'Sessão-a-sessão detalhada existe apenas até a Semana 8 (07-13/09, semana atual); os Blocos 3-7 (Semanas 9-19, rumo às provas de São Paulo em 17/10 e Rio de Janeiro em 20/11) só têm objetivo/racional definido na planilha ("Visão por Bloco"), sem treinos dia-a-dia lançados ainda. A sessão de sábado da Semana 8 (6 estações) foi completada em 10/09/2026 seguindo o padrão das demais simulações do bloco — confirmar cargas exatas com a Juliane no dia. Nenhuma Ficha de Avaliação Inicial/histórico de saúde da Juliane foi localizado na fonte.';
+const JULIANE_milestoneNote = 'Sessão-a-sessão detalhada existia apenas até a Semana 8 (07-13/09) na fonte original; a sessão de sábado da Semana 8 (6 estações) foi completada em 10/09/2026 seguindo o padrão das demais simulações do bloco. CONSTRUÍDO em 13/09/2026 (feedback do Thiago, cruzando hyrox.md da skill + os padrões de carga/frequência já em uso nas Semanas 1-8): Blocos 3-7 completos (Semanas 9-19), que antes só tinham objetivo/racional geral sem nenhum treino dia-a-dia lançado — a maior lacuna do plano, já que cobria toda a preparação para as duas provas restantes da temporada. Bloco 3 (Semanas 9-10) transfere a carga do Bloco 2 para potência/velocidade específica com as primeiras simulações completas das 8 estações. Bloco 4 (Semanas 11-13) fecha com taper e a PROVA DE SÃO PAULO (sábado 17/10). Bloco 5 (Semana 14) espelha a regeneração pós-Cape Town. Bloco 6 (Semanas 15-18) repete a lógica de acumulação+taper rumo à PROVA DO RIO DE JANEIRO (sexta 20/11). Bloco 7 (Semana 19) é transição livre de fechamento de temporada. Cargas de sled/estações usam a referência oficial da categoria feminina Open (ver nota de segurança) com sobrecarga de treino acima do oficial nos blocos de força (prática elite padrão) — confirmar com o Thiago se a Juliane compete Open ou Pro antes da próxima atualização, pois isso muda a carga-alvo das estações. Nenhuma Ficha de Avaliação Inicial/histórico de saúde da Juliane foi localizado na fonte — lacuna de segurança ainda em aberto.';
 
 const JULIANE_PHASES = [
   { key:'bloco0', nav:'Bloco 0 — Ajuste e Pico (Cape Town)', weekStart:1, weekEnd:4,
@@ -4241,20 +4241,25 @@ const JULIANE_PHASES = [
     rpe:'RPE 7-9',
     tab:'bloco2' },
   { key:'bloco3', nav:'Bloco 3 — Desenvolvimento Específico', weekStart:9, weekEnd:10,
-    focus:'Transferência para o padrão específico de prova.',
-    rpe:'A definir — sem sessão-a-sessão lançada ainda' },
+    focus:'Transferência do volume/carga do Bloco 2 para o padrão específico de prova: corrida em ritmo-alvo, burpee broad jump em velocidade, sled aproximando da carga oficial, primeiras simulações completas das 8 estações.',
+    rpe:'RPE 8-9',
+    tab:'bloco3' },
   { key:'bloco4', nav:'Bloco 4 — Pico (São Paulo)', weekStart:11, weekEnd:13,
-    focus:'Polimento rumo à PROVA HYROX SÃO PAULO (17/10/2026).',
-    rpe:'A definir — sem sessão-a-sessão lançada ainda' },
+    focus:'Semana 11: último pico de volume com simulação cronometrada. Semana 12: início do taper (~30% menos volume). Semana 13: taper final + PROVA HYROX SÃO PAULO (sábado 17/10/2026).',
+    rpe:'RPE 8-9 na Semana 11, decrescendo até RPE 5-7 na semana da prova',
+    tab:'bloco4' },
   { key:'bloco5', nav:'Bloco 5 — Regeneração', weekStart:14, weekEnd:14,
-    focus:'Descarga total após São Paulo.',
-    rpe:'A definir — sem sessão-a-sessão lançada ainda' },
+    focus:'Descarga total após São Paulo — mesmo padrão da regeneração pós-Cape Town (Bloco 1).',
+    rpe:'RPE 4-5',
+    tab:'bloco5' },
   { key:'bloco6', nav:'Bloco 6 — Polimento e Pico (Rio de Janeiro)', weekStart:15, weekEnd:18,
-    focus:'Construção final rumo à PROVA HYROX RIO DE JANEIRO (20/11/2026).',
-    rpe:'A definir — sem sessão-a-sessão lançada ainda' },
+    focus:'Semana 15: retomada. Semana 16: acumulação/potência final com simulação cronometrada. Semana 17: início do taper. Semana 18: taper final + PROVA HYROX RIO DE JANEIRO (sexta 20/11/2026), fechamento de temporada.',
+    rpe:'RPE 7-9 nas Semanas 15-16, decrescendo até RPE 5-7 na semana da prova',
+    tab:'bloco6' },
   { key:'bloco7', nav:'Bloco 7 — Transição Pós-Temporada', weekStart:19, weekEnd:19,
-    focus:'Transição livre, fechamento de temporada.',
-    rpe:'A definir — sem sessão-a-sessão lançada ainda' },
+    focus:'Transição livre, sem estrutura rígida — descanso ativo e avaliação da temporada com o Thiago antes de definir o próximo macrociclo.',
+    rpe:'RPE 2-4, sem estrutura',
+    tab:'bloco7' },
 ];
 
 const JULIANE_BLOCO0_ERAS = [
@@ -5023,6 +5028,860 @@ const JULIANE_BLOCO2_ERAS = [
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"800m", rpe:"RPE 8-9" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"150m", rpe:"RPE 8-9", equip:"2x24kg (referência)" },
             { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"60 reps", rpe:"RPE 8-9", equip:"4kg / alvo 2,7m (referência)" },
+          ]},
+      ]},
+    ]
+  },
+];
+
+// ============================================================
+// BLOCO 3 — Desenvolvimento Específico (Semanas 9-10, 14-27/09/2026)
+// Construído em 13/09/2026 (skill twr-periodizacao-esportiva, hyrox.md, Fase 4 —
+// Potência/Velocidade-Força): transferência do volume/carga do Bloco 2 (Acumulação)
+// para o padrão específico de prova — corrida em ritmo-alvo, burpee broad jump em
+// velocidade, sled aproximando da carga oficial mas em ritmo mais rápido, primeira
+// simulação completa das 8 estações. ASSUMPTION: construído seguindo a mesma lógica
+// de progressão das Semanas 1-8 (não é log real) — confirmar cargas/tempos com a
+// Juliane.
+// ============================================================
+const JULIANE_BLOCO3_ERAS = [
+  {
+    key:"semana9",
+    label:"Semana 9 (14–20/set)",
+    weekStart:9, weekEnd:9,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Início do Bloco 3 — transição de força bruta (Bloco 2) para potência/velocidade específica de prova. Primeira simulação completa das 8 estações no sábado (não mais parcial).",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Força-Potência (Trem Inferior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Back Squat", video:"https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"3", rpe:"80-82%1RM (RPE 8)", note:"reduz volume, sobe intensidade vs Bloco 2" },
+            { name:"Salto no Box (potência)", video:"https://www.youtube.com/results?search_query=Salto%20no%20Box%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"4", rpe:"RPE 8", note:"transferência de força para potência" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Sled Push em ritmo de prova (carga próxima da oficial)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~105-110kg (próximo do oficial)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalos em ritmo-alvo de prova", video:"https://www.youtube.com/results?search_query=Intervalos%20em%20ritmo-alvo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"8", reps:"1000m no pace-alvo da prova, recuperação 90s", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos + Acessórios", blocks:[
+        { type:"accessory", name:"Acessório Esportivo", num:1,
+          items:[
+            { name:"Dead Hang (grip)", video:"https://www.youtube.com/results?search_query=Dead%20Hang%20%28grip%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"30-40s", rpe:"RPE 7" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (velocidade)", num:2,
+          items:[
+            { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"20m", rpe:"RPE 8-9", equip:"máxima velocidade controlada" },
+            { name:"Sandbag Lunges (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"100m", rpe:"RPE 8", equip:"10kg (oficial)" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Força-Potência (Trem Superior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Push Press", video:"https://www.youtube.com/results?search_query=Push%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"3", rpe:"80%1RM (RPE 8)" },
+            { name:"Puxada Supinada / Pull-up (explosivo)", video:"https://www.youtube.com/results?search_query=Puxada%20Supinada%20/%20Pull-up%20%28explosivo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"4", rpe:"RPE 8" },
+          ]},
+        { type:"accessory", name:"Acessório Esportivo", num:2,
+          items:[
+            { name:"Farmers Carry (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"200m", rpe:"RPE 8", equip:"2x24kg (oficial)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:3,
+          items:[
+            { name:"SkiErg em ritmo de prova", video:"https://www.youtube.com/results?search_query=SkiErg%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida comprometida (run + estação leve, repetido)", video:"https://www.youtube.com/results?search_query=Corrida%20comprometida%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"1km + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa (ombro/quadril/tornozelo)", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%28ombro/quadril/tornozelo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+            { name:"Core isométrico", video:"https://www.youtube.com/results?search_query=Core%20isom%C3%A9trico%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Sessão Completa — Potência de Estação", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Trap Bar Deadlift", video:"https://www.youtube.com/results?search_query=Trap%20Bar%20Deadlift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"3", rpe:"80-82%1RM (RPE 8)" },
+          ]},
+        { type:"accessory", name:"Acessório Esportivo", num:2,
+          items:[
+            { name:"Sled Pull em ritmo de prova", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~80-85kg (próximo do oficial)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:3,
+          items:[
+            { name:"Wall Balls sob fadiga leve", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20sob%20fadiga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps for time", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Completa — 8 Estações (primeira do bloco)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          note:"Primeira simulação com as 8 estações oficiais na ordem da prova — cargas próximas do oficial, ritmo submáximo (não é tentativa de tempo total).",
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (8x)", rpe:"RPE 8", equip:"ritmo de prova -5%" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
+          items:[
+            { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 7-8" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~102kg (oficial)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~78kg (oficial)" },
+            { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 7-8" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 7-8" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 7-8", equip:"2x24kg (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 7-8", equip:"10kg (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 7-8", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+  {
+    key:"semana10",
+    label:"Semana 10 (21–27/set)",
+    weekStart:10, weekEnd:10,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Segunda simulação completa do bloco, desta vez com intenção de ritmo de prova (não mais submáximo) — usar como referência de estratégia de ritmo para São Paulo.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Força-Potência (Trem Inferior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Front Squat", video:"https://www.youtube.com/results?search_query=Front%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"3", rpe:"82-84%1RM (RPE 8-9)" },
+            { name:"Salto no Box (potência)", video:"https://www.youtube.com/results?search_query=Salto%20no%20Box%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"4", rpe:"RPE 8" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Sled Push carga oficial + Wall Ball", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"~102kg (oficial)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalos curtos em ritmo de prova+", video:"https://www.youtube.com/results?search_query=Intervalos%20curtos%20em%20ritmo%20de%20prova%2B%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"10", reps:"400m, recuperação 60s", rpe:"RPE 8-9", equip:"ritmo de prova+" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos + Acessórios", blocks:[
+        { type:"accessory", name:"Acessório Esportivo", num:1,
+          items:[
+            { name:"Prancha Frontal", video:"https://www.youtube.com/results?search_query=Prancha%20Frontal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"45s", rpe:"RPE 7" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (velocidade)", num:2,
+          items:[
+            { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"20m", rpe:"RPE 8-9" },
+            { name:"Wall Balls (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"33 reps", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Ativação Neural + Engine", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Complexo Halteres (clean+press+agachamento)", video:"https://www.youtube.com/results?search_query=Complexo%20Halteres%20%28clean%2Bpress%2Bagachamento%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"4", rpe:"RPE 7-8", note:"volume reduzido — prioriza qualidade de movimento" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Row em ritmo de prova", video:"https://www.youtube.com/results?search_query=Row%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Tempo run em ritmo de prova", video:"https://www.youtube.com/results?search_query=Tempo%20run%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"30min", rpe:"RPE 7-8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa (ombro/quadril/tornozelo)", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%28ombro/quadril/tornozelo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+            { name:"Liberação miofascial", video:"https://www.youtube.com/results?search_query=Libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Ativação Leve Pré-Simulação", blocks:[
+        { type:"mobility", name:"Mobilidade/Ativação", num:1,
+          items:[
+            { name:"Mobilidade completa + ativação neuromuscular leve", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20ativa%C3%A7%C3%A3o%20neuromuscular%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 4", note:"Chegar fresca para a simulação de ritmo de prova do sábado" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Completa — 8 Estações (ritmo de prova)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          note:"Segunda simulação completa do bloco — desta vez em ritmo de prova real (não submáximo). Cronometrar tempo total e por estação para referência de estratégia em São Paulo.",
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (8x)", rpe:"RPE 9", equip:"ritmo de prova" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
+          items:[
+            { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8-9" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~102kg (oficial)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~78kg (oficial)" },
+            { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 8-9" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8-9" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 8-9", equip:"2x24kg (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 8-9", equip:"10kg (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 8-9", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+];
+
+// ============================================================
+// BLOCO 4 — Pico (Semanas 11-13, 28/set-18/out/2026) — PROVA HYROX SÃO PAULO
+// (sábado 17/10/2026, dentro da Semana 13). Semana 11 = último pico de volume;
+// Semana 12 = início do taper (~30% menos volume, intensidade mantida);
+// Semana 13 = taper final + semana da prova.
+// ============================================================
+const JULIANE_BLOCO4_ERAS = [
+  {
+    key:"semana11",
+    label:"Semana 11 (28/set–04/out)",
+    weekStart:11, weekEnd:11,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Última semana de volume pleno antes do taper — sábado com simulação completa cronometrada, tentativa de tempo total (não mais submáximo).",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Força-Potência (Trem Inferior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Back Squat", video:"https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"3", rpe:"82%1RM (RPE 8)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Sled Push carga oficial + Row", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 250m Row entre os tiros", rpe:"RPE 8", equip:"~102kg (oficial)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalos em ritmo-alvo de prova", video:"https://www.youtube.com/results?search_query=Intervalos%20em%20ritmo-alvo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"8", reps:"1000m no pace-alvo, recuperação 90s", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos + Acessórios", blocks:[
+        { type:"accessory", name:"Acessório Esportivo", num:1,
+          items:[
+            { name:"Suitcase Carry (unilateral)", video:"https://www.youtube.com/results?search_query=Suitcase%20Carry%20%28unilateral%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"12", rpe:"RPE 7" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"Sandbag Lunges (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"100m", rpe:"RPE 8", equip:"10kg (oficial)" },
+            { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"20m", rpe:"RPE 8-9" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Força-Potência (Trem Superior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Push Press", video:"https://www.youtube.com/results?search_query=Push%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"3", rpe:"82%1RM (RPE 8)" },
+          ]},
+        { type:"accessory", name:"Acessório Esportivo", num:2,
+          items:[
+            { name:"Farmers Carry (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"200m", rpe:"RPE 8", equip:"2x24kg (oficial)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:3,
+          items:[
+            { name:"SkiErg em ritmo de prova", video:"https://www.youtube.com/results?search_query=SkiErg%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida comprometida (run + estação, repetido)", video:"https://www.youtube.com/results?search_query=Corrida%20comprometida%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"1km + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa (ombro/quadril/tornozelo)", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%28ombro/quadril/tornozelo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+            { name:"Core isométrico", video:"https://www.youtube.com/results?search_query=Core%20isom%C3%A9trico%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Ativação Leve Pré-Simulação", blocks:[
+        { type:"mobility", name:"Mobilidade/Ativação", num:1,
+          items:[
+            { name:"Mobilidade completa + ativação neuromuscular leve", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20ativa%C3%A7%C3%A3o%20neuromuscular%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 4" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Completa — 8 Estações (tentativa de tempo total)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          note:"Simulação com intenção de tempo total (a mais próxima de condição de prova antes do taper) — cronometrar e comparar com a Semana 10.",
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (8x)", rpe:"RPE 9", equip:"ritmo de prova" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
+          items:[
+            { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~102kg (oficial)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~78kg (oficial)" },
+            { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 9" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 9", equip:"2x24kg (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 9", equip:"10kg (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 9", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+  {
+    key:"semana12",
+    label:"Semana 12 (05–11/out) — Início do Taper",
+    weekStart:12, weekEnd:12,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Início do taper para São Paulo — volume reduzido ~30% em tudo, intensidade mantida nos toques de ritmo de prova. Sem simulação completa esta semana (só 1 simulação parcial no sábado) — poupar as pernas para a prova.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Manutenção de Força (volume reduzido)", blocks:[
+        { type:"sc", name:"Força (manutenção)", num:1,
+          items:[
+            { name:"Back Squat", video:"https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"3", rpe:"78-80%1RM (RPE 7)", note:"volume reduzido — manter sensação de força sem acumular fadiga" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine (curto)", num:2,
+          items:[
+            { name:"Sled Push carga oficial (poucas reps)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"25m", rpe:"RPE 7", equip:"~102kg (oficial)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox (volume reduzido)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalos curtos em ritmo de prova", video:"https://www.youtube.com/results?search_query=Intervalos%20curtos%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"1000m no pace-alvo, recuperação 2min", rpe:"RPE 7-8", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos (técnica, volume baixo)", blocks:[
+        { type:"cond", name:"Estação Hyrox (técnica)", num:1,
+          items:[
+            { name:"Burpee Broad Jump (técnica)", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20%28t%C3%A9cnica%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"20m", rpe:"RPE 7" },
+            { name:"Sandbag Lunges (técnica)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28t%C3%A9cnica%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"100m", rpe:"RPE 6-7", equip:"10kg (oficial)" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Manutenção de Força (volume reduzido)", blocks:[
+        { type:"sc", name:"Força (manutenção)", num:1,
+          items:[
+            { name:"Push Press", video:"https://www.youtube.com/results?search_query=Push%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"3", rpe:"78-80%1RM (RPE 7)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine (curto)", num:2,
+          items:[
+            { name:"SkiErg em ritmo de prova (curto)", video:"https://www.youtube.com/results?search_query=SkiErg%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"500m", rpe:"RPE 7", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox (leve)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Tempo run leve em ritmo de prova -5%", video:"https://www.youtube.com/results?search_query=Tempo%20run%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 6-7" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa + liberação miofascial", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Ativação Leve", blocks:[
+        { type:"mobility", name:"Mobilidade/Ativação", num:1,
+          items:[
+            { name:"Mobilidade completa + ativação neuromuscular leve", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20ativa%C3%A7%C3%A3o%20neuromuscular%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"15min", rpe:"RPE 4" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Parcial — 4 Estações (volume reduzido)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (4x)", rpe:"RPE 8", equip:"ritmo de prova" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 8", equip:"2x24kg (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+  {
+    key:"semana13",
+    label:"Semana 13 (12–18/out) — Taper Final + PROVA (São Paulo, sáb 17/10)",
+    weekStart:13, weekEnd:13,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Taper final — volume mínimo, foco em frescor e ativação neural curta. PROVA HYROX SÃO PAULO no sábado 17/10/2026.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Ativação Neural Curta", blocks:[
+        { type:"sc", name:"Ativação (volume mínimo)", num:1,
+          items:[
+            { name:"Back Squat (carga leve, poucas reps)", video:"https://www.youtube.com/results?search_query=Back%20Squat%20carga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"3", rpe:"60-65%1RM (RPE 5)", note:"só manter sensação neural, sem fadiga" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Curta em Ritmo de Prova", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"3x1000m em ritmo de prova, recuperação completa", video:"https://www.youtube.com/results?search_query=3x1000m%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"1000m", rpe:"RPE 7", equip:"ritmo de prova", note:"toque de ritmo, não é treino de volume" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Técnica de Estação (sem carga)", blocks:[
+        { type:"cond", name:"Estação Hyrox (técnica)", num:1,
+          items:[
+            { name:"Sled Push (carga leve, técnica)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20leve%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"20m", rpe:"RPE 5-6" },
+            { name:"Wall Balls (técnica)", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"15 reps", rpe:"RPE 5" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Descanso Ativo", blocks:[
+        { type:"mobility", name:"Mobilidade/Recuperação", num:1,
+          items:[
+            { name:"Mobilidade completa + liberação miofascial", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 2" },
+            { name:"Caminhada leve", video:"https://www.youtube.com/results?search_query=Caminhada%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Ativação Neural Curta", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"3x400m em ritmo de prova+, recuperação completa", video:"https://www.youtube.com/results?search_query=3x400m%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"400m", rpe:"RPE 7", equip:"ritmo de prova+" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Preparação Mental", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa (ombro/quadril/tornozelo)", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%28ombro/quadril/tornozelo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+            { name:"Revisão de estratégia de ritmo/nutrição de prova", video:"https://www.youtube.com/results?search_query=Revis%C3%A3o%20de%20estrat%C3%A9gia%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"-", note:"planejamento, não é exercício físico" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Shake-Out Final + Checklist", blocks:[
+        { type:"mobility", name:"Ativação Final", num:1,
+          items:[
+            { name:"Corrida muito leve + drills de ativação", video:"https://www.youtube.com/results?search_query=Corrida%20muito%20leve%20%2B%20drills%20de%20ativa%C3%A7%C3%A3o%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"10min", rpe:"RPE 3", note:"soltura final — separar equipamento/nutrição de prova para o dia seguinte" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"PROVA OFICIAL — HYROX SÃO PAULO", blocks:[
+        { type:"cond", name:"Prova", num:1,
+          items:[
+            { name:"HYROX São Paulo — prova oficial", status:"ativo", sets:"1", reps:"8x(1km + estação)", note:"17/10/2026 — usar a estratégia de ritmo definida nas simulações das Semanas 9-11" },
+          ]},
+      ]},
+    ]
+  },
+];
+
+// ============================================================
+// BLOCO 5 — Regeneração pós-São Paulo (Semana 14, 19-25/10/2026)
+// Espelha a estrutura do Bloco 1 (regeneração pós-Cape Town): descarga total.
+// ============================================================
+const JULIANE_BLOCO5_ERAS = [
+  {
+    key:"semana14",
+    label:"Semana 14 (19–25/out)",
+    weekStart:14, weekEnd:14,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Semana de descarga total após a prova de São Paulo: volume e carga reduzidos em todas as sessões (RPE 4-5), foco em recuperação, sem cronômetro. Mesmo padrão da regeneração pós-Cape Town (Bloco 1).",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Descarga Ativa", blocks:[
+        { type:"sc", name:"Força (volume reduzido)", num:1,
+          items:[
+            { name:"Clean and Press", video:"https://www.youtube.com/results?search_query=Clean%20and%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"6", rpe:"60%1RM (RPE 5)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine (leve)", num:2,
+          items:[
+            { name:"Row contínuo leve", video:"https://www.youtube.com/results?search_query=Row%20cont%C3%ADnuo%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"15min zona 2", rpe:"RPE 5" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Leve", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida leve contínua em zona 2, terreno plano", video:"https://www.youtube.com/results?search_query=Corrida%20leve%20cont%C3%ADnua%20em%20zona%202%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"25min", rpe:"RPE 4-5" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos (técnica pura)", blocks:[
+        { type:"cond", name:"Estação Hyrox (técnica)", num:1,
+          items:[
+            { name:"Sandbag Lunges (técnica)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"100m", rpe:"RPE 4-5", equip:"10kg (referência)" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Descarga Ativa", blocks:[
+        { type:"sc", name:"Força (volume reduzido)", num:1,
+          items:[
+            { name:"Front Squat", video:"https://www.youtube.com/results?search_query=Front%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"6", rpe:"60%1RM (RPE 5)" },
+          ]},
+        { type:"accessory", name:"Acessório Esportivo (leve)", num:2,
+          items:[
+            { name:"Farmers Carry (leve)", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"10-12", rpe:"RPE 5" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Leve", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Fartlek leve (1min moderado / 2min fácil)", video:"https://www.youtube.com/results?search_query=Fartlek%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"15min", rpe:"RPE 4" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa + liberação miofascial (foam roller)", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 2" },
+            { name:"Respiração diafragmática e relaxamento", video:"https://www.youtube.com/results?search_query=Respira%C3%A7%C3%A3o%20diafragm%C3%A1tica%20e%20relaxamento%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 2" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Sessão Completa — Descarga Ativa", blocks:[
+        { type:"sc", name:"Força (volume reduzido)", num:1,
+          items:[
+            { name:"Press Halteres em pé", video:"https://www.youtube.com/results?search_query=Press%20Halteres%20em%20p%C3%A9%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"6", rpe:"60%1RM (RPE 4-5)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine (leve)", num:2,
+          items:[
+            { name:"Caminhada + mobilidade guiada", video:"https://www.youtube.com/results?search_query=Caminhada%20%2B%20mobilidade%20guiada%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 4-5" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Mecanismos / Técnica de Estação", blocks:[
+        { type:"cond", name:"Estação Hyrox (técnica pura)", num:1,
+          items:[
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"200m", rpe:"RPE 5", equip:"2x24kg (referência)", note:"semana de descarga — técnica pura, sem cronômetro" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"50 reps", rpe:"RPE 5", equip:"4kg / alvo 2,7m (referência)" },
+          ]},
+      ]},
+    ]
+  },
+];
+
+// ============================================================
+// BLOCO 6 — Polimento e Pico (Semanas 15-18, 26/out-22/nov/2026) — PROVA HYROX
+// RIO DE JANEIRO (sexta 20/11/2026, dentro da Semana 18). Semana 15 = retomada;
+// Semana 16 = acumulação/potência final; Semana 17 = início do taper; Semana 18 =
+// taper final + semana da prova.
+// ============================================================
+const JULIANE_BLOCO6_ERAS = [
+  {
+    key:"semana15",
+    label:"Semana 15 (26/out–01/nov) — Retomada",
+    weekStart:15, weekEnd:15,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Retomada de volume após a semana de regeneração — carga moderada, foco técnico, reconstruindo a base antes do bloco de potência final rumo ao Rio.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Força de Base (Trem Inferior)", blocks:[
+        { type:"sc", name:"Força", num:1,
+          items:[
+            { name:"Back Squat", video:"https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"6", rpe:"70-72%1RM (RPE 7)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Sled Push + Row", video:"https://www.youtube.com/results?search_query=Sled%20Push%20%2B%20Row%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 250m Row entre os tiros", rpe:"RPE 7", equip:"~100kg" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalado em ritmo de limiar", video:"https://www.youtube.com/results?search_query=Intervalado%20em%20ritmo%20de%20limiar%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"6", reps:"1000m, recuperação 90s", rpe:"RPE 7-8" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos + Acessórios", blocks:[
+        { type:"accessory", name:"Acessório Esportivo", num:1,
+          items:[
+            { name:"Remada Unilateral", video:"https://www.youtube.com/results?search_query=Remada%20Unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"10", rpe:"RPE 7" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"Burpee Broad Jump (técnica)", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"20m", rpe:"RPE 7" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"100m", rpe:"RPE 7", equip:"10kg (oficial)" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Força de Base (Trem Superior)", blocks:[
+        { type:"sc", name:"Força", num:1,
+          items:[
+            { name:"Press Halteres em pé", video:"https://www.youtube.com/results?search_query=Press%20Halteres%20em%20p%C3%A9%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"8", rpe:"RPE 7" },
+          ]},
+        { type:"accessory", name:"Acessório Esportivo", num:2,
+          items:[
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"150m", rpe:"RPE 7", equip:"2x24kg (oficial)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:3,
+          items:[
+            { name:"SkiErg intervalado", video:"https://www.youtube.com/results?search_query=SkiErg%20intervalado%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"200m, recuperação 30s", rpe:"RPE 7" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Tempo contínuo", video:"https://www.youtube.com/results?search_query=Tempo%20cont%C3%ADnuo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"25min a ritmo de prova -5%", rpe:"RPE 6-7" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade de ombro (manguito/escápula)", video:"https://www.youtube.com/results?search_query=Mobilidade%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+            { name:"Core anti-rotação (Pallof Press)", video:"https://www.youtube.com/results?search_query=Core%20anti-rota%C3%A7%C3%A3o%20%28Pallof%20Press%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Sessão Completa — Trem Superior + Estações", blocks:[
+        { type:"sc", name:"Força", num:1,
+          items:[
+            { name:"Puxada / Pull-up Assistido", video:"https://www.youtube.com/results?search_query=Puxada%20/%20Pull-up%20Assistido%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"8", rpe:"RPE 7" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"33 reps", rpe:"RPE 7", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Parcial — 4 Estações", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (4x)", rpe:"RPE 7-8" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~100kg" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 7-8" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 7-8", equip:"2x24kg (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+  {
+    key:"semana16",
+    label:"Semana 16 (02–08/nov) — Acumulação/Potência Final",
+    weekStart:16, weekEnd:16,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Último bloco de carga plena antes do taper do Rio — mesma lógica das Semanas 9-11 (potência específica), com simulação completa cronometrada no sábado.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Força-Potência (Trem Inferior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Front Squat", video:"https://www.youtube.com/results?search_query=Front%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"3", rpe:"82-84%1RM (RPE 8-9)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Sled Push carga oficial + Wall Ball", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"~102kg (oficial)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalos curtos em ritmo de prova+", video:"https://www.youtube.com/results?search_query=Intervalos%20curtos%20em%20ritmo%20de%20prova%2B%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"10", reps:"400m, recuperação 60s", rpe:"RPE 8-9" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos + Acessórios", blocks:[
+        { type:"accessory", name:"Acessório Esportivo", num:1,
+          items:[
+            { name:"Prancha Lateral", video:"https://www.youtube.com/results?search_query=Prancha%20Lateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"45s", rpe:"RPE 7" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (velocidade)", num:2,
+          items:[
+            { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"20m", rpe:"RPE 8-9" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Força-Potência (Trem Superior)", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Push Press", video:"https://www.youtube.com/results?search_query=Push%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"3", rpe:"82%1RM (RPE 8)" },
+          ]},
+        { type:"accessory", name:"Acessório Esportivo", num:2,
+          items:[
+            { name:"Sled Pull em ritmo de prova", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~80-85kg" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:3,
+          items:[
+            { name:"SkiErg em ritmo de prova", video:"https://www.youtube.com/results?search_query=SkiErg%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida comprometida (run + estação, repetido)", video:"https://www.youtube.com/results?search_query=Corrida%20comprometida%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"1km + 10 Wall Balls entre os tiros", rpe:"RPE 8" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa (ombro/quadril/tornozelo)", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Sessão Completa — Potência de Estação", blocks:[
+        { type:"sc", name:"Força-Potência", num:1,
+          items:[
+            { name:"Trap Bar Deadlift", video:"https://www.youtube.com/results?search_query=Trap%20Bar%20Deadlift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"3", rpe:"82-84%1RM (RPE 8)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine", num:2,
+          items:[
+            { name:"Wall Balls sob fadiga leve", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20sob%20fadiga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps for time", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Completa — 8 Estações (tentativa de tempo total)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          note:"Última simulação com intenção de tempo total antes do taper do Rio — cronometrar e comparar com o desempenho de São Paulo.",
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (8x)", rpe:"RPE 9", equip:"ritmo de prova" },
+          ]},
+        { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
+          items:[
+            { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~102kg (oficial)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~78kg (oficial)" },
+            { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 9" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 9", equip:"2x24kg (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 9", equip:"10kg (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 9", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+  {
+    key:"semana17",
+    label:"Semana 17 (09–15/nov) — Início do Taper",
+    weekStart:17, weekEnd:17,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Início do taper para o Rio — mesma lógica da Semana 12 (taper de São Paulo): volume reduzido ~30%, intensidade mantida, só 1 simulação parcial no sábado.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Sessão Completa — Manutenção de Força (volume reduzido)", blocks:[
+        { type:"sc", name:"Força (manutenção)", num:1,
+          items:[
+            { name:"Back Squat", video:"https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"3", rpe:"78-80%1RM (RPE 7)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine (curto)", num:2,
+          items:[
+            { name:"Sled Push carga oficial (poucas reps)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"25m", rpe:"RPE 7", equip:"~102kg (oficial)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox (volume reduzido)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Intervalos curtos em ritmo de prova", video:"https://www.youtube.com/results?search_query=Intervalos%20curtos%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"1000m no pace-alvo, recuperação 2min", rpe:"RPE 7-8" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Mecanismos (técnica, volume baixo)", blocks:[
+        { type:"cond", name:"Estação Hyrox (técnica)", num:1,
+          items:[
+            { name:"Burpee Broad Jump (técnica)", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"20m", rpe:"RPE 7" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Sessão Completa — Manutenção de Força (volume reduzido)", blocks:[
+        { type:"sc", name:"Força (manutenção)", num:1,
+          items:[
+            { name:"Push Press", video:"https://www.youtube.com/results?search_query=Push%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"3", rpe:"78-80%1RM (RPE 7)" },
+          ]},
+        { type:"cond", name:"Finalizador / Engine (curto)", num:2,
+          items:[
+            { name:"SkiErg em ritmo de prova (curto)", video:"https://www.youtube.com/results?search_query=SkiErg%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"500m", rpe:"RPE 7" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Corrida Hyrox (leve)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Tempo run leve em ritmo de prova -5%", video:"https://www.youtube.com/results?search_query=Tempo%20run%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 6-7" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Mobilidade + Acessórios", blocks:[
+        { type:"mobility", name:"Mobilidade/Prevenção", num:1,
+          items:[
+            { name:"Mobilidade completa + liberação miofascial", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"-", reps:"-", rpe:"RPE 3" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Ativação Leve", blocks:[
+        { type:"mobility", name:"Mobilidade/Ativação", num:1,
+          items:[
+            { name:"Mobilidade completa + ativação neuromuscular leve", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20ativa%C3%A7%C3%A3o%20neuromuscular%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"15min", rpe:"RPE 4" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Simulação Parcial — 4 Estações (volume reduzido)", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação (4x)", rpe:"RPE 8" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 8", equip:"2x24kg (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+          ]},
+      ]},
+    ]
+  },
+  {
+    key:"semana18",
+    label:"Semana 18 (16–22/nov) — Taper Final + PROVA (Rio de Janeiro, sex 20/11)",
+    weekStart:18, weekEnd:18,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Taper final — volume mínimo, mesma lógica da Semana 13. PROVA HYROX RIO DE JANEIRO na sexta-feira 20/11/2026 (a prova substitui a sessão de Sexta desta semana).",
+    days: [
+      { key:"seg", label:"Segunda", title:"Ativação Neural Curta", blocks:[
+        { type:"sc", name:"Ativação (volume mínimo)", num:1,
+          items:[
+            { name:"Back Squat (carga leve, poucas reps)", video:"https://www.youtube.com/results?search_query=Back%20Squat%20carga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"3", rpe:"60-65%1RM (RPE 5)" },
+          ]},
+      ]},
+      { key:"ter_a", label:"Terça (A)", title:"Corrida Curta em Ritmo de Prova", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"3x1000m em ritmo de prova, recuperação completa", video:"https://www.youtube.com/results?search_query=3x1000m%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"1000m", rpe:"RPE 7", equip:"ritmo de prova" },
+          ]},
+      ]},
+      { key:"ter_b", label:"Terça (B)", title:"Técnica de Estação (sem carga)", blocks:[
+        { type:"cond", name:"Estação Hyrox (técnica)", num:1,
+          items:[
+            { name:"Sled Push (carga leve, técnica)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20leve%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"20m", rpe:"RPE 5-6" },
+            { name:"Wall Balls (técnica)", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"15 reps", rpe:"RPE 5" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Descanso Ativo", blocks:[
+        { type:"mobility", name:"Mobilidade/Recuperação", num:1,
+          items:[
+            { name:"Mobilidade completa + liberação miofascial", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 2" },
+          ]},
+      ]},
+      { key:"qui_a", label:"Quinta (A)", title:"Ativação Neural Curta", blocks:[
+        { type:"cond", name:"Corrida Hyrox", num:1,
+          items:[
+            { name:"3x400m em ritmo de prova+, recuperação completa", video:"https://www.youtube.com/results?search_query=3x400m%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"400m", rpe:"RPE 7", equip:"ritmo de prova+" },
+          ]},
+      ]},
+      { key:"qui_b", label:"Quinta (B)", title:"Shake-Out Final + Checklist", blocks:[
+        { type:"mobility", name:"Ativação Final", num:1,
+          items:[
+            { name:"Mobilidade completa + drills de ativação leve", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20drills%20de%20ativa%C3%A7%C3%A3o%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"15min", rpe:"RPE 3", note:"soltura final — separar equipamento/nutrição de prova para o dia seguinte (prova é sexta-feira)" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"PROVA OFICIAL — HYROX RIO DE JANEIRO", blocks:[
+        { type:"cond", name:"Prova", num:1,
+          items:[
+            { name:"HYROX Rio de Janeiro — prova oficial (fechamento de temporada)", status:"ativo", sets:"1", reps:"8x(1km + estação)", note:"20/11/2026 — usar a estratégia de ritmo definida nas simulações e no resultado de São Paulo" },
+          ]},
+      ]},
+      { key:"sab", label:"Sábado", title:"Recuperação Pós-Prova", blocks:[
+        { type:"mobility", name:"Recuperação", num:1,
+          items:[
+            { name:"Caminhada leve + mobilidade + liberação miofascial", video:"https://www.youtube.com/results?search_query=Caminhada%20leve%20%2B%20mobilidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20-30min", rpe:"RPE 2", note:"sem compromisso de treino — só soltura ativa no dia seguinte à prova" },
+          ]},
+      ]},
+    ]
+  },
+];
+
+// ============================================================
+// BLOCO 7 — Transição Pós-Temporada (Semana 19, 23-29/11/2026)
+// Semana livre de fechamento de temporada: sem cronômetro, sem carga estruturada,
+// atividades recreativas e mobilidade — antes de reabrir um novo macrociclo com o
+// Thiago (ver estrutura-twr.md, seção 1: sempre 1-2 semanas de transição entre ciclos).
+// ============================================================
+const JULIANE_BLOCO7_ERAS = [
+  {
+    key:"semana19",
+    label:"Semana 19 (23–29/nov) — Transição Livre",
+    weekStart:19, weekEnd:19,
+    rev:"v1 (construído 13/09/2026)",
+    note:"Semana de transição pós-temporada — sem estrutura rígida, sem cronômetro. Atividade física recreativa/leve à escolha da Juliane, priorizando descanso mental e físico antes de definir o próximo macrociclo com o Thiago.",
+    days: [
+      { key:"seg", label:"Segunda", title:"Livre / Recreativo", blocks:[
+        { type:"mobility", name:"Atividade Livre", num:1,
+          items:[
+            { name:"Atividade recreativa à escolha (caminhada, bike leve, natação, etc.)", status:"ativo", sets:"-", reps:"-", rpe:"RPE 2-4", note:"sem estrutura — objetivo é descanso ativo e prazer, não treino" },
+          ]},
+      ]},
+      { key:"qua", label:"Quarta", title:"Mobilidade + Avaliação de Temporada", blocks:[
+        { type:"mobility", name:"Mobilidade Geral", num:1,
+          items:[
+            { name:"Mobilidade completa + liberação miofascial", video:"https://www.youtube.com/results?search_query=Mobilidade%20completa%20%2B%20libera%C3%A7%C3%A3o%20miofascial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"20min", rpe:"RPE 2" },
+          ]},
+        { type:"accessory", name:"Revisão de Temporada", num:2,
+          items:[
+            { name:"Conversa com o Thiago: resultados de São Paulo/Rio, pontos fortes/fracos, objetivos do próximo macrociclo", status:"ativo", sets:"-", reps:"-", note:"planejamento, não é exercício físico" },
+          ]},
+      ]},
+      { key:"sex", label:"Sexta", title:"Livre / Recreativo", blocks:[
+        { type:"mobility", name:"Atividade Livre", num:1,
+          items:[
+            { name:"Atividade recreativa à escolha", status:"ativo", sets:"-", reps:"-", rpe:"RPE 2-4" },
           ]},
       ]},
     ]
@@ -9514,7 +10373,7 @@ const ATHLETES = {
     dayMeta: JULIANE_dayMeta,
     safety: JULIANE_safety,
     phases: JULIANE_PHASES,
-    tabEras: { bloco0: JULIANE_BLOCO0_ERAS, bloco1: JULIANE_BLOCO1_ERAS, bloco2: JULIANE_BLOCO2_ERAS },
+    tabEras: { bloco0: JULIANE_BLOCO0_ERAS, bloco1: JULIANE_BLOCO1_ERAS, bloco2: JULIANE_BLOCO2_ERAS, bloco3: JULIANE_BLOCO3_ERAS, bloco4: JULIANE_BLOCO4_ERAS, bloco5: JULIANE_BLOCO5_ERAS, bloco6: JULIANE_BLOCO6_ERAS, bloco7: JULIANE_BLOCO7_ERAS },
     milestoneNote: JULIANE_milestoneNote,
   },
   lais: {
