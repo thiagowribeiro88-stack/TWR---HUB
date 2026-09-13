@@ -4221,10 +4221,10 @@ const JULIANE_objective = 'Temporada HYROX 2026 com 3 provas: Cape Town (14/08/2
 // lesão/saúde da Juliane — os únicos avisos de segurança presentes na fonte são os
 // de carga oficial de prova abaixo; nenhuma condição foi presumida.
 const JULIANE_safety = [
-  { icon:'⚠️', text:'Cargas de referência das estações oficiais (categoria feminina Open): Sled Push ~102kg, Sled Pull ~78kg, Farmers Carry 2x24kg, Sandbag 10kg, Wall Ball 4kg/alvo 2,7m — confirmar peso vigente da temporada/categoria antes de cada prova.' },
+  { icon:'⚠️', text:'CORRIGIDO em 13/09/2026 (confirmado pelo Thiago: a Juliane compete na categoria PRO, não Open). Cargas oficiais PRO Feminino (confirmadas via busca em 13/09/2026 — RitFit, HyCrew, RoxTribe): Sled Push 152kg, Sled Pull 153kg, Farmers Carry 2x24kg (igual ao Open), Sandbag Lunges 20kg, Wall Ball 6kg/alvo 2,70m. As Semanas 1-8 (histórico já executado) foram treinadas com as cargas de referência antigas (Open: Push 102kg, Pull 78kg, Sandbag 10kg, Wall Ball 4kg) — ou seja, o volume de sled/sandbag/wall ball até aqui ficou abaixo da demanda real de prova PRO; as Semanas 9-19 já usam as cargas PRO corretas. Confirmar peso vigente da temporada/categoria antes de cada prova, pois a organização pode ajustar especificações entre edições.' },
 ];
 
-const JULIANE_milestoneNote = 'Sessão-a-sessão detalhada existia apenas até a Semana 8 (07-13/09) na fonte original; a sessão de sábado da Semana 8 (6 estações) foi completada em 10/09/2026 seguindo o padrão das demais simulações do bloco. CONSTRUÍDO em 13/09/2026 (feedback do Thiago, cruzando hyrox.md da skill + os padrões de carga/frequência já em uso nas Semanas 1-8): Blocos 3-7 completos (Semanas 9-19), que antes só tinham objetivo/racional geral sem nenhum treino dia-a-dia lançado — a maior lacuna do plano, já que cobria toda a preparação para as duas provas restantes da temporada. Bloco 3 (Semanas 9-10) transfere a carga do Bloco 2 para potência/velocidade específica com as primeiras simulações completas das 8 estações. Bloco 4 (Semanas 11-13) fecha com taper e a PROVA DE SÃO PAULO (sábado 17/10). Bloco 5 (Semana 14) espelha a regeneração pós-Cape Town. Bloco 6 (Semanas 15-18) repete a lógica de acumulação+taper rumo à PROVA DO RIO DE JANEIRO (sexta 20/11). Bloco 7 (Semana 19) é transição livre de fechamento de temporada. Cargas de sled/estações usam a referência oficial da categoria feminina Open (ver nota de segurança) com sobrecarga de treino acima do oficial nos blocos de força (prática elite padrão) — confirmar com o Thiago se a Juliane compete Open ou Pro antes da próxima atualização, pois isso muda a carga-alvo das estações. Nenhuma Ficha de Avaliação Inicial/histórico de saúde da Juliane foi localizado na fonte — lacuna de segurança ainda em aberto.';
+const JULIANE_milestoneNote = 'Sessão-a-sessão detalhada existia apenas até a Semana 8 (07-13/09) na fonte original; a sessão de sábado da Semana 8 (6 estações) foi completada em 10/09/2026 seguindo o padrão das demais simulações do bloco. CONSTRUÍDO em 13/09/2026 (feedback do Thiago, cruzando hyrox.md da skill + os padrões de carga/frequência já em uso nas Semanas 1-8): Blocos 3-7 completos (Semanas 9-19), que antes só tinham objetivo/racional geral sem nenhum treino dia-a-dia lançado — a maior lacuna do plano, já que cobria toda a preparação para as duas provas restantes da temporada. Bloco 3 (Semanas 9-10) transfere a carga do Bloco 2 para potência/velocidade específica com as primeiras simulações completas das 8 estações. Bloco 4 (Semanas 11-13) fecha com taper e a PROVA DE SÃO PAULO (sábado 17/10). Bloco 5 (Semana 14) espelha a regeneração pós-Cape Town. Bloco 6 (Semanas 15-18) repete a lógica de acumulação+taper rumo à PROVA DO RIO DE JANEIRO (sexta 20/11). Bloco 7 (Semana 19) é transição livre de fechamento de temporada. CORRIGIDO em 13/09/2026 (mesmo dia, confirmado pelo Thiago): a Juliane compete na categoria PRO, não Open. Atualizadas todas as cargas-alvo de sled/sandbag/wall ball das Semanas 9-19 para os valores oficiais PRO Feminino (Sled Push 152kg, Sled Pull 153kg, Sandbag 20kg, Wall Ball 6kg — Farmers Carry não muda, 2x24kg em ambas categorias), confirmados via busca em 13/09/2026 (RitFit, HyCrew, RoxTribe — ver nota de segurança para os links). Achado relevante: as Semanas 1-8 (histórico já executado, não reescrito aqui) foram treinadas com as cargas de referência antigas do Open — ou seja, o volume de sled/sandbag/wall ball feito até agora ficou abaixo da demanda real da prova PRO; vale o Thiago avaliar com a Juliane se isso pede um ajuste retroativo de intensidade nas próximas semanas de treino, além da correção já aplicada daqui pra frente. Nenhuma Ficha de Avaliação Inicial/histórico de saúde da Juliane foi localizado na fonte — lacuna de segurança ainda em aberto.';
 
 const JULIANE_PHASES = [
   { key:'bloco0', nav:'Bloco 0 — Ajuste e Pico (Cape Town)', weekStart:1, weekEnd:4,
@@ -5060,7 +5060,7 @@ const JULIANE_BLOCO3_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine", num:2,
           items:[
-            { name:"Sled Push em ritmo de prova (carga próxima da oficial)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~105-110kg (próximo do oficial)" },
+            { name:"Sled Push em ritmo de prova (carga próxima da oficial)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~145-150kg (próximo do oficial PRO)" },
           ]},
       ]},
       { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
@@ -5077,7 +5077,7 @@ const JULIANE_BLOCO3_ERAS = [
         { type:"cond", name:"Estação Hyrox (velocidade)", num:2,
           items:[
             { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"20m", rpe:"RPE 8-9", equip:"máxima velocidade controlada" },
-            { name:"Sandbag Lunges (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"100m", rpe:"RPE 8", equip:"10kg (oficial)" },
+            { name:"Sandbag Lunges (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"100m", rpe:"RPE 8", equip:"20kg (oficial PRO)" },
           ]},
       ]},
       { key:"qua", label:"Quarta", title:"Sessão Completa — Força-Potência (Trem Superior)", blocks:[
@@ -5115,11 +5115,11 @@ const JULIANE_BLOCO3_ERAS = [
           ]},
         { type:"accessory", name:"Acessório Esportivo", num:2,
           items:[
-            { name:"Sled Pull em ritmo de prova", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~80-85kg (próximo do oficial)" },
+            { name:"Sled Pull em ritmo de prova", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~145-150kg (próximo do oficial PRO)" },
           ]},
         { type:"cond", name:"Finalizador / Engine", num:3,
           items:[
-            { name:"Wall Balls sob fadiga leve", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20sob%20fadiga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps for time", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Wall Balls sob fadiga leve", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20sob%20fadiga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps for time", rpe:"RPE 8", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
       { key:"sab", label:"Sábado", title:"Simulação Completa — 8 Estações (primeira do bloco)", blocks:[
@@ -5131,13 +5131,13 @@ const JULIANE_BLOCO3_ERAS = [
         { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
           items:[
             { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 7-8" },
-            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~102kg (oficial)" },
-            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~78kg (oficial)" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~152kg (oficial PRO)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 7-8", equip:"~153kg (oficial PRO)" },
             { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 7-8" },
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 7-8" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 7-8", equip:"2x24kg (oficial)" },
-            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 7-8", equip:"10kg (oficial)" },
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 7-8", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 7-8", equip:"20kg (oficial PRO)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 7-8", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
     ]
@@ -5157,7 +5157,7 @@ const JULIANE_BLOCO3_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine", num:2,
           items:[
-            { name:"Sled Push carga oficial + Wall Ball", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Sled Push carga oficial + Wall Ball", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"~152kg (oficial PRO)" },
           ]},
       ]},
       { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
@@ -5174,7 +5174,7 @@ const JULIANE_BLOCO3_ERAS = [
         { type:"cond", name:"Estação Hyrox (velocidade)", num:2,
           items:[
             { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"5", reps:"20m", rpe:"RPE 8-9" },
-            { name:"Wall Balls (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"33 reps", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Wall Balls (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"33 reps", rpe:"RPE 8", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
       { key:"qua", label:"Quarta", title:"Sessão Completa — Ativação Neural + Engine", blocks:[
@@ -5215,13 +5215,13 @@ const JULIANE_BLOCO3_ERAS = [
         { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
           items:[
             { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8-9" },
-            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~102kg (oficial)" },
-            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~78kg (oficial)" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~152kg (oficial PRO)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~153kg (oficial PRO)" },
             { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 8-9" },
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8-9" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 8-9", equip:"2x24kg (oficial)" },
-            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 8-9", equip:"10kg (oficial)" },
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 8-9", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 8-9", equip:"20kg (oficial PRO)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 8-9", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
     ]
@@ -5249,7 +5249,7 @@ const JULIANE_BLOCO4_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine", num:2,
           items:[
-            { name:"Sled Push carga oficial + Row", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 250m Row entre os tiros", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Sled Push carga oficial + Row", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 250m Row entre os tiros", rpe:"RPE 8", equip:"~152kg (oficial PRO)" },
           ]},
       ]},
       { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
@@ -5265,7 +5265,7 @@ const JULIANE_BLOCO4_ERAS = [
           ]},
         { type:"cond", name:"Estação Hyrox", num:2,
           items:[
-            { name:"Sandbag Lunges (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"100m", rpe:"RPE 8", equip:"10kg (oficial)" },
+            { name:"Sandbag Lunges (ritmo de prova)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28ritmo%20de%20prova%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"100m", rpe:"RPE 8", equip:"20kg (oficial PRO)" },
             { name:"Burpee Broad Jump em velocidade", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20em%20velocidade%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"20m", rpe:"RPE 8-9" },
           ]},
       ]},
@@ -5311,13 +5311,13 @@ const JULIANE_BLOCO4_ERAS = [
         { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
           items:[
             { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
-            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~102kg (oficial)" },
-            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~78kg (oficial)" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~152kg (oficial PRO)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~153kg (oficial PRO)" },
             { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 9" },
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 9", equip:"2x24kg (oficial)" },
-            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 9", equip:"10kg (oficial)" },
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 9", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 9", equip:"20kg (oficial PRO)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 9", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
     ]
@@ -5336,7 +5336,7 @@ const JULIANE_BLOCO4_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine (curto)", num:2,
           items:[
-            { name:"Sled Push carga oficial (poucas reps)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"25m", rpe:"RPE 7", equip:"~102kg (oficial)" },
+            { name:"Sled Push carga oficial (poucas reps)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"25m", rpe:"RPE 7", equip:"~152kg (oficial PRO)" },
           ]},
       ]},
       { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox (volume reduzido)", blocks:[
@@ -5349,7 +5349,7 @@ const JULIANE_BLOCO4_ERAS = [
         { type:"cond", name:"Estação Hyrox (técnica)", num:1,
           items:[
             { name:"Burpee Broad Jump (técnica)", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20%28t%C3%A9cnica%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"20m", rpe:"RPE 7" },
-            { name:"Sandbag Lunges (técnica)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28t%C3%A9cnica%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"100m", rpe:"RPE 6-7", equip:"10kg (oficial)" },
+            { name:"Sandbag Lunges (técnica)", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20%28t%C3%A9cnica%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"100m", rpe:"RPE 6-7", equip:"20kg (oficial PRO)" },
           ]},
       ]},
       { key:"qua", label:"Quarta", title:"Sessão Completa — Manutenção de Força (volume reduzido)", blocks:[
@@ -5387,10 +5387,10 @@ const JULIANE_BLOCO4_ERAS = [
           ]},
         { type:"cond", name:"Estação Hyrox", num:2,
           items:[
-            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8", equip:"~152kg (oficial PRO)" },
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 8", equip:"2x24kg (oficial)" },
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps", rpe:"RPE 8", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
     ]
@@ -5573,7 +5573,7 @@ const JULIANE_BLOCO6_ERAS = [
         { type:"cond", name:"Estação Hyrox", num:2,
           items:[
             { name:"Burpee Broad Jump (técnica)", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20t%C3%A9cnica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"20m", rpe:"RPE 7" },
-            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"100m", rpe:"RPE 7", equip:"10kg (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"100m", rpe:"RPE 7", equip:"20kg (oficial PRO)" },
           ]},
       ]},
       { key:"qua", label:"Quarta", title:"Sessão Completa — Força de Base (Trem Superior)", blocks:[
@@ -5610,7 +5610,7 @@ const JULIANE_BLOCO6_ERAS = [
           ]},
         { type:"cond", name:"Estação Hyrox", num:2,
           items:[
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"33 reps", rpe:"RPE 7", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"3", reps:"33 reps", rpe:"RPE 7", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
       { key:"sab", label:"Sábado", title:"Simulação Parcial — 4 Estações", blocks:[
@@ -5641,7 +5641,7 @@ const JULIANE_BLOCO6_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine", num:2,
           items:[
-            { name:"Sled Push carga oficial + Wall Ball", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Sled Push carga oficial + Wall Ball", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m + 10 Wall Balls entre os tiros", rpe:"RPE 8", equip:"~152kg (oficial PRO)" },
           ]},
       ]},
       { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox", blocks:[
@@ -5667,7 +5667,7 @@ const JULIANE_BLOCO6_ERAS = [
           ]},
         { type:"accessory", name:"Acessório Esportivo", num:2,
           items:[
-            { name:"Sled Pull em ritmo de prova", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~80-85kg" },
+            { name:"Sled Pull em ritmo de prova", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20em%20ritmo%20de%20prova%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"4", reps:"25m", rpe:"RPE 8", equip:"~145-150kg (próximo do oficial PRO)" },
           ]},
         { type:"cond", name:"Finalizador / Engine", num:3,
           items:[
@@ -5693,7 +5693,7 @@ const JULIANE_BLOCO6_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine", num:2,
           items:[
-            { name:"Wall Balls sob fadiga leve", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20sob%20fadiga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps for time", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Wall Balls sob fadiga leve", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20sob%20fadiga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps for time", rpe:"RPE 8", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
       { key:"sab", label:"Sábado", title:"Simulação Completa — 8 Estações (tentativa de tempo total)", blocks:[
@@ -5705,13 +5705,13 @@ const JULIANE_BLOCO6_ERAS = [
         { type:"cond", name:"Estação Hyrox (8 estações, ordem oficial)", num:2,
           items:[
             { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
-            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~102kg (oficial)" },
-            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~78kg (oficial)" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~152kg (oficial PRO)" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 9", equip:"~153kg (oficial PRO)" },
             { name:"Burpee Broad Jump", video:"https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"80m", rpe:"RPE 9" },
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 9" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 9", equip:"2x24kg (oficial)" },
-            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 9", equip:"10kg (oficial)" },
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 9", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Sandbag Lunges", video:"https://www.youtube.com/results?search_query=Sandbag%20Lunges%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100m", rpe:"RPE 9", equip:"20kg (oficial PRO)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"100 reps", rpe:"RPE 9", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
     ]
@@ -5730,7 +5730,7 @@ const JULIANE_BLOCO6_ERAS = [
           ]},
         { type:"cond", name:"Finalizador / Engine (curto)", num:2,
           items:[
-            { name:"Sled Push carga oficial (poucas reps)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"25m", rpe:"RPE 7", equip:"~102kg (oficial)" },
+            { name:"Sled Push carga oficial (poucas reps)", video:"https://www.youtube.com/results?search_query=Sled%20Push%20carga%20oficial%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"2", reps:"25m", rpe:"RPE 7", equip:"~152kg (oficial PRO)" },
           ]},
       ]},
       { key:"ter_a", label:"Terça (A)", title:"Corrida Hyrox (volume reduzido)", blocks:[
@@ -5780,10 +5780,10 @@ const JULIANE_BLOCO6_ERAS = [
           ]},
         { type:"cond", name:"Estação Hyrox", num:2,
           items:[
-            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8", equip:"~102kg (oficial)" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8", equip:"~152kg (oficial PRO)" },
             { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1000m", rpe:"RPE 8" },
             { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"200m", rpe:"RPE 8", equip:"2x24kg (oficial)" },
-            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps", rpe:"RPE 8", equip:"4kg / alvo 2,7m (oficial)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"75 reps", rpe:"RPE 8", equip:"6kg / alvo 2,7m (oficial PRO)" },
           ]},
       ]},
     ]
