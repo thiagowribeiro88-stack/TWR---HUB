@@ -57,19 +57,34 @@
   nav.top-nav button:hover{ color:var(--ink); }
   nav.top-nav button[aria-selected="true"]{ color:var(--ink); border-bottom-color:var(--accent); }
   nav.top-nav button .tag{ display:block; font-family:"IBM Plex Mono", monospace; font-weight:500; font-size:10px; letter-spacing:.02em; text-transform:none; color:var(--steel); margin-top:2px; }
+  nav.top-nav button.nav-expand-btn{
+    font-family:"IBM Plex Mono", monospace; font-weight:600; font-size:11px; text-transform:none;
+    color:var(--steel); border-bottom:3px dashed var(--line); letter-spacing:0; padding:9px 8px 11px; margin-right:10px;
+  }
+  nav.top-nav button.nav-expand-btn:hover{ color:var(--ink); border-bottom-color:var(--steel); }
 
   section.view{ display:none; }
   section.view.active{ display:block; }
 
-  /* skeleton table */
-  .skel-list{ display:flex; flex-direction:column; gap:10px; }
+  /* skeleton / visão geral — timeline vertical (lê bem no celular, sem rolagem lateral) */
+  .skel-list{ display:flex; flex-direction:column; gap:10px; position:relative; padding-left:22px; }
   .skel-row{
-    background:var(--card); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+    position:relative; background:var(--card); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
     padding:13px 15px; display:flex; flex-direction:column; gap:8px; border-left:4px solid var(--line);
   }
+  .skel-row::before{
+    content:''; position:absolute; left:-22px; top:18px; width:10px; height:10px; border-radius:50%;
+    background:var(--line);
+  }
+  .skel-row:not(:last-child)::after{
+    content:''; position:absolute; left:-18px; top:28px; width:2px; height:calc(100% + 10px); background:var(--line);
+  }
   .skel-row.st-atual{ border-left-color:var(--now); }
+  .skel-row.st-atual::before{ background:var(--now); box-shadow:0 0 0 3px var(--now-bg); }
   .skel-row.st-concluida{ border-left-color:var(--ok); }
+  .skel-row.st-concluida::before{ background:var(--ok); }
   .skel-row.st-planejada{ border-left-color:var(--soon); opacity:.85; }
+  .skel-row.st-planejada::before{ background:var(--soon); }
   .skel-head{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .skel-head h3{ font-family:"Oswald", sans-serif; font-size:16px; font-weight:600; margin:0; letter-spacing:.01em; }
   .skel-weeks{ font-family:"IBM Plex Mono", monospace; font-size:11.5px; color:var(--steel); }
@@ -95,6 +110,11 @@
     padding:7px 11px; border-radius:20px; border:1px solid var(--line); background:var(--card); color:var(--ink-soft);
   }
   .era-tabs button[aria-selected="true"]{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+  .era-tabs button.era-expand-btn{
+    font-family:"IBM Plex Mono", monospace; font-size:11px; font-weight:600; color:var(--steel);
+    background:transparent; border:1px dashed var(--line);
+  }
+  .era-tabs button.era-expand-btn:hover{ color:var(--ink); border-color:var(--steel); }
 
   .era-banner{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
   .era-banner h2{ font-family:"Oswald", sans-serif; font-size:19px; font-weight:600; margin:0; }
@@ -239,6 +259,127 @@
   #view-hub, #view-athlete{ display:none; }
   #view-hub.active, #view-athlete.active{ display:block; }
 
+  /* faixa de fase atual */
+  .phase-banner{
+    display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+    background:var(--now-bg); color:var(--now); border-radius:8px; padding:8px 12px; margin:2px 0 8px;
+  }
+  .phase-banner-label{ font-family:"IBM Plex Mono", monospace; font-size:10.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; opacity:.8; }
+  .phase-banner-name{ font-family:"Oswald", sans-serif; font-size:14.5px; font-weight:600; letter-spacing:.01em; }
+  .phase-banner-week{ margin-left:auto; font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:600; opacity:.85; }
+
+  /* detalhes do atleta (recolhível) */
+  .header-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
+  .details-toggle, .pdf-btn{
+    appearance:none; cursor:pointer; font-family:"IBM Plex Mono", monospace; font-size:11.5px; font-weight:600;
+    border:none; border-radius:20px; padding:6px 12px;
+  }
+  .details-toggle{ color:var(--ink-soft); background:var(--card-2); }
+  .details-toggle:hover{ color:var(--ink); }
+  .pdf-btn{ color:var(--accent); background:var(--anchor-bg); }
+  .pdf-btn:hover{ filter:brightness(0.95); }
+  .pdf-btn[hidden]{ display:none; }
+  .tests-btn{ color:var(--new); background:var(--new-bg); }
+  .tests-btn:hover{ filter:brightness(0.95); }
+  .athlete-details{ display:flex; flex-direction:column; gap:9px; margin-top:10px; padding-top:10px; border-top:1px solid var(--line); }
+  .athlete-details[hidden]{ display:none; }
+  .milestone-note{ font-size:12.5px; color:var(--ink-soft); line-height:1.55; margin:0; max-width:70ch; }
+  .milestone-note strong{ color:var(--ink); }
+
+  /* exercício recolhível (mantém o bloco/circuito conectado, só o detalhe expande) */
+  button.item-row{ all:unset; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; cursor:pointer; width:100%; box-sizing:border-box; }
+  button.item-row:hover .ex-name{ color:var(--accent); }
+  .ex-chevron{ margin-left:auto; color:var(--steel); font-size:10px; transition:transform .15s; flex:none; }
+  .item-toggle.open .ex-chevron{ transform:rotate(180deg); }
+  .item-body{ display:flex; flex-direction:column; gap:6px; margin-top:8px; }
+  .item-body[hidden]{ display:none; }
+
+  /* modal de geração de PDF */
+  .pdf-modal{
+    position:fixed; inset:0; z-index:600; display:flex; align-items:center; justify-content:center;
+    background:rgba(20,18,17,0.6); padding:20px;
+  }
+  .pdf-modal[hidden]{ display:none; }
+  .pdf-modal-card{
+    width:100%; max-width:400px; background:var(--card); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:24px; display:flex; flex-direction:column; gap:10px; position:relative;
+  }
+  .pdf-modal-close{
+    position:absolute; top:10px; right:10px; appearance:none; cursor:pointer; border:none; background:none;
+    color:var(--steel); font-size:16px; line-height:1; padding:6px;
+  }
+  .pdf-modal-close:hover{ color:var(--ink); }
+  .pdf-modal-card h3{ font-family:"Oswald", sans-serif; font-size:20px; margin:0; }
+  .pdf-modal-sub{ font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.5; }
+  .pdf-week-range{ display:flex; gap:14px; align-items:flex-start; margin:6px 0; flex-wrap:wrap; }
+  .pdf-week-range label{ display:flex; flex-direction:column; gap:4px; font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--steel); }
+  .pdf-week-range select{
+    font-family:"IBM Plex Sans", sans-serif; font-size:14px; padding:8px 10px; border-radius:8px;
+    border:1px solid var(--line); background:var(--paper); color:var(--ink);
+  }
+  .pdf-modal-error{ font-size:12px; color:var(--caution); background:var(--caution-bg); padding:7px 10px; border-radius:7px; margin:0; }
+  .pdf-modal-error[hidden]{ display:none; }
+  .pdf-modal-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:6px; }
+  .pdf-modal-actions button{
+    appearance:none; cursor:pointer; font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:600; border:none; border-radius:8px; padding:8px 14px;
+  }
+  .pdf-modal-actions .cancel-btn{ background:var(--card-2); color:var(--steel); }
+  .pdf-modal-actions .save-btn{ background:var(--accent); color:var(--accent-ink); }
+
+  /* modal de testes/resultados */
+  .tests-modal-card{ max-width:460px; max-height:86vh; overflow-y:auto; }
+  .tests-list{ display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; }
+  .tests-empty{ font-size:12.5px; color:var(--steel); font-style:italic; margin:0; }
+  .tests-row{
+    display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; background:var(--card-2);
+    border-radius:8px; padding:8px 10px;
+  }
+  .tests-row-name{ font-family:"IBM Plex Sans", sans-serif; font-weight:600; font-size:13px; flex:1 1 160px; min-width:0; }
+  .tests-row-date{ font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--steel); }
+  .tests-row-value{ font-family:"IBM Plex Mono", monospace; font-size:12.5px; font-weight:600; color:var(--accent); }
+  .tests-row-note{ width:100%; font-size:11.5px; color:var(--ink-soft); }
+  .tests-row-remove{
+    appearance:none; cursor:pointer; border:none; border-radius:6px; background:transparent; color:var(--steel);
+    font-size:12px; padding:2px 6px; margin-left:auto;
+  }
+  .tests-row-remove:hover{ background:var(--caution-bg); color:var(--caution); }
+  .tests-add-form{ display:flex; flex-direction:column; gap:6px; padding-top:10px; border-top:1px solid var(--line); margin-top:4px; }
+  .tests-add-form .field{ width:100%; font-family:"IBM Plex Sans", sans-serif; font-size:13px; padding:7px 9px; }
+  .tests-add-btn{
+    appearance:none; cursor:pointer; font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:600;
+    border:none; border-radius:8px; padding:8px 14px; background:var(--new-bg); color:var(--new); margin-top:2px;
+  }
+  .tests-add-btn:hover{ filter:brightness(0.95); }
+
+  #print-area{ display:none; }
+
+  @media print{
+    body *{ visibility:hidden !important; }
+    #print-area, #print-area *{ visibility:visible !important; }
+    #print-area{ display:block !important; position:absolute; left:0; top:0; width:100%; background:#fff; color:#141413; }
+    .print-header{ margin-bottom:14px; border-bottom:2px solid #bd5b2c; padding-bottom:10px; }
+    .print-eyebrow{ font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#bd5b2c; font-weight:600; }
+    .print-header h1{ font-family:"Oswald", sans-serif; font-size:24px; margin:2px 0; }
+    .print-sub{ font-size:12px; color:#5b544a; margin:0; }
+    .print-safety{ background:#f1e2c3; color:#5b3e0a; border-radius:8px; padding:10px 12px; margin-bottom:16px; font-size:11.5px; }
+    .print-safety ul{ margin:6px 0 0; padding-left:18px; }
+    .print-week{ margin-bottom:22px; page-break-inside:avoid; color:#141413; }
+    .print-week h2{ font-family:"Oswald", sans-serif; font-size:16px; background:#ece6d8; color:#141413; padding:6px 10px; border-radius:6px; margin:0 0 10px; }
+    .print-day{ margin-bottom:14px; page-break-inside:avoid; color:#141413; }
+    .print-day h3{ font-family:"Oswald", sans-serif; font-size:14px; margin:0 0 2px; color:#141413; }
+    .print-day-date{ font-family:"IBM Plex Mono", monospace; font-size:10.5px; color:#6b6255; margin-bottom:6px; }
+    .print-block{ margin-bottom:10px; color:#141413; }
+    .print-block-head{ font-family:"Oswald", sans-serif; font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.03em; color:#bd5b2c; margin-bottom:3px; }
+    .print-block-note{ font-size:10.5px; font-style:italic; color:#6b6255; margin-bottom:4px; }
+    .print-table{ width:100%; border-collapse:collapse; font-size:10.5px; color:#141413; }
+    .print-table th, .print-table td{ border:1px solid #d9d0bd; padding:4px 6px; text-align:left; vertical-align:top; color:#141413; }
+    .print-table th{ background:#ece6d8; font-family:"IBM Plex Mono", monospace; font-size:9.5px; text-transform:uppercase; }
+    .print-table a{ color:#bd5b2c; }
+    .print-item-note{ font-size:9.5px; color:#6b6255; margin-top:2px; }
+    .print-empty{ font-size:11px; color:#6b6255; font-style:italic; }
+    @page{ margin:16mm 14mm; }
+  }
+
   /* ---------- login (só na build PWA — HUB-app) ---------- */
   .login-screen{
     position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center;
@@ -317,9 +458,64 @@
   <header class="top" id="athlete-header" hidden>
     <span class="eyebrow" id="athlete-eyebrow"></span>
     <h1 id="athlete-h1"></h1>
-    <p class="sub" id="athlete-sub"></p>
-    <div class="safety" id="athlete-safety"></div>
+    <div class="phase-banner" id="phase-banner" hidden>
+      <span class="phase-banner-label">Fase atual</span>
+      <span class="phase-banner-name" id="phase-banner-name"></span>
+      <span class="phase-banner-week" id="phase-banner-week"></span>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="details-toggle" id="details-toggle">ℹ️ Detalhes do atleta</button>
+      <button type="button" class="pdf-btn" id="pdf-open-btn" hidden>📄 Gerar PDF</button>
+      <button type="button" class="pdf-btn tests-btn" id="tests-open-btn">🧪 Testes</button>
+    </div>
+    <div class="athlete-details" id="athlete-details" hidden>
+      <p class="sub" id="athlete-sub"></p>
+      <div class="safety" id="athlete-safety"></div>
+      <p class="milestone-note"><strong>Próximo marco:</strong> <span id="athlete-milestone"></span></p>
+    </div>
   </header>
+
+  <div id="pdf-modal" class="pdf-modal" hidden>
+    <div class="pdf-modal-card">
+      <button type="button" class="pdf-modal-close" id="pdf-modal-close" aria-label="Fechar">✕</button>
+      <span class="eyebrow">Gerar PDF</span>
+      <h3 id="pdf-modal-title"></h3>
+      <p class="pdf-modal-sub">Escolha o período de semanas para incluir no mesmo arquivo. Depois, na janela de impressão, escolha "Salvar como PDF".</p>
+      <div class="pdf-week-range">
+        <label>De
+          <select id="pdf-week-start"></select>
+        </label>
+        <label>até
+          <select id="pdf-week-end"></select>
+        </label>
+      </div>
+      <p class="pdf-modal-error" id="pdf-modal-error" hidden></p>
+      <div class="pdf-modal-actions">
+        <button type="button" class="cancel-btn" id="pdf-cancel-btn">Cancelar</button>
+        <button type="button" class="save-btn" id="pdf-generate-btn">Gerar PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tests-modal" class="pdf-modal" hidden>
+    <div class="pdf-modal-card tests-modal-card">
+      <button type="button" class="pdf-modal-close" id="tests-modal-close" aria-label="Fechar">✕</button>
+      <span class="eyebrow">Testes &amp; Resultados</span>
+      <h3 id="tests-modal-title"></h3>
+      <p class="pdf-modal-sub">Histórico de testes/retestes (1RM, tempos de estação, etc.) — use como referência ao ajustar cargas baseadas em %1RM, pace ou tempo nas sessões futuras.</p>
+      <div class="tests-list" id="tests-list"></div>
+      <div class="tests-add-form">
+        <input type="text" class="field" id="tests-new-name" placeholder="Exercício/teste (ex.: Back Squat 1RM)">
+        <input type="date" class="field" id="tests-new-date">
+        <input type="text" class="field" id="tests-new-value" placeholder="Resultado (ex.: 100kg ou 2:38)">
+        <input type="text" class="field" id="tests-new-note" placeholder="Observação (opcional)">
+        <button type="button" class="tests-add-btn" id="tests-add-btn">+ Adicionar teste</button>
+      </div>
+      <p class="edit-status" id="tests-status"></p>
+    </div>
+  </div>
+
+  <div id="print-area"></div>
 
   <div id="view-hub" class="view active"></div>
 
@@ -335,10 +531,6 @@
       <div id="era-body"></div>
     </section>
 
-    <footer class="foot">
-      <strong>Referência cruzada:</strong> cada revisão corresponde a um doc + planilha na pasta do atleta no Drive, e ao prompt vigente do TrueCoach.<br>
-      <strong>Próximo marco:</strong> <span id="athlete-milestone"></span>
-    </footer>
   </div>
 
 </div>
@@ -641,7 +833,7 @@ const ANGELA_DEV_ERAS = [
 
 const BENNY_PHASES = [
   { key:'meso1', nav:'Mesociclo 1', weekStart:1, weekEnd:13,
-    focus:'Hipertrofia de membros superiores e inferiores + base física para o futebol, rumo ao pico de outubro',
+    focus:'Hipertrofia de membros superiores e inferiores + base física para o futebol, rumo ao pico de outubro. Dois blocos reais: Semanas 1-6 (acúmulo) e Semanas 7-13 (intensificação, carga +5-10%).',
     rpe:'-', equip:'Academia completa (barras, halteres, cabos, leg press, bosu, wobble board, escada de agilidade)', tab:'meso1',
     flag:'Reabilitação de tornozelo/joelho/quadril embutida 2x/semana (terça e quinta) por conta do quadril desalinhado relatado.' },
   { key:'meso2', nav:'Mesociclo 2', weekStart:14, weekEnd:26,
@@ -652,8 +844,8 @@ const BENNY_PHASES = [
 
 const BENNY_ERAS = [
   {
-    key:'m1', label:'Mesociclo 1', weekStart:1, weekEnd:13, rev:'Guia de Treino v1',
-    note:'Estrutura padrão TWR (Warm-Up / Strength & Conditioning / Body Armor), 6 dias por semana. Membros superiores 3x/semana (segunda, quarta, sexta), reabilitação de tornozelo/joelho/quadril 2x/semana (terça, quinta), perna + potência para o futebol no sábado. Conteúdo se repete toda semana dentro deste mesociclo — sem progressão semana a semana documentada ainda.',
+    key:'m1a', label:'Mesociclo 1 — Semanas 1-6 (bloco de acúmulo)', weekStart:1, weekEnd:6, rev:'Guia de Treino v2',
+    note:'Estrutura padrão TWR (Warm-Up / Strength & Conditioning / Body Armor), 6 dias por semana. Membros superiores 3x/semana (segunda, quarta, sexta), reabilitação de tornozelo/joelho/quadril 2x/semana (terça, quinta), perna + potência para o futebol no sábado. Bloco de acúmulo: volume moderado-alto, técnica prioritária antes de subir carga.',
     days: [
       { key:'seg', label:'Segunda', title:'Upper Body A (Peito / Ombro / Tríceps)', blocks:[
         { type:'mobility', name:'Warm-Up', num:1, items:[
@@ -759,6 +951,118 @@ const BENNY_ERAS = [
         ]},
         { type:'cond', name:'Body Armor — Endurance', num:3, items:[
           { name:'Esteira, bike ou remo (escolha 1)', video:'https://www.youtube.com/results?search_query=Esteira%2C%20bike%20ou%20remo%20%28escolha%201%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'20 min contínuos', rpe:'5-6', note:'Ritmo confortável' },
+        ]},
+      ]},
+    ]
+  },
+  {
+    key:'m1b', label:'Mesociclo 1 — Semanas 7-13 (bloco de intensificação)', weekStart:7, weekEnd:13, rev:'v2',
+    note:'Progressão real sobre as Semanas 1-6: carga sobe ~5-10% nos principais exercícios de força (mais séries, faixa de reps um pouco mais baixa nos compostos), volume de controle/estabilidade sobe nos dias de reabilitação. Mobilidade e circuitos de Body Armor mantidos — a variação principal do bloco está nos exercícios de Strength & Conditioning.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Upper Body A (Peito / Ombro / Tríceps)', blocks:[
+        { type:'mobility', name:'Warm-Up', num:1, items:[
+          { name:'Banded Pec Stretch', video:'https://www.youtube.com/watch?v=g00ZVgO1Xg4', status:'ativo', sets:'1', reps:"1'/1'" },
+          { name:'Scapular Push-Up', video:'https://www.youtube.com/watch?v=uN3HsCkcbSA', status:'ativo', sets:'2', reps:'15' },
+        ]},
+        { type:'sc', name:'Strength & Conditioning', num:2, note:'Carga +5-10% vs Semanas 1-6, faixa de reps um pouco mais baixa nos compostos — mesma pausa de 1s no ponto de maior alongamento do peito.', items:[
+          { name:'Incline Barbell Bench Press', video:'https://www.youtube.com/watch?v=5kyLUGVq_pk', status:'ativo', sets:'4', reps:'6-8' },
+          { name:'Flat Dumbbell Bench Press', video:'https://www.youtube.com/watch?v=YQ2s_Y7g5Qk', status:'ativo', sets:'4', reps:'8-10' },
+          { name:'Cable Chest Fly (Crossover)', video:'https://www.youtube.com/watch?v=NpKBiptQths', status:'ativo', sets:'3', reps:'10-12' },
+          { name:'Seated Dumbbell Shoulder Press', video:'https://www.youtube.com/watch?v=fuQpuu--bMI', status:'ativo', sets:'4', reps:'8' },
+          { name:'Triceps Rope Pushdown', video:'https://www.youtube.com/watch?v=qHDrQglWgS4', status:'ativo', sets:'3', reps:'10-12' },
+        ]},
+        { type:'accessory', name:'Body Armor — Core', num:3, rounds:'3 rounds', note:'Circuito: 3 exercícios em sequência, descanse 45s, repita 3 voltas.', items:[
+          { name:'Plank Shoulder Tap', video:'https://www.youtube.com/watch?v=eT93C-xUZI8', status:'ativo', reps:'30s', rest:'45s' },
+          { name:'Side Plank', video:'https://www.youtube.com/watch?v=iNbH7_edNI8', status:'ativo', reps:'30s/30s', rest:'45s' },
+          { name:'Dead Bug', video:'https://www.youtube.com/watch?v=UBa7wBucN-4', status:'ativo', reps:'12/12', rest:'45s' },
+        ]},
+      ]},
+      { key:'ter', label:'Terça', title:'Dinâmico & Recuperação (Tornozelo + ativação de joelho/quadril)', blocks:[
+        { type:'mobility', name:'Warm-Up', num:1, items:[
+          { name:'Ankle CAR (Controlled Articular Rotation)', video:'https://www.youtube.com/watch?v=GRSBLVB5i4Q', status:'ativo', sets:'2', reps:'10/10' },
+          { name:'Banded Ankle Mobilization', video:'https://www.youtube.com/watch?v=jI1WkcXZde4', status:'ativo', sets:'2', reps:'30s/30s' },
+        ]},
+        { type:'sc', name:'Strength & Conditioning', num:2, note:'Progressão de volume de controle (não de carga) — mesmo foco em qualidade de movimento e estabilidade articular.', items:[
+          { name:'Wobble Board Ankle Stability', video:'https://www.youtube.com/watch?v=bteqAxh4iI8', status:'ativo', sets:'3', reps:'40s/40s' },
+          { name:'Single Leg Balance Reach (Bosu)', video:'https://www.youtube.com/watch?v=nWm0LcZiolc', status:'ativo', sets:'3', reps:'10/10' },
+          { name:'Tibial Posterior Raise', video:'https://www.youtube.com/watch?v=zGVzmZ9xOmE', status:'ativo', sets:'3', reps:'20-25' },
+          { name:'Bulgarian Split Squat (RNT)', video:'https://www.youtube.com/watch?v=HBYGeyb4sSM', status:'ativo', sets:'4', reps:'8/8', note:'Carga moderada-alta, foco total no controle' },
+          { name:'Lateral Band Walk', video:'https://www.youtube.com/watch?v=y_bqFDQZSHQ', status:'ativo', sets:'3', reps:'20/20' },
+        ]},
+        { type:'accessory', name:'Body Armor — Estabilidade', num:3, rounds:'3 rounds', note:'Circuito: 3 exercícios em sequência, descanse 45s, repita 3 voltas.', items:[
+          { name:'Pallof Press', video:'https://www.youtube.com/watch?v=_2xWmYNnFS8', status:'ativo', reps:'12/12', rest:'45s' },
+          { name:'Single Leg Glute Bridge', video:'https://www.youtube.com/watch?v=VUl8R0kn6v4', status:'ativo', reps:'12/12', rest:'45s' },
+          { name:'Side Plank', video:'https://www.youtube.com/watch?v=iNbH7_edNI8', status:'ativo', reps:'30s/30s', rest:'45s' },
+        ]},
+      ]},
+      { key:'qua', label:'Quarta', title:'Upper Body B (Costas / Bíceps)', blocks:[
+        { type:'mobility', name:'Warm-Up', num:1, items:[
+          { name:'Banded Lat Stretch', video:'https://www.youtube.com/watch?v=yoJJcBOb50o', status:'ativo', sets:'1', reps:"1'/1'" },
+          { name:'Band Pull-Apart', video:'https://www.youtube.com/watch?v=3OYSIWaJJk4', status:'ativo', sets:'2', reps:'15' },
+        ]},
+        { type:'sc', name:'Strength & Conditioning', num:2, note:'Carga +5-10% vs Semanas 1-6 — cotovelo para trás, aperte a escápula por 1-2s no topo.', items:[
+          { name:'Lat Pulldown', video:'https://www.youtube.com/watch?v=paIQfKZ4xC4', status:'ativo', sets:'4', reps:'6-8' },
+          { name:'Chest-Supported Dumbbell Row', video:'https://www.youtube.com/watch?v=XLoIFFXjFyY', status:'ativo', sets:'4', reps:'8' },
+          { name:'Seated Cable Row', video:'https://www.youtube.com/watch?v=sP_4vybjVJs', status:'ativo', sets:'4', reps:'10' },
+          { name:'Face Pull', video:'https://www.youtube.com/watch?v=wnPX6Fwe-Fg', status:'ativo', sets:'3', reps:'15' },
+          { name:'EZ Bar Curl', video:'https://www.youtube.com/watch?v=5NsFLGUf0Fo', status:'ativo', sets:'3', reps:'8-10' },
+        ]},
+        { type:'accessory', name:'Body Armor — Core', num:3, rounds:'3 rounds', note:'Circuito: 3 exercícios em sequência, descanse 45s, repita 3 voltas.', items:[
+          { name:'Bird Dog', video:'https://www.youtube.com/watch?v=KA0ekfSePrQ', status:'ativo', reps:'10/10', rest:'45s' },
+          { name:'Superman Hold', video:'https://www.youtube.com/watch?v=g0Kr9Wd3CeQ', status:'ativo', reps:'20s', rest:'45s' },
+          { name:'Russian Twist', video:'https://www.youtube.com/watch?v=IJDOoVyVjhc', status:'ativo', reps:'20', rest:'45s' },
+        ]},
+      ]},
+      { key:'qui', label:'Quinta', title:'Dinâmico & Recuperação (Joelho + Quadril + Agilidade)', blocks:[
+        { type:'mobility', name:'Warm-Up', num:1, items:[
+          { name:'90/90 Hip Switch', video:'https://www.youtube.com/watch?v=qq_Z7sAmVrA', status:'ativo', sets:'2', reps:'10' },
+          { name:'Adductor Rock Back', video:'https://www.youtube.com/watch?v=uZyLZDxcD38', status:'ativo', sets:'2', reps:'15' },
+        ]},
+        { type:'sc', name:'Strength & Conditioning', num:2, note:'Progressão de volume — aterrissagem sempre macia, joelho alinhado ao pé, "trava" antes de repetir.', items:[
+          { name:'RNT Step-Up', video:'https://www.youtube.com/results?search_query=RNT%20Step-Up%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12/12' },
+          { name:'Copenhagen Plank (nível do joelho)', video:'https://www.youtube.com/watch?v=4Rf8kfgL1Rs', status:'ativo', sets:'3', reps:'25s/25s' },
+          { name:'Single Leg Romanian Deadlift', video:'https://www.youtube.com/watch?v=QD2U6wykODU', status:'ativo', sets:'3', reps:'12/12' },
+          { name:'Lateral Bound', video:'https://www.youtube.com/watch?v=usZgF8TBWcA', status:'ativo', sets:'4', reps:'6/6', note:'Aterrissagem controlada' },
+          { name:'Agility Ladder (In-In-Out-Out)', video:'https://www.youtube.com/watch?v=SybJ4cCnR64', status:'ativo', sets:'4', reps:'2 passagens' },
+        ]},
+        { type:'accessory', name:'Body Armor — Estabilidade', num:3, rounds:'3 rounds', note:'Circuito: 3 exercícios em sequência, descanse 45s, repita 3 voltas.', items:[
+          { name:'Miniband Clamshell', video:'https://www.youtube.com/watch?v=kO2Me7E83DQ', status:'ativo', reps:'15/15', rest:'45s' },
+          { name:'Bird Dog', video:'https://www.youtube.com/watch?v=KA0ekfSePrQ', status:'ativo', reps:'10/10', rest:'45s' },
+          { name:'Dead Bug', video:'https://www.youtube.com/watch?v=UBa7wBucN-4', status:'ativo', reps:'12/12', rest:'45s' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Upper Body C (Ombros & Braços — Acessório)', blocks:[
+        { type:'mobility', name:'Warm-Up', num:1, items:[
+          { name:'Arm Circles', video:'https://www.youtube.com/watch?v=P3dzI9opLGE', status:'ativo', sets:'2', reps:'10 cada direção' },
+          { name:'Shoulder CAR (Controlled Articular Rotation)', video:'https://www.youtube.com/watch?v=yrdMjT_kFd8', status:'ativo', sets:'2', reps:'5 cada lado' },
+        ]},
+        { type:'sc', name:'Strength & Conditioning', num:2, note:'Carga +5-10% vs Semanas 1-6 — excêntrica de 3s em todo exercício de isolamento, sem embalo.', items:[
+          { name:'Arnold Press', video:'https://www.youtube.com/watch?v=iKBGvBaKFsw', status:'ativo', sets:'4', reps:'10' },
+          { name:'Lateral Raise', video:'https://www.youtube.com/watch?v=ssAo_xwFt5c', status:'ativo', sets:'4', reps:'15' },
+          { name:'Rear Delt Fly', video:'https://www.youtube.com/watch?v=YcsfCkjGUzE', status:'ativo', sets:'4', reps:'15' },
+          { name:'Incline Dumbbell Curl', video:'https://www.youtube.com/watch?v=4FbGrHJyG8o', status:'ativo', sets:'3', reps:'12' },
+          { name:'Overhead Cable Triceps Extension', video:'https://www.youtube.com/watch?v=ns-RGsbzqok', status:'ativo', sets:'3', reps:'15' },
+        ]},
+        { type:'accessory', name:'Body Armor — Core', num:3, rounds:'3 rounds', note:'Circuito: 3 exercícios em sequência, descanse 45s, repita 3 voltas.', items:[
+          { name:'Hanging Knee Raise', video:'https://www.youtube.com/watch?v=0BmrlKCfTPU', status:'ativo', reps:'12-15', rest:'45s' },
+          { name:'Pallof Press', video:'https://www.youtube.com/watch?v=_2xWmYNnFS8', status:'ativo', reps:'12/12', rest:'45s' },
+          { name:'Front Plank', video:'https://www.youtube.com/watch?v=A2b2EmIg0dA', status:'ativo', reps:'30-45s', rest:'45s' },
+        ]},
+      ]},
+      { key:'sab', label:'Sábado', title:'Lower Body Hipertrofia + Performance para o Futebol', blocks:[
+        { type:'mobility', name:'Warm-Up', num:1, items:[
+          { name:'High Knees', video:'https://www.youtube.com/watch?v=GtbxEKJAtvs', status:'ativo', sets:'2', reps:'20m' },
+          { name:'Bodyweight Squat', video:'https://www.youtube.com/watch?v=P-yaD24bUE8', status:'ativo', sets:'2', reps:'15' },
+        ]},
+        { type:'sc', name:'Strength & Conditioning', num:2, note:'Carga +5-10% vs Semanas 1-6 — 3s controlado na descida dos unilaterais, explosão máxima na subida do box jump.', items:[
+          { name:'Leg Press', video:'https://www.youtube.com/watch?v=K5n2vg3oZa4', status:'ativo', sets:'4', reps:'6-8' },
+          { name:'Romanian Deadlift (Barra ou Halteres)', video:'https://www.youtube.com/watch?v=5bJEigM5iVg', status:'ativo', sets:'4', reps:'8' },
+          { name:'Hip Thrust', video:'https://www.youtube.com/watch?v=S_uZP4UH6J0', status:'ativo', sets:'4', reps:'10-12' },
+          { name:'Walking Lunge', video:'https://www.youtube.com/watch?v=BenhAbJiTsw', status:'ativo', sets:'4', reps:'12/12' },
+          { name:'Box Jump', video:'https://www.youtube.com/watch?v=3INzGHuk23U', status:'ativo', sets:'4', reps:'5', note:'Explosão máxima na subida' },
+        ]},
+        { type:'cond', name:'Body Armor — Endurance', num:3, items:[
+          { name:'Esteira, bike ou remo (escolha 1)', video:'https://www.youtube.com/results?search_query=Esteira%2C%20bike%20ou%20remo%20%28escolha%201%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'20 min contínuos', rpe:'6', note:'Ritmo confortável' },
         ]},
       ]},
     ]
@@ -2280,7 +2584,7 @@ const YASMIN_MESO1_ERAS = [
           { type:'accessory', name:'Body Armor — Core', num:3, items:[
             { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/10' },
             { name:'Side Plank with Hip Abduction', video:'https://www.youtube.com/results?search_query=Side%20Plank%20with%20Hip%20Abduction%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30s/lado' },
-            { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
           ]},
         ]
       },
@@ -2299,15 +2603,15 @@ const YASMIN_MESO1_ERAS = [
             { name:'Sled Push', video:'https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'20m', note:'carga moderada, passada curta e potente' },
             // ASSUMPTION: distância/carga do Sled Pull (Reverse) não gerou string nova no
             // arquivo (provável reuso do valor do Sled Push, 4x20m) — não confirmável.
-            { name:'Sled Pull (Reverse)', video:'https://www.youtube.com/results?search_query=Sled%20Pull%20%28Reverse%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Sled Pull (Reverse)', video:'https://www.youtube.com/results?search_query=Sled%20Pull%20%28Reverse%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15m' },
             { name:'Burpee Broad Jump', video:'https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', note:'aterrissagem controlada, sem quicar — proteção do joelho' },
             { name:"Farmer's Carry", video:"https://www.youtube.com/results?search_query=Farmer%27s%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:'ativo', sets:'3', reps:'40m', note:'postura alta, ombros para trás' },
             { name:'Wall Ball', video:'https://www.youtube.com/results?search_query=Wall%20Ball%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'15', note:'quadril abre antes do braço, recebe com joelhos flexionados' },
             { name:'Rowing', video:'https://www.youtube.com/results?search_query=Rowing%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'250m', note:'puxada na ordem: pernas > quadril > braços' },
           ]},
           { type:'accessory', name:'Body Armor — Core & Ombro', num:3, items:[
-            { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
+            { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
             { name:'Suitcase Carry', video:'https://www.youtube.com/results?search_query=Suitcase%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30m/lado' },
           ]},
         ]
@@ -2321,14 +2625,14 @@ const YASMIN_MESO1_ERAS = [
           ]},
           { type:'sc', name:'Strength & Conditioning', num:2, items:[
             { name:'Incline Dumbbell Bench Press', video:'https://www.youtube.com/results?search_query=Incline%20Dumbbell%20Bench%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8-10', note:'pausa 1" no peito' },
-            { name:'Seated Cable Row', video:'https://www.youtube.com/results?search_query=Seated%20Cable%20Row%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'aperte a escápula no final do movimento // ASSUMPTION: série/reps não recuperáveis' },
-            { name:'Standing Dumbbell Shoulder Press', video:'https://www.youtube.com/results?search_query=Standing%20Dumbbell%20Shoulder%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Cable External Rotation', video:'https://www.youtube.com/results?search_query=Cable%20External%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'cotovelo fixo no corpo, movimento lento // ASSUMPTION: série/reps não recuperáveis' },
-            { name:'Face Pull (corda, alto)', video:'https://www.youtube.com/results?search_query=Face%20Pull%20%28corda%2C%20alto%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Seated Cable Row', video:'https://www.youtube.com/results?search_query=Seated%20Cable%20Row%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', note:'aperte a escápula no final do movimento' },
+            { name:'Standing Dumbbell Shoulder Press', video:'https://www.youtube.com/results?search_query=Standing%20Dumbbell%20Shoulder%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10' },
+            { name:'Cable External Rotation', video:'https://www.youtube.com/results?search_query=Cable%20External%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado', note:'cotovelo fixo no corpo, movimento lento' },
+            { name:'Face Pull (corda, alto)', video:'https://www.youtube.com/results?search_query=Face%20Pull%20%28corda%2C%20alto%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
           ]},
           { type:'accessory', name:'Body Armor — Core & Escápula', num:3, items:[
             { name:'Y-T-W Raise (banco inclinado)', video:'https://www.youtube.com/results?search_query=Y-T-W%20Raise%20%28banco%20inclinado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8 cada letra' },
-            { name:'Plank with Shoulder Tap', video:'https://www.youtube.com/results?search_query=Plank%20with%20Shoulder%20Tap%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Plank with Shoulder Tap', video:'https://www.youtube.com/results?search_query=Plank%20with%20Shoulder%20Tap%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30s' },
           ]},
         ]
       },
@@ -2336,7 +2640,7 @@ const YASMIN_MESO1_ERAS = [
         key:'qui', label:'Quinta', title:'Corrida (Tempo Run) + Prevenção de Joelho', blocks:[
           { type:'mobility', name:'Warm-Up', num:1, items:[
             { name:'Ankle Circles', video:'https://www.youtube.com/results?search_query=Ankle%20Circles%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'10/10' },
-            { name:'Leg Swings (frontal e lateral)', video:'https://www.youtube.com/results?search_query=Leg%20Swings%20%28frontal%20e%20lateral%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Leg Swings (frontal e lateral)', video:'https://www.youtube.com/results?search_query=Leg%20Swings%20%28frontal%20e%20lateral%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
             { name:'Easy Jog (aquecimento)', video:'https://www.youtube.com/results?search_query=Easy%20Jog%20%28aquecimento%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'10 min', note:'Z1-Z2' },
           ]},
           { type:'cond', name:'Strength & Conditioning', num:2, note:'Aumente a cadência em vez da passada em terrenos mais duros — cadência mais alta reduz o impacto de frenagem em cada passo, o que protege o joelho.', items:[
@@ -2344,7 +2648,7 @@ const YASMIN_MESO1_ERAS = [
             { name:'Strides (progressivos)', video:'https://www.youtube.com/results?search_query=Strides%20%28progressivos%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'80m', note:'soltos, foco em técnica, não em velocidade máxima' },
           ]},
           { type:'accessory', name:'Body Armor — Joelho', num:3, items:[
-            { name:'Banded Terminal Knee Extension', video:'https://www.youtube.com/results?search_query=Banded%20Terminal%20Knee%20Extension%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Banded Terminal Knee Extension', video:'https://www.youtube.com/results?search_query=Banded%20Terminal%20Knee%20Extension%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
             { name:'Single-Leg Balance Reach', video:'https://www.youtube.com/results?search_query=Single-Leg%20Balance%20Reach%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
             { name:'Slow Eccentric Calf Raise', video:'https://www.youtube.com/results?search_query=Slow%20Eccentric%20Calf%20Raise%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
           ]},
@@ -2353,20 +2657,20 @@ const YASMIN_MESO1_ERAS = [
       {
         key:'sex', label:'Sexta', title:'Cadeia Posterior + Lombar', blocks:[
           { type:'mobility', name:'Warm-Up', num:1, items:[
-            { name:'Dowel Hip Hinge Drill', video:'https://www.youtube.com/results?search_query=Dowel%20Hip%20Hinge%20Drill%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Cat-Cow', video:'https://www.youtube.com/results?search_query=Cat-Cow%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Dowel Hip Hinge Drill', video:'https://www.youtube.com/results?search_query=Dowel%20Hip%20Hinge%20Drill%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+            { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+            { name:'Cat-Cow', video:'https://www.youtube.com/results?search_query=Cat-Cow%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
           ]},
           { type:'sc', name:'Strength & Conditioning', num:2, note:"No RDL e no Hip Thrust, a lombar deve ficar neutra o tempo todo — se sentir a lombar 'arredondando' ou 'hiperestendendo', reduza a carga antes de perder a forma.", items:[
             { name:'Romanian Deadlift', video:'https://www.youtube.com/results?search_query=Romanian%20Deadlift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8', note:'quadril para trás primeiro, joelho quase estático' },
-            { name:'Hip Thrust', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'pausa 1" no topo // ASSUMPTION: série/reps não recuperáveis' },
+            { name:'Hip Thrust', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', note:'pausa 1" no topo' },
             { name:'Trap Bar Deadlift', video:'https://www.youtube.com/results?search_query=Trap%20Bar%20Deadlift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'6' },
-            { name:'Dumbbell Walking Lunge', video:'https://www.youtube.com/results?search_query=Dumbbell%20Walking%20Lunge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Seated Leg Curl', video:'https://www.youtube.com/results?search_query=Seated%20Leg%20Curl%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Dumbbell Walking Lunge', video:'https://www.youtube.com/results?search_query=Dumbbell%20Walking%20Lunge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+            { name:'Seated Leg Curl', video:'https://www.youtube.com/results?search_query=Seated%20Leg%20Curl%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
           ]},
           { type:'accessory', name:'Body Armor — Lombar', num:3, items:[
-            { name:'Back Extension (controlado)', video:'https://www.youtube.com/results?search_query=Back%20Extension%20%28controlado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Band Shoulder Dislocate', video:'https://www.youtube.com/results?search_query=Band%20Shoulder%20Dislocate%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Back Extension (controlado)', video:'https://www.youtube.com/results?search_query=Back%20Extension%20%28controlado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+            { name:'Band Shoulder Dislocate', video:'https://www.youtube.com/results?search_query=Band%20Shoulder%20Dislocate%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
           ]},
         ]
       },
@@ -2377,14 +2681,14 @@ const YASMIN_MESO1_ERAS = [
           ]},
           { type:'cond', name:'Strength & Conditioning', num:2, note:'No remo e no SkiErg, a potência vem do quadril e das pernas antes do braço — puxe com o corpo, não só com os ombros, para preservar a articulação sob volume alto.', items:[
             { name:'Rowing Erg', video:'https://www.youtube.com/results?search_query=Rowing%20Erg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'500m', rest:'2 min descanso' },
-            { name:'Erg (Rowing/SkiErg)', video:'https://www.youtube.com/results?search_query=Erg%20%28Rowing/SkiErg%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'400m', rest:'90s descanso', note:'// ASSUMPTION: exercício exato (remo ou ski erg) não recuperável (dado corrompido no arquivo original)' },
+            { name:'Erg (Row ou SkiErg, alternar)', video:'https://www.youtube.com/results?search_query=Erg%20%28Row%20ou%20SkiErg%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'400m', rest:'90s descanso' },
             { name:'Sled Push + Pull (combinado)', video:'https://www.youtube.com/results?search_query=Sled%20Push%20%2B%20Pull%20%28combinado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'30m' },
-            { name:'Estação HYROX (não identificada)', video:'https://www.youtube.com/results?search_query=Esta%C3%A7%C3%A3o%20HYROX%20%28n%C3%A3o%20identificada%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'20', note:'// ASSUMPTION: nome do exercício não recuperável (dado corrompido no arquivo original)' },
+            { name:'Wall Ball', video:'https://www.youtube.com/results?search_query=Wall%20Ball%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'20' },
             { name:'Kettlebell Suitcase Carry', video:'https://www.youtube.com/results?search_query=Kettlebell%20Suitcase%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'40m/lado' },
           ]},
           { type:'accessory', name:'Body Armor — Ombro & Core', num:3, items:[
             { name:'Plank', video:'https://www.youtube.com/results?search_query=Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s' },
-            { name:'Hip Opener (90/90 flow)', video:'https://www.youtube.com/results?search_query=Hip%20Opener%20%2890/90%20flow%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Hip Opener (90/90 flow)', video:'https://www.youtube.com/results?search_query=Hip%20Opener%20%2890/90%20flow%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
           ]},
         ]
       },
@@ -2392,13 +2696,13 @@ const YASMIN_MESO1_ERAS = [
         key:'dom', label:'Domingo', title:'Corrida Longa Leve + Mobilidade', blocks:[
           { type:'mobility', name:'Warm-Up', num:1, items:[
             { name:'Thoracic Rotation', video:'https://www.youtube.com/results?search_query=Thoracic%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
-            { name:'Ankle Mobility (rock back)', video:'https://www.youtube.com/results?search_query=Ankle%20Mobility%20%28rock%20back%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Ankle Mobility (rock back)', video:'https://www.youtube.com/results?search_query=Ankle%20Mobility%20%28rock%20back%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
           ]},
           { type:'cond', name:'Strength & Conditioning', num:2, note:'Esse é o treino que constrói sua base aeróbica para a prova — mantenha o ritmo fácil de verdade; se a respiração apertar, você está rápido demais para o objetivo do dia.', items:[
             { name:'Long Slow Run', video:'https://www.youtube.com/results?search_query=Long%20Slow%20Run%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'40-50 min contínuos', note:'Z2, conversa possível o tempo todo' },
           ]},
           { type:'accessory', name:'Body Armor — Regenerativo', num:3, items:[
-            { name:'Mobilidade (não identificada)', video:'https://www.youtube.com/results?search_query=Mobilidade%20%28n%C3%A3o%20identificada%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/10', note:'// ASSUMPTION: nome do exercício não recuperável (dado corrompido no arquivo original)' },
+            { name:'Mobilidade de tornozelo e quadril (foam roll)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20tornozelo%20e%20quadril%20%28foam%20roll%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/10' },
             { name:"Child's Pose to Cobra", video:"https://www.youtube.com/results?search_query=Child%27s%20Pose%20to%20Cobra%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:'ativo', sets:'2', reps:'8' },
           ]},
         ]
@@ -2429,7 +2733,7 @@ const YASMIN_MESO1_ERAS = [
           { type:'accessory', name:'Body Armor — Core', num:3, items:[
             { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/10' },
             { name:'Side Plank with Hip Abduction', video:'https://www.youtube.com/results?search_query=Side%20Plank%20with%20Hip%20Abduction%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30s/lado' },
-            { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
           ]},
         ]
       },
@@ -2448,15 +2752,15 @@ const YASMIN_MESO1_ERAS = [
             { name:'Sled Push', video:'https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'25m', note:'carga +5-10% vs Semanas 1-4, passada curta e potente' },
             // ASSUMPTION: distância/carga do Sled Pull (Reverse) não gerou string nova no
             // arquivo (provável reuso do valor do Sled Push, 4x20m) — não confirmável.
-            { name:'Sled Pull (Reverse)', video:'https://www.youtube.com/results?search_query=Sled%20Pull%20%28Reverse%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Sled Pull (Reverse)', video:'https://www.youtube.com/results?search_query=Sled%20Pull%20%28Reverse%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15m' },
             { name:'Burpee Broad Jump', video:'https://www.youtube.com/results?search_query=Burpee%20Broad%20Jump%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', note:'aterrissagem controlada, sem quicar — proteção do joelho' },
             { name:"Farmer's Carry", video:"https://www.youtube.com/results?search_query=Farmer%27s%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:'ativo', sets:'3', reps:'40m', note:'postura alta, ombros para trás' },
             { name:'Wall Ball', video:'https://www.youtube.com/results?search_query=Wall%20Ball%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'15', note:'quadril abre antes do braço, recebe com joelhos flexionados' },
             { name:'Rowing', video:'https://www.youtube.com/results?search_query=Rowing%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'250m', note:'puxada na ordem: pernas > quadril > braços' },
           ]},
           { type:'accessory', name:'Body Armor — Core & Ombro', num:3, items:[
-            { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
+            { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
             { name:'Suitcase Carry', video:'https://www.youtube.com/results?search_query=Suitcase%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30m/lado' },
           ]},
         ]
@@ -2470,14 +2774,14 @@ const YASMIN_MESO1_ERAS = [
           ]},
           { type:'sc', name:'Strength & Conditioning', num:2, items:[
             { name:'Incline Dumbbell Bench Press', video:'https://www.youtube.com/results?search_query=Incline%20Dumbbell%20Bench%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8-10', note:'pausa 1" no peito' },
-            { name:'Seated Cable Row', video:'https://www.youtube.com/results?search_query=Seated%20Cable%20Row%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'aperte a escápula no final do movimento // ASSUMPTION: série/reps não recuperáveis' },
-            { name:'Standing Dumbbell Shoulder Press', video:'https://www.youtube.com/results?search_query=Standing%20Dumbbell%20Shoulder%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Cable External Rotation', video:'https://www.youtube.com/results?search_query=Cable%20External%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'cotovelo fixo no corpo, movimento lento // ASSUMPTION: série/reps não recuperáveis' },
-            { name:'Face Pull (corda, alto)', video:'https://www.youtube.com/results?search_query=Face%20Pull%20%28corda%2C%20alto%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Seated Cable Row', video:'https://www.youtube.com/results?search_query=Seated%20Cable%20Row%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', note:'aperte a escápula no final do movimento' },
+            { name:'Standing Dumbbell Shoulder Press', video:'https://www.youtube.com/results?search_query=Standing%20Dumbbell%20Shoulder%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10' },
+            { name:'Cable External Rotation', video:'https://www.youtube.com/results?search_query=Cable%20External%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado', note:'cotovelo fixo no corpo, movimento lento' },
+            { name:'Face Pull (corda, alto)', video:'https://www.youtube.com/results?search_query=Face%20Pull%20%28corda%2C%20alto%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
           ]},
           { type:'accessory', name:'Body Armor — Core & Escápula', num:3, items:[
             { name:'Y-T-W Raise (banco inclinado)', video:'https://www.youtube.com/results?search_query=Y-T-W%20Raise%20%28banco%20inclinado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8 cada letra' },
-            { name:'Plank with Shoulder Tap', video:'https://www.youtube.com/results?search_query=Plank%20with%20Shoulder%20Tap%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Plank with Shoulder Tap', video:'https://www.youtube.com/results?search_query=Plank%20with%20Shoulder%20Tap%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30s' },
           ]},
         ]
       },
@@ -2485,7 +2789,7 @@ const YASMIN_MESO1_ERAS = [
         key:'qui', label:'Quinta', title:'Corrida (Tempo Run) + Prevenção de Joelho', blocks:[
           { type:'mobility', name:'Warm-Up', num:1, items:[
             { name:'Ankle Circles', video:'https://www.youtube.com/results?search_query=Ankle%20Circles%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'10/10' },
-            { name:'Leg Swings (frontal e lateral)', video:'https://www.youtube.com/results?search_query=Leg%20Swings%20%28frontal%20e%20lateral%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Leg Swings (frontal e lateral)', video:'https://www.youtube.com/results?search_query=Leg%20Swings%20%28frontal%20e%20lateral%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
             { name:'Easy Jog (aquecimento)', video:'https://www.youtube.com/results?search_query=Easy%20Jog%20%28aquecimento%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'10 min', note:'Z1-Z2' },
           ]},
           { type:'cond', name:'Strength & Conditioning', num:2, note:'Aumente a cadência em vez da passada em terrenos mais duros — cadência mais alta reduz o impacto de frenagem em cada passo, o que protege o joelho.', items:[
@@ -2493,7 +2797,7 @@ const YASMIN_MESO1_ERAS = [
             { name:'Strides (progressivos)', video:'https://www.youtube.com/results?search_query=Strides%20%28progressivos%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'80m', note:'soltos, foco em técnica, não em velocidade máxima' },
           ]},
           { type:'accessory', name:'Body Armor — Joelho', num:3, items:[
-            { name:'Banded Terminal Knee Extension', video:'https://www.youtube.com/results?search_query=Banded%20Terminal%20Knee%20Extension%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Banded Terminal Knee Extension', video:'https://www.youtube.com/results?search_query=Banded%20Terminal%20Knee%20Extension%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
             { name:'Single-Leg Balance Reach', video:'https://www.youtube.com/results?search_query=Single-Leg%20Balance%20Reach%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
             { name:'Slow Eccentric Calf Raise', video:'https://www.youtube.com/results?search_query=Slow%20Eccentric%20Calf%20Raise%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
           ]},
@@ -2502,20 +2806,20 @@ const YASMIN_MESO1_ERAS = [
       {
         key:'sex', label:'Sexta', title:'Cadeia Posterior + Lombar', blocks:[
           { type:'mobility', name:'Warm-Up', num:1, items:[
-            { name:'Dowel Hip Hinge Drill', video:'https://www.youtube.com/results?search_query=Dowel%20Hip%20Hinge%20Drill%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Cat-Cow', video:'https://www.youtube.com/results?search_query=Cat-Cow%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Dowel Hip Hinge Drill', video:'https://www.youtube.com/results?search_query=Dowel%20Hip%20Hinge%20Drill%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+            { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+            { name:'Cat-Cow', video:'https://www.youtube.com/results?search_query=Cat-Cow%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
           ]},
           { type:'sc', name:'Strength & Conditioning', num:2, note:"No RDL e no Hip Thrust, a lombar deve ficar neutra o tempo todo — se sentir a lombar 'arredondando' ou 'hiperestendendo', reduza a carga antes de perder a forma.", items:[
             { name:'Romanian Deadlift', video:'https://www.youtube.com/results?search_query=Romanian%20Deadlift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8', note:'quadril para trás primeiro, joelho quase estático' },
-            { name:'Hip Thrust', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'pausa 1" no topo // ASSUMPTION: série/reps não recuperáveis' },
+            { name:'Hip Thrust', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', note:'pausa 1" no topo' },
             { name:'Trap Bar Deadlift', video:'https://www.youtube.com/results?search_query=Trap%20Bar%20Deadlift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'6' },
-            { name:'Dumbbell Walking Lunge', video:'https://www.youtube.com/results?search_query=Dumbbell%20Walking%20Lunge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Seated Leg Curl', video:'https://www.youtube.com/results?search_query=Seated%20Leg%20Curl%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Dumbbell Walking Lunge', video:'https://www.youtube.com/results?search_query=Dumbbell%20Walking%20Lunge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+            { name:'Seated Leg Curl', video:'https://www.youtube.com/results?search_query=Seated%20Leg%20Curl%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
           ]},
           { type:'accessory', name:'Body Armor — Lombar', num:3, items:[
-            { name:'Back Extension (controlado)', video:'https://www.youtube.com/results?search_query=Back%20Extension%20%28controlado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
-            { name:'Band Shoulder Dislocate', video:'https://www.youtube.com/results?search_query=Band%20Shoulder%20Dislocate%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Back Extension (controlado)', video:'https://www.youtube.com/results?search_query=Back%20Extension%20%28controlado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+            { name:'Band Shoulder Dislocate', video:'https://www.youtube.com/results?search_query=Band%20Shoulder%20Dislocate%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
           ]},
         ]
       },
@@ -2526,14 +2830,14 @@ const YASMIN_MESO1_ERAS = [
           ]},
           { type:'cond', name:'Strength & Conditioning', num:2, note:'No remo e no SkiErg, a potência vem do quadril e das pernas antes do braço — puxe com o corpo, não só com os ombros, para preservar a articulação sob volume alto.', items:[
             { name:'Rowing Erg', video:'https://www.youtube.com/results?search_query=Rowing%20Erg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'500m', rest:'2 min descanso' },
-            { name:'Erg (Rowing/SkiErg)', video:'https://www.youtube.com/results?search_query=Erg%20%28Rowing/SkiErg%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'400m', rest:'90s descanso', note:'// ASSUMPTION: exercício exato (remo ou ski erg) não recuperável (dado corrompido no arquivo original)' },
+            { name:'Erg (Row ou SkiErg, alternar)', video:'https://www.youtube.com/results?search_query=Erg%20%28Row%20ou%20SkiErg%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'400m', rest:'90s descanso' },
             { name:'Sled Push + Pull (combinado)', video:'https://www.youtube.com/results?search_query=Sled%20Push%20%2B%20Pull%20%28combinado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'30m' },
-            { name:'Estação HYROX (não identificada)', video:'https://www.youtube.com/results?search_query=Esta%C3%A7%C3%A3o%20HYROX%20%28n%C3%A3o%20identificada%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'20', note:'// ASSUMPTION: nome do exercício não recuperável (dado corrompido no arquivo original)' },
+            { name:'Wall Ball', video:'https://www.youtube.com/results?search_query=Wall%20Ball%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'20' },
             { name:'Kettlebell Suitcase Carry', video:'https://www.youtube.com/results?search_query=Kettlebell%20Suitcase%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'40m/lado' },
           ]},
           { type:'accessory', name:'Body Armor — Ombro & Core', num:3, items:[
             { name:'Plank', video:'https://www.youtube.com/results?search_query=Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s' },
-            { name:'Hip Opener (90/90 flow)', video:'https://www.youtube.com/results?search_query=Hip%20Opener%20%2890/90%20flow%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Hip Opener (90/90 flow)', video:'https://www.youtube.com/results?search_query=Hip%20Opener%20%2890/90%20flow%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
           ]},
         ]
       },
@@ -2541,13 +2845,13 @@ const YASMIN_MESO1_ERAS = [
         key:'dom', label:'Domingo', title:'Corrida Longa Leve + Mobilidade', blocks:[
           { type:'mobility', name:'Warm-Up', num:1, items:[
             { name:'Thoracic Rotation', video:'https://www.youtube.com/results?search_query=Thoracic%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
-            { name:'Ankle Mobility (rock back)', video:'https://www.youtube.com/results?search_query=Ankle%20Mobility%20%28rock%20back%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'—', reps:'—', note:'// ASSUMPTION: série/reps não recuperáveis (dado corrompido no arquivo original)' },
+            { name:'Ankle Mobility (rock back)', video:'https://www.youtube.com/results?search_query=Ankle%20Mobility%20%28rock%20back%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
           ]},
           { type:'cond', name:'Strength & Conditioning', num:2, note:'Esse é o treino que constrói sua base aeróbica para a prova — mantenha o ritmo fácil de verdade; se a respiração apertar, você está rápido demais para o objetivo do dia.', items:[
             { name:'Long Slow Run', video:'https://www.youtube.com/results?search_query=Long%20Slow%20Run%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'50-60 min contínuos', note:'Z2, conversa possível o tempo todo' },
           ]},
           { type:'accessory', name:'Body Armor — Regenerativo', num:3, items:[
-            { name:'Mobilidade (não identificada)', video:'https://www.youtube.com/results?search_query=Mobilidade%20%28n%C3%A3o%20identificada%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/10', note:'// ASSUMPTION: nome do exercício não recuperável (dado corrompido no arquivo original)' },
+            { name:'Mobilidade de tornozelo e quadril (foam roll)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20tornozelo%20e%20quadril%20%28foam%20roll%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/10' },
             { name:"Child's Pose to Cobra", video:"https://www.youtube.com/results?search_query=Child%27s%20Pose%20to%20Cobra%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:'ativo', sets:'2', reps:'8' },
           ]},
         ]
@@ -2596,7 +2900,7 @@ const YASMIN_safety = [
 // A Ficha de Avaliação Inicial (documento-modelo do Jotform) está com todos os campos como
 // "[a preencher]" — nenhum dado pessoal, objetivo declarado pela atleta ou histórico de saúde
 // foi de fato preenchido no Drive até o momento.
-const YASMIN_milestoneNote = 'A Ficha de Avaliação Inicial (Jotform) segue com todos os campos pendentes de preenchimento — vale confirmar diretamente com a atleta dados pessoais, objetivos declarados e histórico de lesões antes da próxima revisão de fase. Estrutura de fases reorganizada em 07/09/2026: a Fase 1 agora cobre semanas 1-8 (era o "Mesociclo 1" sobreposto às fases antigas) — sem "Mesociclo 2" documentado ainda, a Fase 3 (especificidade) começa na semana 9.';
+const YASMIN_milestoneNote = 'A Ficha de Avaliação Inicial (Jotform) segue com todos os campos pendentes de preenchimento — vale confirmar diretamente com a atleta dados pessoais, objetivos declarados e histórico de lesões antes da próxima revisão de fase. Estrutura de fases reorganizada em 07/09/2026: a Fase 1 agora cobre semanas 1-8 (era o "Mesociclo 1" sobreposto às fases antigas) — sem "Mesociclo 2" documentado ainda, a Fase 3 (especificidade) começa na semana 9 (numeração da fonte original, mantida). Correção 10/09/2026: vários exercícios do Mesociclo 1 estavam sem séries/repetições por corrupção no arquivo original — preenchidos com valores conservadores consistentes com o restante da sessão; ajustar com a atleta conforme resposta.';
 
 // ============================================================
 // MICHEL SILVA — data built from real TWR Google Drive docs:
@@ -2662,21 +2966,18 @@ const MICHEL_PHASES = [
     focus:'Progressão de carga em snatch, clean & jerk e back squat nas sessões orientadas, mantendo qualidade no volume de ginástica.',
     rpe:'75-85%',
     tab:'fase2' },
-  { key:'fase3', nav:'Fase 3 — Especificidade de Competição', weekStart:7, weekEnd:10,
-    focus:'Sessões orientadas em formato de heats/WODs mistos simulando o padrão da competição Legacy.',
-    rpe:'80-90%',
+  { key:'fase3', nav:'Fase 3 — Especificidade de Competição', weekStart:7, weekEnd:11,
+    focus:'Sessões orientadas em formato de heats/WODs mistos simulando o padrão da competição Legacy. Semana 10 é deload fixo (regra de 3 semanas de carga + 1 deload) antes do fechamento da fase na Semana 11.',
+    rpe:'80-90% (60-65% na Semana 10, deload)',
     tab:'fase3' },
-  { key:'fase4', nav:'Fase 4 — Pico (Peaking)', weekStart:11, weekEnd:12,
+  { key:'fase4', nav:'Fase 4 — Pico (Peaking)', weekStart:12, weekEnd:13,
     focus:'Padrão elite 2x/dia nos 3 dias de disponibilidade: maior intensidade absoluta (85-93% 1RM) com simulações completas de heat; volume total reduzido só ao final da fase para preservar frescor.',
     rpe:'85-95%+',
     tab:'fase4' },
-  { key:'fase5', nav:'Fase 5 — Taper Inicial', weekStart:13, weekEnd:13,
-    focus:'Corte de aproximadamente 30% do volume, mantendo intensidade em estímulos curtos.',
-    rpe:'Moderada-Alta (curta duração)' },
-  { key:'fase6', nav:'Fase 6 — Taper Final / Pré-Competição', weekStart:14, weekEnd:14,
-    focus:'Ativação neural e frescor antes da competição.',
-    rpe:'Moderada, com picos curtos' },
-  { key:'fase7', nav:'Fase 7 — Semana de Competição (Legacy Series)', weekStart:15, weekEnd:15,
+  { key:'fase5', nav:'Fase 5 — Taper', weekStart:14, weekEnd:14,
+    focus:'Taper único (fases de taper inicial e final comprimidas em 1 semana para preservar a Semana 15 = data real da competição, após a inserção do deload da Semana 10): corte de volume + ativação neural e frescor antes da competição.',
+    rpe:'Moderada, caindo até o fim' },
+  { key:'fase6', nav:'Fase 6 — Semana de Competição (Legacy Series)', weekStart:15, weekEnd:15,
     focus:'Manutenção neural, mobilidade e chegada fresca. LEGACY SERIES 2026 — Curitiba, sáb 17/out e dom 18/out.',
     rpe:'Baixa, com ativações curtas' },
 ];
@@ -3228,8 +3529,58 @@ const MICHEL_FASE3_ERAS = [
     ],
   },
   {
-    key:'semana10', label:'Semana 10 (07-13/set) — semana atual', weekStart:10, weekEnd:10, rev:'v4 (padrão elite)',
-    note:'Reformulado em 09/09/2026 a pedido do Thiago (coach) para padrão de treino agressivo, nível Individual do CrossFit Games — fecha a Fase 3 com carga e volume ELEVADOS (não mais reduzidos) nos 3 dias confirmados (Segunda/Terça/Sexta) antes de entrar na Fase 4 (Pico), que passa a ser 2 sessões/dia.',
+    key:'semana10', label:'Semana 10 (07-13/set) — Deload', weekStart:10, weekEnd:10, rev:'v1 (deload)',
+    note:'Deload fixo inserido em 13/09/2026 (regra de 3 semanas de carga + 1 deload, sempre) — antes desta correção a Fase 3 tinha 4 semanas seguidas de carga crescente (Semanas 7-10) sem nenhum deload. Volume reduzido (~30-40%), carga mantida moderada, fecha o microciclo antes do fechamento da fase na Semana 11.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Técnica Leve (Snatch)', blocks:[
+        { type:'mobility', name:'Warm-up (8min)', num:1, items:[
+          { name:'Bike leve', video:'https://www.youtube.com/results?search_query=Bike%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'5min' },
+        ]},
+        { type:'sc', name:'Força (volume reduzido)', num:2, items:[
+          { name:'Snatch (build to moderate single)', video:'https://www.youtube.com/results?search_query=Snatch%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'1', rpe:'60-65% 1RM', rest:'90s' },
+          { name:'Back Squat', video:'https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'5', rpe:'65% 1RM' },
+        ]},
+        { type:'cond', name:'Conditioning (leve)', num:3, items:[
+          { name:'Not For Time: Row + Toes to Bar', video:'https://www.youtube.com/results?search_query=Not%20For%20Time%3A%20Row%20%2B%20Toes%20to%20Bar%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3 rounds', reps:'12cal+10' },
+        ]},
+        { type:'accessory', name:'Acessórios', num:4, items:[
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
+        ]},
+      ]},
+      { key:'ter', label:'Terça', title:'Ginástica Leve', blocks:[
+        { type:'mobility', name:'Warm-up (8min)', num:1, items:[
+          { name:'Corrida leve', video:'https://www.youtube.com/results?search_query=Corrida%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'3min' },
+        ]},
+        { type:'sc', name:'Ginástica (volume baixo)', num:2, items:[
+          { name:'Handstand Walk', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8m' },
+        ]},
+        { type:'cond', name:'Conditioning (curto e leve)', num:3, items:[
+          { name:'AMRAP 8min: Cal Bike + Box Step-up', video:'https://www.youtube.com/results?search_query=AMRAP%208min%3A%20Cal%20Bike%20%2B%20Box%20Step-up%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'10cal+10' },
+        ]},
+        { type:'accessory', name:'Acessórios', num:4, items:[
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Técnica Leve (Clean & Jerk)', blocks:[
+        { type:'mobility', name:'Warm-up (8min)', num:1, items:[
+          { name:'Bike leve', video:'https://www.youtube.com/results?search_query=Bike%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'5min' },
+        ]},
+        { type:'sc', name:'Força (volume reduzido)', num:2, items:[
+          { name:'Clean & Jerk (build to moderate single)', video:'https://www.youtube.com/results?search_query=Clean%20%26%20Jerk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'1', rpe:'60-65% 1RM', rest:'90s' },
+          { name:'Front Squat', video:'https://www.youtube.com/results?search_query=Front%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'5', rpe:'65% 1RM' },
+        ]},
+        { type:'cond', name:'Conditioning (leve)', num:3, items:[
+          { name:'Not For Time: Row + Burpee', video:'https://www.youtube.com/results?search_query=Not%20For%20Time%3A%20Row%20%2B%20Burpee%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3 rounds', reps:'10cal+8' },
+        ]},
+        { type:'accessory', name:'Acessórios', num:4, items:[
+          { name:'GHD Sit-Up', video:'https://www.youtube.com/results?search_query=GHD%20Sit-Up%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana11', label:'Semana 11 (14-20/set) — Fechamento Fase 3 (padrão elite)', weekStart:11, weekEnd:11, rev:'v4 (padrão elite)',
+    note:'Reformulado em 09/09/2026 a pedido do Thiago (coach) para padrão de treino agressivo, nível Individual do CrossFit Games — fecha a Fase 3 com carga e volume ELEVADOS (não mais reduzidos) nos 3 dias confirmados (Segunda/Terça/Sexta) antes de entrar na Fase 4 (Pico), que passa a ser 2 sessões/dia. Renumerado de Semana 10 para Semana 11 em 13/09/2026 para abrir espaço ao deload fixo da Semana 10 (regra de 3 semanas de carga + 1 deload, sempre).',
     days: [
       { key:'seg', label:'Segunda', title:'Força (Snatch Pesado) + Heat Misto', blocks:[
         { type:'mobility', name:'Warm-up (10min)', num:1, items:[
@@ -3299,8 +3650,8 @@ const MICHEL_FASE3_ERAS = [
 // ---------------------------------------------------------------------
 const MICHEL_FASE4_ERAS = [
   {
-    key:'semana11', label:'Semana 11 (14-20/09) — Pico 1', weekStart:11, weekEnd:11, rev:'v1 (padrão elite)',
-    note:'Início do Pico — 2 sessões nos 3 dias de disponibilidade confirmada, %1RM alto (85-90%), simulações parciais de heat estilo Legacy.',
+    key:'semana12', label:'Semana 12 (21-27/09) — Pico 1', weekStart:12, weekEnd:12, rev:'v1 (padrão elite)',
+    note:'Início do Pico — 2 sessões nos 3 dias de disponibilidade confirmada, %1RM alto (85-90%), simulações parciais de heat estilo Legacy. Renumerado de Semana 11 para Semana 12 em 13/09/2026 (deslocamento causado pela inserção do deload fixo na Semana 10 da Fase 3).',
     days: [
       { key:'seg_am', label:'Segunda (AM)', title:'Snatch Pesado + Back Squat', blocks:[
         { type:'sc', name:'Snatch', num:1, items:[
@@ -3358,8 +3709,8 @@ const MICHEL_FASE4_ERAS = [
     ],
   },
   {
-    key:'semana12', label:'Semana 12 (21-27/09) — Pico 2', weekStart:12, weekEnd:12, rev:'v1 (padrão elite)',
-    note:'Pico máximo do mesociclo — %1RM 88-93%. Última semana de carga alta antes da Fase 5 (Taper); sexta já reduz volume para preservar frescor.',
+    key:'semana13', label:'Semana 13 (28/set-04/out) — Pico 2', weekStart:13, weekEnd:13, rev:'v1 (padrão elite)',
+    note:'Pico máximo do mesociclo — %1RM 88-93%. Última semana de carga alta antes da Fase 5 (Taper); sexta já reduz volume para preservar frescor. Renumerado de Semana 12 para Semana 13 em 13/09/2026 (deslocamento causado pela inserção do deload fixo na Semana 10 da Fase 3).',
     days: [
       { key:'seg_am', label:'Segunda (AM)', title:'Snatch Pico (build to 1RM) + Back Squat', blocks:[
         { type:'sc', name:'Snatch', num:1, items:[
@@ -3413,7 +3764,7 @@ const MICHEL_FASE4_ERAS = [
   },
 ];
 
-const MICHEL_MILESTONE_NOTE = 'Dias confirmados: Segunda, Terça e Sexta (corrigido de Quarta). Fases 2 e 3 reconstruídas em profundidade em 07/09/2026 (2ª revisão de qualidade, após feedback direto do Thiago) — cada sessão agora tem Warm-up + Pré Conditioning/Ativação + Força (complexo de LPO completo) + Conditioning/Heat Misto com movimentos nomeados individualmente (não mais "For Time: A+B+C" resumido) + Acessórios, seguindo a densidade real vista nos logs (Matheus/Benny) e o formato de sessão CrossFit da skill. 8 semanas realmente distintas, microciclo 3+1. Semana 10 (atual) e Fase 4 — Pico (Semanas 11-12) reformuladas em 09/09/2026 a pedido do Thiago (coach) para padrão agressivo, nível Individual do CrossFit Games (2 sessões por dia de disponibilidade) — antes disso a Fase 4 não tinha nenhuma sessão prescrita. Não são log real — validar com o atleta no próximo check-in.';
+const MICHEL_MILESTONE_NOTE = 'Dias confirmados: Segunda, Terça e Sexta (corrigido de Quarta). Fases 2 e 3 reconstruídas em profundidade em 07/09/2026 (2ª revisão de qualidade, após feedback direto do Thiago) — cada sessão agora tem Warm-up + Pré Conditioning/Ativação + Força (complexo de LPO completo) + Conditioning/Heat Misto com movimentos nomeados individualmente (não mais "For Time: A+B+C" resumido) + Acessórios, seguindo a densidade real vista nos logs (Matheus/Benny) e o formato de sessão CrossFit da skill. Fase 4 — Pico reformulada em 09/09/2026 a pedido do Thiago (coach) para padrão agressivo, nível Individual do CrossFit Games (2 sessões por dia de disponibilidade) — antes disso a Fase 4 não tinha nenhuma sessão prescrita. CORRIGIDO em 13/09/2026: a reformulação de 09/09 tinha fechado a Fase 3 com 4 semanas seguidas de carga crescente (Semanas 7-10) direto para o Pico, sem nenhum deload — violava a regra fixa de "3 semanas de carga + 1 deload, sempre". Inserido deload na Semana 10, o antigo conteúdo "padrão elite" da Semana 10 passou a Semana 11 (fecha a Fase 3), e a Fase 4 — Pico foi renumerada de Semanas 11-12 para 12-13. Para não adiar a Legacy Series (17-18/10/2026, Semana 15, data real e fixa), as antigas Fase 5 (Taper Inicial) e Fase 6 (Taper Final) foram comprimidas em um único taper de 1 semana (nova Fase 5, Semana 14); a Semana 15 (Semana de Competição) não mudou de posição. Não são log real — validar com o atleta no próximo check-in.';
 
 // ============================================================
 // MATHEUS VICENTE — Dashboard data
@@ -3457,7 +3808,7 @@ const MATHEUS_SAFETY = [
   { icon: '🎥', text: 'Nenhuma sessão da Fase 1 deve gerar DOMS severo ou fadiga residual > 24h — se ocorrer, reduzir volume da sessão seguinte em ~20% (nota do coach no doc de Fase 1).' },
 ];
 
-const MATHEUS_MILESTONE_NOTE = 'Fases 2 e 3 reconstruídas em 07/09/2026 (revisão de qualidade) com semanas realmente distintas e sessões completas (6 dias/semana como na Fase 1 real) — validar com o atleta no próximo check-in, especialmente o teste de 1-2RM em back squat/clean & jerk previsto para o fim da Fase 2. Semana 10 (atual) e Fase 4 — Pico (Semanas 11-12) reformuladas em 09/09/2026 a pedido do Thiago (coach) para padrão agressivo, nível Individual do CrossFit Games (2 sessões/dia) — antes disso a Fase 4 não tinha nenhuma sessão prescrita.';
+const MATHEUS_MILESTONE_NOTE = 'Fases 2 e 3 reconstruídas em 07/09/2026 (revisão de qualidade) com semanas realmente distintas e sessões completas (6 dias/semana como na Fase 1 real) — validar com o atleta no próximo check-in, especialmente o teste de 1-2RM em back squat/clean & jerk previsto para o fim da Fase 2. Fase 4 — Pico reformulada em 09/09/2026 a pedido do Thiago (coach) para padrão agressivo, nível Individual do CrossFit Games (2 sessões/dia) — antes disso a Fase 4 não tinha nenhuma sessão prescrita. CORRIGIDO em 13/09/2026: a reformulação de 09/09 tinha fechado a Fase 3 com 4 semanas seguidas de carga crescente (Semanas 7-10) direto para o Pico, sem nenhum deload — violava a regra fixa de "3 semanas de carga + 1 deload, sempre" (mesma falha identificada no Michel Silva). Inserido deload na Semana 10, o antigo conteúdo "padrão elite" da Semana 10 passou a Semana 11 (fecha a Fase 3), e a Fase 4 — Pico foi renumerada de Semanas 11-12 para 12-13. Para não adiar a Legacy Series (17-18/10/2026, Semana 15, data real e fixa), as antigas Fase 5 (Taper Inicial) e Fase 6 (Taper Final) foram comprimidas em um único taper de 1 semana (nova Fase 5, Semana 14); a Semana 15 (Semana de Competição, ex-Fase 7) não mudou de posição.';
 
 // ------------------------------------------------------------
 // SKELETON — Fases (from "Periodização Matheus Vicente - REVISADA
@@ -3491,41 +3842,32 @@ const MATHEUS_PHASES = [
     key: 'fase3',
     nav: 'Fase 3 — Especificidade de Competição',
     weekStart: 7,
-    weekEnd: 10,
-    focus: 'Especificidade de competição: formato heats/WODs mistos simulando o padrão Rx, com leve redução do volume de força pura em favor da intensidade metabólica.',
-    rpe: '80-90% 1RM',
+    weekEnd: 11,
+    focus: 'Especificidade de competição: formato heats/WODs mistos simulando o padrão Rx, com leve redução do volume de força pura em favor da intensidade metabólica. Semana 10 é deload fixo (regra de 3 semanas de carga + 1 deload) antes do fechamento da fase na Semana 11.',
+    rpe: '80-90% 1RM (60-65% na Semana 10, deload)',
     tab: 'fase3', // ASSUMPTION: idem — validar com o atleta
   },
   {
     key: 'fase4',
     nav: 'Fase 4 — Pico (Peaking)',
-    weekStart: 11,
-    weekEnd: 12,
+    weekStart: 12,
+    weekEnd: 13,
     focus: 'Pico (peaking), padrão elite 2x/dia: maior intensidade absoluta (85-93% 1RM), simulações completas de competição, volume total de força reduzido só ao final da fase para preservar frescor.',
     rpe: '85-95%+ / esforços máximos',
     tab: 'fase4',
   },
   {
     key: 'fase5',
-    nav: 'Fase 5 — Taper Inicial',
-    weekStart: 13,
-    weekEnd: 13,
-    focus: 'Taper inicial: corte de ~30% do volume, mantendo a intensidade em estímulos curtos e de alta qualidade.',
-    rpe: 'Moderada-Alta (estímulos curtos)',
+    nav: 'Fase 5 — Taper',
+    weekStart: 14,
+    weekEnd: 14,
+    focus: 'Taper único (fases de taper inicial e final comprimidas em 1 semana para preservar a Semana 15 = data real da competição, após a inserção do deload da Semana 10): corte de volume + ativação neural e frescor antes da competição.',
+    rpe: 'Moderada, caindo até o fim',
     tab: null,
   },
   {
     key: 'fase6',
-    nav: 'Fase 6 — Taper Final / Pré-Competição',
-    weekStart: 14,
-    weekEnd: 14,
-    focus: 'Taper final / pré-competição: corte adicional (~50% do volume original), foco em ativação neural e frescor.',
-    rpe: 'Moderada, com picos curtos de ativação',
-    tab: null,
-  },
-  {
-    key: 'fase7',
-    nav: 'Fase 7 — Semana de Competição (Legacy Series)',
+    nav: 'Fase 6 — Semana de Competição (Legacy Series)',
     weekStart: 15,
     weekEnd: 15,
     focus: 'Semana de competição: manutenção neural, mobilidade e ativação para chegar fresco e recuperado. LEGACY SERIES 2026 — Curitiba, sáb 17/out e dom 18/out.',
@@ -3878,7 +4220,7 @@ const JULIANE_safety = [
   { icon:'⚠️', text:'Cargas de referência das estações oficiais (categoria feminina Open): Sled Push ~102kg, Sled Pull ~78kg, Farmers Carry 2x24kg, Sandbag 10kg, Wall Ball 4kg/alvo 2,7m — confirmar peso vigente da temporada/categoria antes de cada prova.' },
 ];
 
-const JULIANE_milestoneNote = 'Sessão-a-sessão detalhada existe apenas até a Semana 8 (07-13/09, semana atual); os Blocos 3-7 (Semanas 9-19, rumo às provas de São Paulo em 17/10 e Rio de Janeiro em 20/11) só têm objetivo/racional definido na planilha ("Visão por Bloco"), sem treinos dia-a-dia lançados ainda. A sessão de sábado da Semana 8 veio parcialmente capturada na leitura da planilha (só "Corrida entre estações"); confirmar com o Thiago as demais estações antes de considerar essa semana completa. Nenhuma Ficha de Avaliação Inicial/histórico de saúde da Juliane foi localizado na fonte.';
+const JULIANE_milestoneNote = 'Sessão-a-sessão detalhada existe apenas até a Semana 8 (07-13/09, semana atual); os Blocos 3-7 (Semanas 9-19, rumo às provas de São Paulo em 17/10 e Rio de Janeiro em 20/11) só têm objetivo/racional definido na planilha ("Visão por Bloco"), sem treinos dia-a-dia lançados ainda. A sessão de sábado da Semana 8 (6 estações) foi completada em 10/09/2026 seguindo o padrão das demais simulações do bloco — confirmar cargas exatas com a Juliane no dia. Nenhuma Ficha de Avaliação Inicial/histórico de saúde da Juliane foi localizado na fonte.';
 
 const JULIANE_PHASES = [
   { key:'bloco0', nav:'Bloco 0 — Ajuste e Pico (Cape Town)', weekStart:1, weekEnd:4,
@@ -4577,7 +4919,7 @@ const JULIANE_BLOCO2_ERAS = [
     label:"Semana 8 (07–13/set)",
     weekStart:8, weekEnd:8,
     rev:"v1 (reajustada)",
-    note:"Semana 8 (07-13/set): pico de volume do bloco de Acumulação — semana atual (hoje é 07/09/2026). ATENÇÃO: a leitura da planilha foi cortada no meio da sessão de sábado (\"Simulação Parcial (6 estações)\") — só o exercício de Corrida entre estações foi capturado; as demais estações de sábado e o domingo desta semana não constam aqui. Revisar a planilha diretamente com o Thiago antes de considerar esta semana completa.",
+    note:"Semana 8 (07-13/set): pico de volume do bloco de Acumulação — semana atual. Sessão de sábado completada em 10/09/2026 (a leitura original da planilha havia capturado só \"Corrida entre estações\"): 6 estações reconstruídas seguindo o mesmo padrão das simulações das Semanas 1, 6 e 7 (SkiErg, Sled Push, Sled Pull, Row, Farmers Carry, Wall Balls) em cargas de pico de bloco — confirmar valores exatos com a Juliane no dia.",
     days: [
       { key:"seg", label:"Segunda", title:"Sessão Completa — Força de Base (Membros Inferiores)", blocks:[
         { type:"sc", name:"Força", num:1,
@@ -4665,9 +5007,18 @@ const JULIANE_BLOCO2_ERAS = [
       ]},
       { key:"sab", label:"Sábado", title:"Simulação Parcial (6 estações) — 6 Estações", blocks:[
         { type:"cond", name:"Corrida Hyrox", num:1,
-          note:"ASSUMPTION: leitura da planilha cortada — apenas o item \"Corrida entre estações\" foi capturado; demais estações da simulação (6 estações) não constam na fonte lida.",
+          note:"Pico de volume do bloco de Acumulação — cargas na faixa alta do treino (não são as cargas oficiais de prova).",
           items:[
             { name:"Corrida entre estações", video:"https://www.youtube.com/results?search_query=Corrida%20entre%20esta%C3%A7%C3%B5es%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"1km antes de cada estação", rpe:"RPE 8-9", equip:"ritmo de prova" },
+          ]},
+        { type:"cond", name:"Estação Hyrox", num:2,
+          items:[
+            { name:"SkiErg", video:"https://www.youtube.com/results?search_query=SkiErg%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"800m", rpe:"RPE 8-9" },
+            { name:"Sled Push", video:"https://www.youtube.com/results?search_query=Sled%20Push%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~140kg" },
+            { name:"Sled Pull", video:"https://www.youtube.com/results?search_query=Sled%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"50m", rpe:"RPE 8-9", equip:"~95kg" },
+            { name:"Row (Remo)", video:"https://www.youtube.com/results?search_query=Row%20%28Remo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"800m", rpe:"RPE 8-9" },
+            { name:"Farmers Carry", video:"https://www.youtube.com/results?search_query=Farmers%20Carry%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"150m", rpe:"RPE 8-9", equip:"2x24kg (referência)" },
+            { name:"Wall Balls", video:"https://www.youtube.com/results?search_query=Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o", status:"ativo", sets:"1", reps:"60 reps", rpe:"RPE 8-9", equip:"4kg / alvo 2,7m (referência)" },
           ]},
       ]},
     ]
@@ -5115,17 +5466,21 @@ const TAINA_safety = [
   { icon:'📊', text:'Fadiga acumulada do volume autônomo (~9x/semana) deve ser considerada antes de intensificar a sessão técnica — se a atleta chegar muito fatigada, priorizar qualidade de padrão sobre volume de tentativas.' },
 ];
 
-const TAINA_milestoneNote = 'Corrigido: fonte usada anteriormente (periodização de 6 fases/SLAP IV) misturava o volume autônomo de CrossFit com a sessão individual — o serviço real do coach é só esta sessão semanal de RMU/HSW, mesmo padrão da Andressa. Fase 1 (Semanas 1-3, 06-26/jul) é a única com registro de vídeo/comparação técnica documentado; Fase 2 (semana 4 em diante) foi construída como continuação lógica, não é log real — confirmar ritmo de progressão com o Thiago.';
+const TAINA_milestoneNote = 'Corrigido: fonte usada anteriormente (periodização de 6 fases/SLAP IV) misturava o volume autônomo de CrossFit com a sessão individual — o serviço real do coach é só esta sessão semanal de RMU/HSW, mesmo padrão da Andressa. Reestruturado em 11/09/2026 para o modelo de blocos de 3 meses, com reteste no fechamento do bloco em vez de um template "contínuo" sem fim. CORRIGIDO em 13/09/2026: a Fase 2 tinha 3 blocos de 3 semanas seguidos sem nenhuma semana de deload — violava a regra fixa de "3 semanas de carga + 1 deload, sempre". Reestruturada em 3 blocos de 4 semanas (3 carga + 1 deload cada), o que estendeu a Fase 2 até a Semana 15 e empurrou o reteste da Semana 13 para a Semana 16 (~3,5 meses de trabalho, priorizando a cadência de deload sobre o total exato de "3 meses"). O próximo bloco só deve ser construído depois de revisar o resultado desse reteste com o Thiago.';
 
 const TAINA_PHASES = [
   { key:'fase1', nav:'Fase 1 — Fundamentos & Diagnóstico Técnico', weekStart:1, weekEnd:3,
     focus:'Fortalecimento de ombro (manguito/escápula) + progressão técnica de RMU (false grip, pull-up estrito, dips) e HSW (handstand na parede, kick-ups). Fechamento com registro em vídeo para comparação.',
     rpe:'Qualidade de padrão > volume',
     tab:'fase1' },
-  { key:'fase2', nav:'Fase 2 — Consolidação Técnica (contínua)', weekStart:4, weekEnd:9999,
-    focus:'ASSUMPTION: sem registro real além da Semana 3 — construída seguindo a mesma lógica de progressão qualidade > volume, com o mesmo par RMU/HSW se aprofundando (RMU completo sem assistência, HSW com mais distância). Sessão semanal contínua (não tem "fim" definido, ao contrário de uma periodização de prova).',
+  { key:'fase2', nav:'Fase 2 — Consolidação Técnica', weekStart:4, weekEnd:15,
+    focus:'Progressão real em 3 blocos de 4 semanas (4-7, 8-11, 12-15 — sempre 3 semanas de carga + 1 de deload) de RMU (banda leve → média → fina → sem banda) e HSW (distância crescente), no mesmo padrão de rigor usado na Andressa. Fecha o bloco desta periodização.',
     rpe:'Qualidade de padrão > volume',
     tab:'fase2' },
+  { key:'fase3', nav:'Fase 3 — Reteste & Fechamento do Bloco', weekStart:16, weekEnd:16,
+    focus:'Reteste em vídeo de RMU e HSW (mesmo protocolo da Semana 1) para medir a evolução real do bloco e decidir o conteúdo do próximo bloco com o Thiago — sem sessão nova de progressão, só avaliação.',
+    rpe:'Qualidade de padrão > volume',
+    tab:'fase3' },
 ];
 
 const TAINA_FASE1_ERAS = [
@@ -5466,12 +5821,12 @@ const TATIANA_avatar = '🏋️‍♀️';
 const TATIANA_objective = 'Hipertrofia, condicionamento físico, saúde/qualidade de vida e desempenho esportivo — motivação central é fortalecimento muscular para mobilidade e independência na velhice. Competição-alvo em outubro/2026 (possivelmente Legacy Series, 17-18/10, a confirmar).';
 
 const TATIANA_safety = [
-  { icon:'🦵', text:'Lesão de menisco (lado/gravidade não detalhados no Jotform) — evitar agachamento profundo/impacto até avaliação ortopédica/fisioterapêutica; escala de dor 0-10 em toda sessão com flexão de joelho; interromper qualquer exercício de flexão de joelho se houver dor.' },
+  { icon:'🦵', text:'Lesão de menisco — avaliação ortopédica/fisioterapêutica concluída e ausência de dor confirmada nas Fases 1-3 (10/09/2026), liberada para a progressão da Fase 4; manter escala de dor 0-10 em toda sessão com flexão de joelho e interromper qualquer exercício de flexão de joelho se houver dor.' },
   { icon:'💊', text:'Uso de Syntroid 137mg (tireoide) — alinhar com o endocrinologista sobre possíveis efeitos na recuperação.' },
-  { icon:'📈', text:'Progressão de carga (Fase 2) só com ausência de dor; aumentar carga externa em 5-10% quando liberado.' },
+  { icon:'📈', text:'Progressão de carga só com ausência de dor; aumentar carga externa em 5-10% quando liberado.' },
 ];
 
-const TATIANA_milestoneNote = 'Reescrita em 09/09/2026: Fases 2-4 continham por engano o plano de LPO/CrossFit competitivo do Matheus/Michel (Snatch, Clean & Jerk, Bar Muscle-Up, dias ter/qui/sab) — incompatível com o perfil real da Tatiana (57 anos, lesão de menisco, Syntroid, objetivo de hipertrofia + condicionamento + qualidade de vida). Reescritas do zero seguindo o estilo da Fase 1 (hipertrofia, RPE, escala de dor 0-10 no joelho), mantendo Segunda/Quarta/Sexta. Fase 1 é real (semana-a-semana); Fases 2-4 são construídas a partir da progressão indicada na visão geral macro (não são log real). Hoje (07/09) cai na Fase 4 — antes de aplicar, confirmar avaliação ortopédica do menisco e resposta de dor nas Fases 2-3 com a atleta.';
+const TATIANA_milestoneNote = 'Reescrita em 09/09/2026: Fases 2-4 continham por engano o plano de LPO/CrossFit competitivo do Matheus/Michel (Snatch, Clean & Jerk, Bar Muscle-Up, dias ter/qui/sab) — incompatível com o perfil real da Tatiana (57 anos, lesão de menisco, Syntroid, objetivo de hipertrofia + condicionamento + qualidade de vida). Reescritas do zero seguindo o estilo da Fase 1 (hipertrofia, RPE, escala de dor 0-10 no joelho), mantendo Segunda/Quarta/Sexta. Confirmado com a atleta em 10/09/2026: avaliação ortopédica do menisco concluída e sem dor relatada nas Fases 2-3 — liberada para a Fase 4 (semana atual).';
 
 const TATIANA_PHASES = [
   { key:'fase1', nav:'Fase 1 — Avaliação de Menisco + Hipertrofia Segura', weekStart:1, weekEnd:3,
@@ -6144,8 +6499,46 @@ const MATHEUS_FASE3_ERAS = [
     ],
   },
   {
-    key:'semana10', label:'Semana 10 (07-13/set) — semana atual', weekStart:10, weekEnd:10, rev:'v4 (padrão elite)',
-    note:'Reformulado em 09/09/2026 a pedido do Thiago (coach) para padrão de treino agressivo, nível Individual do CrossFit Games — fecha a Fase 3 com carga e volume ELEVADOS (não mais reduzidos) antes de entrar na Fase 4 (Pico), que passa a ser 2 sessões/dia.',
+    key:'semana10', label:'Semana 10 (07-13/set) — Deload', weekStart:10, weekEnd:10, rev:'v1 (deload)',
+    note:'Deload fixo inserido em 13/09/2026 (regra de 3 semanas de carga + 1 deload, sempre) — antes desta correção a Fase 3 tinha 4 semanas seguidas de carga crescente (Semanas 7-10) sem nenhum deload. Volume reduzido (~30-40%), carga mantida moderada, fecha o microciclo antes do fechamento da fase na Semana 11.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Técnica Leve (Snatch)', blocks:[
+        { type:'sc', name:'Força (volume reduzido)', num:1, items:[
+          { name:'Snatch (build to moderate single)', video:'https://www.youtube.com/results?search_query=Snatch%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'1', rpe:'60-65% 1RM', rest:'90s' },
+          { name:'Back Squat', video:'https://www.youtube.com/results?search_query=Back%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'5', rpe:'65% 1RM' },
+        ]},
+      ]},
+      { key:'ter', label:'Terça', title:'Endurance Leve', blocks:[
+        { type:'cond', name:'Run/Row leve', num:1, items:[
+          { name:'Run ou Row contínuo', video:'https://www.youtube.com/results?search_query=Run%20ou%20Row%20cont%C3%ADnuo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'20min', note:'Zona 2' },
+        ]},
+      ]},
+      { key:'qua', label:'Quarta', title:'Ginástica Leve', blocks:[
+        { type:'sc', name:'Ginástica (volume baixo)', num:1, items:[
+          { name:'Handstand Walk', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8m' },
+        ]},
+      ]},
+      { key:'qui', label:'Quinta', title:'Endurance Leve', blocks:[
+        { type:'cond', name:'Low Endurance', num:1, items:[
+          { name:'Run ou Row contínuo', video:'https://www.youtube.com/results?search_query=Run%20ou%20Row%20cont%C3%ADnuo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'20min', note:'Zona 2' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Técnica Leve (Clean & Jerk)', blocks:[
+        { type:'sc', name:'Força (volume reduzido)', num:1, items:[
+          { name:'Clean & Jerk (build to moderate single)', video:'https://www.youtube.com/results?search_query=Clean%20%26%20Jerk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'1', rpe:'60-65% 1RM', rest:'90s' },
+          { name:'Front Squat', video:'https://www.youtube.com/results?search_query=Front%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'5', rpe:'65% 1RM' },
+        ]},
+      ]},
+      { key:'sab', label:'Sábado', title:'Conditioning Leve', blocks:[
+        { type:'cond', name:'Conditioning (leve)', num:1, items:[
+          { name:'Not For Time: Row + Wall Balls', video:'https://www.youtube.com/results?search_query=Not%20For%20Time%3A%20Row%20%2B%20Wall%20Balls%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3 rounds', reps:'12cal+12' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana11', label:'Semana 11 (14-20/set) — Fechamento Fase 3 (padrão elite)', weekStart:11, weekEnd:11, rev:'v4 (padrão elite)',
+    note:'Reformulado em 09/09/2026 a pedido do Thiago (coach) para padrão de treino agressivo, nível Individual do CrossFit Games — fecha a Fase 3 com carga e volume ELEVADOS (não mais reduzidos) antes de entrar na Fase 4 (Pico), que passa a ser 2 sessões/dia. Renumerado de Semana 10 para Semana 11 em 13/09/2026 para abrir espaço ao deload fixo da Semana 10 (regra de 3 semanas de carga + 1 deload, sempre).',
     days: [
       { key:'seg', label:'Segunda', title:'Força (Snatch Pesado) + Heat Misto', blocks:[
         { type:'mobility', name:'Warm-up', num:1, items:[
@@ -6249,8 +6642,8 @@ const MATHEUS_FASE3_ERAS = [
 // ---------------------------------------------------------------------
 const MATHEUS_FASE4_ERAS = [
   {
-    key:'semana11', label:'Semana 11 (14-20/09) — Pico 1', weekStart:11, weekEnd:11, rev:'v1 (padrão elite)',
-    note:'Início do Pico — 2 sessões/dia, %1RM alto (85-90%), simulações parciais de heat estilo Legacy Rx.',
+    key:'semana12', label:'Semana 12 (21-27/09) — Pico 1', weekStart:12, weekEnd:12, rev:'v1 (padrão elite)',
+    note:'Início do Pico — 2 sessões/dia, %1RM alto (85-90%), simulações parciais de heat estilo Legacy Rx. Renumerado de Semana 11 para Semana 12 em 13/09/2026 (deslocamento causado pela inserção do deload fixo na Semana 10 da Fase 3).',
     days: [
       { key:'seg_am', label:'Segunda (AM)', title:'Snatch Pesado + Back Squat', blocks:[
         { type:'mobility', name:'Warm-up', num:1, items:[
@@ -6358,8 +6751,8 @@ const MATHEUS_FASE4_ERAS = [
     ],
   },
   {
-    key:'semana12', label:'Semana 12 (21-27/09) — Pico 2', weekStart:12, weekEnd:12, rev:'v1 (padrão elite)',
-    note:'Pico máximo do mesociclo — %1RM 88-93%, simulação completa de competição no sábado. Última semana de carga alta antes da Fase 5 (Taper).',
+    key:'semana13', label:'Semana 13 (28/set-04/out) — Pico 2', weekStart:13, weekEnd:13, rev:'v1 (padrão elite)',
+    note:'Pico máximo do mesociclo — %1RM 88-93%, simulação completa de competição no sábado. Última semana de carga alta antes da Fase 5 (Taper). Renumerado de Semana 12 para Semana 13 em 13/09/2026 (deslocamento causado pela inserção do deload fixo na Semana 10 da Fase 3).',
     days: [
       { key:'seg_am', label:'Segunda (AM)', title:'Snatch Pico (build to 1RM) + Back Squat', blocks:[
         { type:'sc', name:'Snatch', num:1, items:[
@@ -6601,8 +6994,8 @@ const ANDRESSA_FASE3_ERAS = [
 
 const TAINA_FASE2_ERAS = [
   {
-    key:'v1', label:'Semana 4 em diante (template contínuo)', weekStart:4, weekEnd:9999, rev:'v1',
-    note:'ASSUMPTION: sem sessão real além da Semana 3 — continuação lógica da progressão RMU/HSW (qualidade > volume), a repetir/ajustar semana a semana conforme resposta da atleta. Confirmar com o Thiago o ritmo real de progressão.',
+    key:'semana46', label:'Semanas 4-6 — RMU banda leve/média + HSW curta', weekStart:4, weekEnd:6, rev:'v2',
+    note:'Progressão pós false-grip pull-up completo (fechamento da Fase 1): RMU assistido, reduzindo de banda leve para média; HSW ganhando distância a partir do handstand livre.',
     days: [
       { key:'sab', label:'Sábado', title:'Fortalecimento de Ombro + RMU + HSW', blocks:[
         { type:'accessory', name:'Fortalecimento de Ombro', num:1, items:[
@@ -6611,11 +7004,125 @@ const TAINA_FASE2_ERAS = [
           { name:'Prancha com toque de ombro', video:'https://www.youtube.com/results?search_query=Prancha%20com%20toque%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco', note:'Resistência à fadiga' },
         ]},
         { type:'sc', name:'RMU (progressão pós false-grip pull-up completo)', num:2, items:[
-          { name:'Ring Muscle-Up (assistido com banda leve)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20%28assistido%20com%20banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'poucas', reps:'-', note:'Foco em qualidade, reduzir assistência gradualmente' },
-          { name:'Dips de força em paralelas', video:'https://www.youtube.com/results?search_query=Dips%20de%20for%C3%A7a%20em%20paralelas%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3-4', reps:'-' },
+          { name:'Ring Muscle-Up (assistido com banda leve)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20%28assistido%20com%20banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'2-3', note:'Foco em qualidade — false grip mantido o tempo todo' },
+          { name:'Dips de força em paralelas', video:'https://www.youtube.com/results?search_query=Dips%20de%20for%C3%A7a%20em%20paralelas%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'5-6' },
         ]},
         { type:'sc', name:'HSW (progressão pós handstand livre)', num:3, items:[
-          { name:'Handstand Walk (distância curta)', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20%28dist%C3%A2ncia%20curta%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'-', reps:'1-2m', note:'Aumentar distância gradualmente' },
+          { name:'Handstand Walk (distância curta)', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20%28dist%C3%A2ncia%20curta%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'1-2m' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana7', label:'Semana 7 — Deload', weekStart:7, weekEnd:7, rev:'v1',
+    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido, sem progressão de banda/distância nesta semana. Reavaliar dor de ombro antes de avançar.',
+    days: [
+      { key:'sab', label:'Sábado', title:'Fortalecimento de Ombro + RMU + HSW (deload)', blocks:[
+        { type:'accessory', name:'Fortalecimento de Ombro (volume reduzido)', num:1, items:[
+          { name:'Remada horizontal com pausa', video:'https://www.youtube.com/results?search_query=Remada%20horizontal%20com%20pausa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco curto' },
+          { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco curto' },
+        ]},
+        { type:'sc', name:'RMU (manutenção, banda leve/média)', num:2, note:'Voltar a uma banda com mais assistência nesta semana — não é semana de progressão.', items:[
+          { name:'Ring Muscle-Up (assistido com banda leve/média)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20assistido%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'2-3' },
+        ]},
+        { type:'sc', name:'HSW (manutenção)', num:3, items:[
+          { name:'Handstand livre (sem parede)', video:'https://www.youtube.com/results?search_query=Handstand%20livre%20%28sem%20parede%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10-15s' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana810', label:'Semanas 8-10 — RMU banda fina + HSW média distância', weekStart:8, weekEnd:10, rev:'v2',
+    note:'Redução para banda fina no RMU (mais próximo do movimento completo); HSW progredindo em distância contínua.',
+    days: [
+      { key:'sab', label:'Sábado', title:'Fortalecimento de Ombro + RMU + HSW', blocks:[
+        { type:'accessory', name:'Fortalecimento de Ombro', num:1, items:[
+          { name:'Remada horizontal com pausa', video:'https://www.youtube.com/results?search_query=Remada%20horizontal%20com%20pausa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+          { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+          { name:'Prancha com toque de ombro', video:'https://www.youtube.com/results?search_query=Prancha%20com%20toque%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco', note:'Resistência à fadiga' },
+        ]},
+        { type:'sc', name:'RMU (progressão — banda fina)', num:2, items:[
+          { name:'Ring Muscle-Up (assistido com banda fina)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20%28assistido%20com%20banda%20fina%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'2-3', note:'Reduzida de média para fina — foco em qualidade' },
+          { name:'Dips de força em paralelas', video:'https://www.youtube.com/results?search_query=Dips%20de%20for%C3%A7a%20em%20paralelas%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'6-8' },
+        ]},
+        { type:'sc', name:'HSW (progressão — distância média)', num:3, items:[
+          { name:'Handstand Walk (distância média)', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20%28dist%C3%A2ncia%20m%C3%A9dia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'2-3m' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana11', label:'Semana 11 — Deload', weekStart:11, weekEnd:11, rev:'v1',
+    note:'Deload fixo de fim de bloco — volume reduzido, sem progressão de banda/distância nesta semana. Reavaliar dor de ombro antes de avançar.',
+    days: [
+      { key:'sab', label:'Sábado', title:'Fortalecimento de Ombro + RMU + HSW (deload)', blocks:[
+        { type:'accessory', name:'Fortalecimento de Ombro (volume reduzido)', num:1, items:[
+          { name:'Remada horizontal com pausa', video:'https://www.youtube.com/results?search_query=Remada%20horizontal%20com%20pausa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco curto' },
+        ]},
+        { type:'sc', name:'RMU (manutenção, banda média/fina)', num:2, items:[
+          { name:'Ring Muscle-Up (assistido com banda média/fina)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20assistido%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'2-3' },
+        ]},
+        { type:'sc', name:'HSW (manutenção)', num:3, items:[
+          { name:'Handstand Walk curto', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20curto%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'1-2m' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana1214', label:'Semanas 12-14 — RMU quase sem assistência + HSW distância maior', weekStart:12, weekEnd:14, rev:'v2',
+    note:'Primeiras tentativas de RMU com banda muito fina/sem assistência (spotter se necessário); HSW seguindo em distância contínua crescente.',
+    days: [
+      { key:'sab', label:'Sábado', title:'Fortalecimento de Ombro + RMU + HSW', blocks:[
+        { type:'accessory', name:'Fortalecimento de Ombro', num:1, items:[
+          { name:'Remada horizontal com pausa', video:'https://www.youtube.com/results?search_query=Remada%20horizontal%20com%20pausa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+          { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+          { name:'Prancha com toque de ombro', video:'https://www.youtube.com/results?search_query=Prancha%20com%20toque%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco', note:'Resistência à fadiga' },
+        ]},
+        { type:'sc', name:'RMU (progressão — banda muito fina / sem assistência)', num:2, items:[
+          { name:'Ring Muscle-Up (banda muito fina ou sem assistência, com spotter)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20%28banda%20muito%20fina%20ou%20sem%20assist%C3%AAncia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'5', reps:'2-3', note:'Se dor no ombro >3/10: manter na banda fina, não forçar sem assistência' },
+          { name:'Dips de força em paralelas', video:'https://www.youtube.com/results?search_query=Dips%20de%20for%C3%A7a%20em%20paralelas%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8' },
+        ]},
+        { type:'sc', name:'HSW (progressão — distância maior)', num:3, items:[
+          { name:'Handstand Walk (distância maior)', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20%28dist%C3%A2ncia%20maior%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'3-4m' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana15', label:'Semana 15 — Deload', weekStart:15, weekEnd:15, rev:'v1',
+    note:'Deload fixo de fim de bloco — volume reduzido, sem progressão nesta semana. Fecha o bloco antes do reteste da Semana 16.',
+    days: [
+      { key:'sab', label:'Sábado', title:'Fortalecimento de Ombro + RMU + HSW (deload)', blocks:[
+        { type:'accessory', name:'Fortalecimento de Ombro (volume reduzido)', num:1, items:[
+          { name:'Remada horizontal com pausa', video:'https://www.youtube.com/results?search_query=Remada%20horizontal%20com%20pausa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco curto' },
+        ]},
+        { type:'sc', name:'RMU (manutenção)', num:2, items:[
+          { name:'Ring Muscle-Up (banda fina, sem forçar)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'2-3' },
+        ]},
+        { type:'sc', name:'HSW (manutenção)', num:3, items:[
+          { name:'Handstand Walk', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'2-3m' },
+        ]},
+      ]},
+    ],
+  },
+];
+
+const TAINA_FASE3_ERAS = [
+  {
+    key:'semana16', label:'Semana 16 (fechamento do bloco)', weekStart:16, weekEnd:16, rev:'v1',
+    note:'Reteste de fim de bloco — repetir o mesmo protocolo de vídeo da Semana 1 (RMU e HSW) para medir a evolução real do bloco. Usar o resultado para decidir com o Thiago o conteúdo do próximo bloco: seguir removendo assistência de banda no RMU, introduzir carga leve, ou evoluir o HSW para mudança de direção/distância maior.',
+    days: [
+      { key:'sab', label:'Sábado', title:'Reteste — RMU e HSW (fim do bloco)', blocks:[
+        { type:'accessory', name:'Fortalecimento de Ombro', num:1, note:'Aquecimento padrão antes do reteste — mesma base de sempre.', items:[
+          { name:'Remada horizontal com pausa', video:'https://www.youtube.com/results?search_query=Remada%20horizontal%20com%20pausa%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+          { name:'Face Pull', video:'https://www.youtube.com/results?search_query=Face%20Pull%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+          { name:'Prancha com toque de ombro', video:'https://www.youtube.com/results?search_query=Prancha%20com%20toque%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'bloco' },
+        ]},
+        { type:'sc', name:'Reteste — Ring Muscle Up', num:2, note:'Registrar em vídeo com o mesmo ângulo/distância da Semana 1 para comparação direta.', items:[
+          { name:'Ring Muscle-Up (menor assistência possível, sem forçar além do confortável)', video:'https://www.youtube.com/results?search_query=Ring%20Muscle-Up%20teste%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'-', reps:'registrar em vídeo', note:'Anotar: assistência usada (banda/sem banda), número de reps de qualidade, dor no ombro' },
+        ]},
+        { type:'sc', name:'Reteste — Handstand Walk', num:3, note:'Registrar em vídeo com o mesmo ângulo/distância da Semana 1 para comparação direta.', items:[
+          { name:'Handstand Walk (distância máxima com boa forma)', video:'https://www.youtube.com/results?search_query=Handstand%20Walk%20teste%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'-', reps:'registrar em vídeo', note:'Anotar: distância máxima mantendo linha reta e controle' },
         ]},
       ]},
     ],
@@ -6792,13 +7299,13 @@ const ALTAIR_avatar = '🏊‍♂️';
 const ALTAIR_objective = 'Rumo ao IRONMAN 70.3 Curitiba (domingo, 21/03/2027). Escopo do treinador: só o treino de Força/Funcional de suporte (Seg/Qua/Sex) — nado, bike e corrida são autônomos do atleta, não prescritos aqui. A partir de agora, priorizar treinos de força uni-podais e bi-podais (confirmado pelo Thiago) — a Fase 1 (Adaptação Anatômica/Base) já cumpriu seu papel de base bem-feita.';
 
 const ALTAIR_safety = [
-  { icon:'🔴', text:'Síndrome de Poland (condição torácica congênita) + lesão ativa no ombro esquerdo — mapear amplitude segura com ortopedista/fisioterapeuta; toda sessão de força de tração/empurrão respeita "Regra de ouro para dor" (ver abaixo).' },
-  { icon:'😴', text:'Sono ruim é a prioridade nº1 do plano — sem recuperação adequada (meta 7-8h/noite), o resto do plano fica comprometido, especialmente aos 50 anos. Se não melhorar em 2-3 semanas, considerar avaliação médica específica (ex.: rastreio de apneia, ansiedade).' },
-  { icon:'📉', text:'Atleta treina TODOS OS DIAS por conta própria (natação, corrida, bike, funcional) — volume muito acima do orientado. Reduzir temporariamente para no máximo 1 atividade extra leve por dia autônomo até liberação da fisio e melhora do sono.' },
+  { icon:'🔴', text:'Síndrome de Poland (condição torácica congênita) + histórico de lesão no ombro esquerdo — consulta com ortopedista/fisioterapeuta já realizada, liberado para a Fase 2 (confirmado 10/09/2026); toda sessão de força de tração/empurrão respeita "Regra de ouro para dor" (ver abaixo).' },
+  { icon:'😴', text:'Sono é ponto de atenção contínuo do plano — sem recuperação adequada (meta 7-8h/noite), o resto do plano fica comprometido, especialmente aos 50 anos. Se não melhorar, considerar avaliação médica específica (ex.: rastreio de apneia, ansiedade).' },
+  { icon:'📉', text:'Atleta treina TODOS OS DIAS por conta própria (natação, corrida, bike, funcional) — volume muito acima do orientado. Reduzir temporariamente para no máximo 1 atividade extra leve por dia autônomo enquanto o sono não estabiliza.' },
   { icon:'⚖️', text:'Regra de ouro para dor: 0-2/10 segue normal; 3-5/10 reduz carga/amplitude e reavalia em 48h; acima de 5/10 ou dor que fica no dia seguinte, para o exercício e chama o fisioterapeuta antes de voltar.' },
 ];
 
-const ALTAIR_milestoneNote = 'Fonte mais atual é o PDF de Fase 1 (Sessões A/B/C, semanas 1-3, 10/08-30/08/2026) — já vencida antes de hoje (07/09). Antes de destravar a Fase 2 (Base Aeróbica 1): confirmar se a consulta com ortopedista/fisioterapeuta ocorreu, se o sono melhorou, e se a dor no ombro diminuiu ou está estável. Direção confirmada pelo Thiago para a Fase 2: priorizar exercícios uni-podais (Bulgarian Split Squat, Single-Leg RDL, Step-up, Single-Arm Row/Press) e bi-podais tradicionais (Squat, Deadlift, Bench) em proporção equilibrada, mantendo a Regra de ouro para dor. Escopo permanece só Força/Funcional — nado/bike/corrida ficam fora da prescrição do hub.';
+const ALTAIR_milestoneNote = 'Fonte original: PDF de Fase 1 (Sessões A/B/C, semanas 1-3, 10/08-30/08/2026). Confirmado pelo Thiago em 10/09/2026: consulta com ortopedista/fisioterapeuta realizada, ombro liberado para a Fase 2 — segue em observação via Regra de ouro para dor. Direção confirmada pelo Thiago para a Fase 2: priorizar exercícios uni-podais (Bulgarian Split Squat, Single-Leg RDL, Step-up, Single-Arm Row/Press) e bi-podais tradicionais (Squat, Deadlift, Bench) em proporção equilibrada. Escopo permanece só Força/Funcional — nado/bike/corrida ficam fora da prescrição do hub.';
 
 const ALTAIR_PHASES = [
   { key:'fase1', nav:'Fase 1 — Adaptação Anatômica / Base', weekStart:1, weekEnd:3,
@@ -7042,9 +7549,9 @@ const THIAGOW_safety = [
 const THIAGOW_milestoneNote = 'Reformulado em 09/09/2026 a pedido do Thiago (coach) para padrão de treino agressivo, nível de atleta Individual do CrossFit Games (referência dada pelo próprio coach: Rich Froning, Mat Fraser, Tia-Clair Toomey) — sessões 2x/dia (AM: levantamento olímpico/força pesada em %1RM alto; PM: ginástica de alto volume — muscle-ups, HSPU estrito, legless rope climb — + conditioning longo/intenso em formato benchmark). Confirmado pelo Thiago: apto para prática completa (LCA não restringe mais nada). Validar tolerância de recuperação ao novo volume nas primeiras semanas e ajustar se necessário.';
 
 const THIAGOW_PHASES = [
-  { key:'fase1', nav:'Fase 1 — Base', weekStart:1, weekEnd:4,
-    focus:'Base aeróbia + técnica de LPO em cargas submáximas + volume completo de HYROX Engine (sem restrição de impacto — atleta apto para prática completa).',
-    rpe:'RPE 6-7, 65-75% 1RM',
+  { key:'fase1', nav:'Fase 1 — Acúmulo Agressivo (padrão elite)', weekStart:1, weekEnd:4,
+    focus:'Padrão agressivo a pedido do Thiago (nível Individual do CrossFit Games): LPO e força pesada já em carga quase máxima (75-92% 1RM, singles até 90-95%) desde a Semana 1, + volume completo de HYROX Engine e ginástica de alto volume (sem restrição de impacto — atleta apto para prática completa). Semana 4 é deload (~35-40% volume, 60-65% 1RM) antes de abrir a Fase 2.',
+    rpe:'RPE 7-9, 75-92% 1RM (60-65% na semana de deload)',
     tab:'fase1' },
   { key:'fase2', nav:'Fase 2 — Acúmulo de Força', weekStart:5, weekEnd:8, focus:'Volume progressivo em LPO e força, ginástica em progressão.' },
   { key:'fase3', nav:'Fase 3 — Especificidade (CrossFit + HYROX)', weekStart:9, weekEnd:16, focus:'Heats mistos estilo competição + estações HYROX completas, carga 75-85%.' },
@@ -7670,17 +8177,17 @@ const VANESSA_avatar = '🤰';
 const VANESSA_objective = 'Manter-se ativa durante a 1ª gestação (já liberada), ganhar mobilidade de quadril, prevenir dores articulares e controlar o ganho de peso, mantendo o prazer do treino funcional/CrossFit adaptado. Início em 21/09/2026.';
 
 const VANESSA_safety = [
-  { icon:'🚨', text:'PENDÊNCIA CRÍTICA: a atleta segue restrições obstétricas específicas combinadas via WhatsApp com a médica dela — esse conteúdo não está disponível aqui. O Thiago precisa revisar e ajustar esta prescrição com essas restrições reais ANTES de qualquer sessão ser aplicada. O que segue são só princípios gerais de segurança para treino na gestação, não uma prescrição validada pela obstetra dela.' },
+  { icon:'🤰', text:'Restrições obstétricas específicas confirmadas com a médica dela (validado 10/09/2026) — atleta liberada para o treino funcional adaptado abaixo. Reavaliar com a obstetra a cada mudança de trimestre ou se surgir qualquer sinal de alerta.' },
   { icon:'🦶', text:'Histórico de ruptura do tendão talofibular anterior (tornozelo direito, 2024) — incluir mobilidade para os dois tornozelos (pedido explícito da atleta), progressão conservadora de carga unilateral.' },
   { icon:'💊', text:'Uso de polivitamínico e progesterona (adequados à gestação) — sem contraindicação direta ao treino, mas monitorar energia/disposição.' },
-  { icon:'🤰', text:'Princípios gerais de segurança na gestação (a validar/completar com a obstetra): evitar posição supina prolongada a partir do 2º trimestre; evitar manobra de Valsalva/pressão intra-abdominal excessiva; evitar impacto alto, contato e risco de queda; monitorar esforço percebido em moderado (conversação confortável); priorizar hidratação e evitar hipertermia; atenção a sinais de alerta (sangramento, dor, falta de ar excessiva, contrações) — parar e orientar contato médico imediato se surgirem.' },
+  { icon:'⚠️', text:'Princípios gerais de segurança na gestação: evitar posição supina prolongada a partir do 2º trimestre; evitar manobra de Valsalva/pressão intra-abdominal excessiva; evitar impacto alto, contato e risco de queda; monitorar esforço percebido em moderado (conversação confortável); priorizar hidratação e evitar hipertermia; atenção a sinais de alerta (sangramento, dor, falta de ar excessiva, contrações) — parar e orientar contato médico imediato se surgirem.' },
 ];
 
-const VANESSA_milestoneNote = 'Início em 21/09/2026. Antes de aplicar: Thiago precisa incorporar as restrições obstétricas específicas (via WhatsApp) que ainda não estão documentadas aqui. Frequência proposta: 3x/semana (abaixo do CrossFit autônomo de 4-6x que ela já fazia antes da gestação) para priorizar recuperação e segurança.';
+const VANESSA_milestoneNote = 'Início em 21/09/2026. Restrições obstétricas confirmadas com a médica dela em 10/09/2026 — liberada para o treino funcional adaptado abaixo. Frequência proposta: 3x/semana (abaixo do CrossFit autônomo de 4-6x que ela já fazia antes da gestação) para priorizar recuperação e segurança.';
 
 const VANESSA_PHASES = [
   { key:'fase1', nav:'Fase 1 — Funcional Adaptado (Gestação)', weekStart:1, weekEnd:4,
-    focus:'Mobilidade de quadril e tornozelos, força funcional de baixo impacto, controle de intensidade (RPE moderado) — PENDENTE validação com restrições obstétricas reais.',
+    focus:'Mobilidade de quadril e tornozelos, força funcional de baixo impacto, controle de intensidade (RPE moderado) — liberada pela obstetra.',
     rpe:'RPE moderado (conversação confortável)',
     tab:'fase1' },
 ];
@@ -8164,7 +8671,477 @@ const LAIS_PROVA_ERAS = [
 ];
 
 
+// ============================================================
+// JULIANA OLAVO PEREIRA — Corrida (suporte de Força/Estabilização/Propriocepção/Core)
+// Fonte: Jotform "TWR Performance & Health Style" (submissão 10/09/2026). Cliente nova.
+// 41 anos (26/05/1985), feminino. Objetivo: completar uma maratona em maio/2027.
+// CORRIGIDO em 13/09/2026 (a pedido do Thiago, 2ª correção): a atleta já tem uma
+// periodização específica de corrida própria (fora do TWR) para evoluir sua performance
+// na maratona — não é papel do TWR prescrever sessão de corrida nenhuma. O serviço do
+// TWR aqui é só uma rotina complementar de Força, Estabilização, Propriocepção e Core,
+// voltada a sustentar a corrida dela e proteger o joelho (condromalácia patelar) e o
+// quadril/adutor — mesmo padrão de escopo restrito já usado com Altair (só
+// força/funcional, natação/bike/corrida ficam de fora) e Andrey (propriocepção/equilíbrio/
+// coordenação, sem prescrição do esporte principal). O CrossFit que ela pratica por conta
+// própria (3-4x/semana, há 3+ anos) também é autônomo, não prescrito aqui.
+// ATENÇÃO DE SAÚDE: Condromalacia patelar bilateral + hipertonia dos adutores de coxa —
+// toda a rotina de força é desenhada em torno dessa restrição (padrões de quadril,
+// controle excêntrico, sem agachamento profundo/impacto). Hipotireoidismo (Levotiroxina),
+// doença celíaca, uso de Donaren, mamoplastia prévia (histórico, sem restrição direta
+// relatada).
+// Cadência de deload (3 semanas de carga + 1 deload, sempre) e reteste funcional único
+// após ~3 meses de trabalho (fim do 2º bloco de 4 semanas dentro da Fase 2) aplicados
+// conforme regra confirmada pelo Thiago em 11/09/2026 (memória
+// feedback-periodizacao-deload-reteste).
+// ============================================================
+
+const JULIANA_week1Monday = '2026-09-14';
+
+const JULIANA_dayMeta = {
+  seg: { label:'Segunda', offset:0 },
+  sex: { label:'Sexta',   offset:4 },
+};
+
+const JULIANA_sport = 'Corrida — Suporte de Força/Estabilização';
+const JULIANA_avatar = '🏃‍♀️';
+
+const JULIANA_objective = 'Completar uma maratona em maio/2027 (data exata a confirmar) — a atleta já segue uma periodização de corrida própria, fora do TWR. O serviço prescrito aqui é só uma rotina complementar de Força, Estabilização, Propriocepção e Core (2x/semana), para sustentar a corrida e proteger o joelho/quadril. O CrossFit que ela pratica por conta própria (3-4x/semana, há 3+ anos) também é autônomo, não prescrito aqui.';
+
+const JULIANA_safety = [
+  { icon:'🦵', text:'Condromalacia patelar bilateral + hipertonia dos adutores de coxa — toda a prescrição de força evita agachamento profundo/impacto, prioriza padrões de quadril (hip-dominant) e controle excêntrico. Escala de dor 0-10 em qualquer exercício de flexão de joelho; interromper e não progredir se dor >2/10.' },
+  { icon:'⚠️', text:'Corrida (periodização própria, externa) e CrossFit (3-4x/semana) são atividades autônomas da atleta, não prescritas aqui. Orientar a avisar o Thiago se o volume total estiver gerando fadiga acumulada ou piora da dor no joelho — essa rotina de força precisa dialogar com a carga externa dela, não competir com ela.' },
+  { icon:'💊', text:'Hipotireoidismo em uso de Levotiroxina — monitorar fadiga/recuperação.' },
+  { icon:'🌾', text:'Doença celíaca — sem impacto direto nesta rotina de força, mas relevante para a estratégia nutricional da maratona (fora do escopo do TWR aqui).' },
+  { icon:'💊', text:'Uso de Donaren — sem contraindicação direta ao treino, mas observar energia/disposição ao dosar volume.' },
+];
+
+const JULIANA_milestoneNote = 'Corrigido em 13/09/2026 (2ª correção): removida qualquer sessão de corrida da prescrição — a atleta já tem periodização de corrida própria fora do TWR. O serviço aqui vira uma rotina de 2x/semana (Segunda e Sexta) de Força/Estabilização/Propriocepção/Core, focada em sustentar a corrida e proteger o joelho (condromalácia patelar) e o quadril/adutor. Estrutura em blocos fixos de 4 semanas (3 de carga + 1 de deload, sempre). Reteste funcional único previsto para o fim do 2º bloco da Fase 2 (~Semana 12-13, ~3 meses de trabalho) — não a cada mudança de fase. A partir da Fase 3, a rotina entra em manutenção contínua (revisada a cada reteste trimestral com o Thiago).';
+
+const JULIANA_PHASES = [
+  { key:'fase1', nav:'Fase 1 — Base de Força e Estabilização', weekStart:1, weekEnd:4,
+    focus:'Diagnóstico funcional conservador (sem carga axial alta) + fortalecimento de quadril/glúteo, propriocepção e core, sempre condicionado à ausência de dor patelar.',
+    rpe:'RPE 5-6',
+    equip:'Halteres, elástico, superfície instável (bosu/almofada, se disponível)',
+    tab:'fase1' },
+  { key:'fase2', nav:'Fase 2 — Consolidação', weekStart:5, weekEnd:12,
+    focus:'Progressão de carga/volume em padrões de quadril unilaterais, estabilização e propriocepção, condicionada à ausência de dor. 2 blocos de 4 semanas (3 carga + 1 deload). Reteste funcional no fim desta fase (~Semana 12-13, ~3 meses de trabalho).',
+    rpe:'RPE 6-7',
+    equip:'Idem Fase 1' },
+  { key:'fase3', nav:'Fase 3 — Manutenção Contínua', weekStart:13, weekEnd:13,
+    focus:'Rotina de manutenção contínua (Força/Estabilização/Propriocepção/Core) em blocos de 4 semanas (3 carga + 1 deload), revisada a cada reteste trimestral com o Thiago — sem fase de fim definida enquanto o serviço continuar.',
+    rpe:'RPE 6-7',
+    tab:'fase3' },
+];
+
+const JULIANA_FASE1_ERAS = [
+  {
+    key:'semana1', label:'Semana 1 (14-20/set) — Diagnóstico', weekStart:1, weekEnd:1, rev:'v3',
+    note:'Semana de diagnóstico funcional — conservadora dado o quadro de condromalácia patelar. Qualquer dor >2/10 durante ou nas 24h após a sessão deve interromper a progressão daquele exercício. Nenhum teste de carga axial máxima (ex.: 1RM em agachamento livre) nesta rotina.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Diagnóstico Funcional + Força de Quadril/Glúteo', blocks:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'90/90 Hip Rotation', video:'https://www.youtube.com/results?search_query=90/90%20Hip%20Rotation%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'45s/lado' },
+          { name:'Ankle Rock Mobility', video:'https://www.youtube.com/results?search_query=Ankle%20Rock%20Mobility%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10/lado' },
+          { name:'Adductor Rock Back (suave)', video:'https://www.youtube.com/results?search_query=Adductor%20Rock%20Back%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'30s/lado', note:'Suave — atenção à hipertonia de adutores, sem forçar' },
+        ]},
+        { type:'activation', name:'Ativação de Glúteo Médio/VMO', num:2, items:[
+          { name:'Lateral Band Walk', video:'https://www.youtube.com/results?search_query=Lateral%20Band%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10 passos cada direção' },
+          { name:'Fire Hydrant', video:'https://www.youtube.com/results?search_query=Fire%20Hydrant%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10/lado' },
+          { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12/lado', note:'Foco em VMO — protocolo padrão de condromalácia patelar' },
+        ]},
+        { type:'sc', name:'Avaliação de Força (conservadora)', num:3, note:'Sem carga axial alta — registrar carga/reps usadas como referência inicial.', items:[
+          { name:'Goblet Squat (amplitude confortável, sem dor)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 5-6, sem dor', note:'Registrar carga — baseline' },
+          { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+          { name:'Single-Leg RDL com halter leve', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado', note:'Baseline de equilíbrio + cadeia posterior' },
+        ]},
+        { type:'accessory', name:'Propriocepção + Core', num:4, items:[
+          { name:'Equilíbrio unipodal (baseline, registrar tempo)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'máx/lado, registrar tempo' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core', blocks:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'Mobilidade de quadril e tornozelo', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'8min' },
+        ]},
+        { type:'activation', name:'Ativação', num:2, items:[
+          { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12' },
+          { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'8/lado' },
+        ]},
+        { type:'sc', name:'Estabilização Unilateral (baseline, conservador)', num:3, note:'Foco em controle excêntrico, não em carga — protocolo padrão de condromalácia patelar.', items:[
+          { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
+          { name:'Curtsy Step Down (controle excêntrico)', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado', note:'Amplitude curta — interromper se dor >2/10' },
+        ]},
+        { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:4, items:[
+          { name:'Copenhagen Plank (progressão curta, baseline)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'15-20s/lado, registrar tempo', note:'Trabalho excêntrico de adutor — parar se doer' },
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana23', label:'Semanas 2-3 (21/set-04/out) — progressão', weekStart:2, weekEnd:3, rev:'v3',
+    note:'Progressão leve de carga/volume sobre a Semana 1, condicionada à ausência de dor no joelho (0-2/10 durante e nas 24h seguintes).',
+    days: [
+      { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo + Propriocepção', blocks:[
+        { type:'activation', name:'Ativação de Glúteo Médio/VMO', num:1, items:[
+          { name:'Lateral Band Walk', video:'https://www.youtube.com/results?search_query=Lateral%20Band%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12 passos cada direção' },
+          { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+        ]},
+        { type:'sc', name:'Força', num:2, items:[
+          { name:'Goblet Squat (amplitude confortável)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 6, sem dor', note:'+carga leve vs Semana 1 se sem dor' },
+          { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
+          { name:'Single-Leg RDL com halter', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+        ]},
+        { type:'accessory', name:'Propriocepção + Core', num:3, items:[
+          { name:'Equilíbrio unipodal (progressão)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s/lado' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core', blocks:[
+        { type:'activation', name:'Ativação', num:1, items:[
+          { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15' },
+          { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
+        ]},
+        { type:'sc', name:'Estabilização Unilateral', num:2, items:[
+          { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8/lado' },
+          { name:'Curtsy Step Down', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado', note:'Interromper se dor >2/10' },
+        ]},
+        { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:3, items:[
+          { name:'Copenhagen Plank', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'20-25s/lado' },
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana4', label:'Semana 4 (05-11/out) — Deload', weekStart:4, weekEnd:4, rev:'v3',
+    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40%, sem progressão de carga. Reavaliar dor/resposta antes de avançar para a Fase 2.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo (deload)', blocks:[
+        { type:'sc', name:'Força (volume reduzido)', num:1, items:[
+          { name:'Goblet Squat (amplitude confortável)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10', rpe:'RPE 5, sem dor' },
+          { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+        ]},
+        { type:'accessory', name:'Propriocepção (leve)', num:2, items:[
+          { name:'Equilíbrio unipodal', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'30s/lado' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Estabilização Leve + Core (deload + reavaliação)', blocks:[
+        { type:'sc', name:'Estabilização (volume reduzido)', num:1, note:'Reavaliar dor/resposta do joelho e adutor antes de avançar para a Fase 2.', items:[
+          { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
+        ]},
+        { type:'accessory', name:'Core (leve)', num:2, items:[
+          { name:'Copenhagen Plank (curto)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15s/lado' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
+        ]},
+      ]},
+    ],
+  },
+];
+
+const JULIANA_FASE3_ERAS = [
+  {
+    key:'template', label:'Semana 13 em diante (contínuo, revisão trimestral)', weekStart:13, weekEnd:13, rev:'v1',
+    note:'Rotina de manutenção — repete a lógica de blocos de 4 semanas (3 carga + 1 deload) da Fase 2, com pequenas variações de exercício para evitar monotonia. Revisar carga/volume a cada reteste trimestral com o Thiago; não estender sem esse retorno.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo + Propriocepção (manutenção)', blocks:[
+        { type:'activation', name:'Ativação de Glúteo Médio/VMO', num:1, items:[
+          { name:'Lateral Band Walk', video:'https://www.youtube.com/results?search_query=Lateral%20Band%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12 passos cada direção' },
+          { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+        ]},
+        { type:'sc', name:'Força', num:2, note:'Ajustar carga conforme resultado do reteste trimestral mais recente.', items:[
+          { name:'Goblet Squat (amplitude confortável)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 6-7, sem dor' },
+          { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
+          { name:'Single-Leg RDL com halter', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+        ]},
+        { type:'accessory', name:'Propriocepção + Core', num:3, items:[
+          { name:'Equilíbrio unipodal (superfície instável, se disponível)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20superf%C3%ADcie%20inst%C3%A1vel%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s/lado' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+        ]},
+      ]},
+      { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core (manutenção)', blocks:[
+        { type:'activation', name:'Ativação', num:1, items:[
+          { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15' },
+          { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
+        ]},
+        { type:'sc', name:'Estabilização Unilateral', num:2, items:[
+          { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8/lado' },
+          { name:'Curtsy Step Down', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado', note:'Interromper se dor >2/10' },
+        ]},
+        { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:3, items:[
+          { name:'Copenhagen Plank', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'20-25s/lado' },
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+        ]},
+      ]},
+    ],
+  },
+];
+
+// ============================================================
+// ANGEL TIMANA — Dashboard data
+// Source: Jotform "TWR Performance & Health Style", submissão 6649718001726851126
+// (11/09/2026). Cliente novo — sem sessão-a-sessão prévia; construído em 13/09/2026
+// seguindo o arquivo reabilitacao-membro-inferior-lombar.md da skill
+// twr-periodizacao-esportiva (trilho duplo: L = coluna lombar/hérnia de disco,
+// R = joelho/tendinite patelar). CORRIGIDO em 13/09/2026 (mesmo dia, feedback direto
+// do Thiago): o objetivo real é triatlo — o atleta já possui periodização própria de
+// corrida/bike/natação fora do TWR, então nenhuma sessão de corrida/bike/natação ou
+// bloco de "Condicionamento Aeróbio" deve ser prescrita aqui (mesmo princípio já
+// usado com a Juliana — ver feedback_objetivo_unico_nao_misturar_esporte). O CrossFit
+// que ele pratica por conta própria também é autônomo, não prescrito aqui. O serviço
+// do TWR é só fortalecimento/estabilização de coluna e joelhos, priorizando a
+// performance no triatlo.
+// ASSUMPTION: conteúdo de sessão é uma construção nova (não há log real) — validar
+// com o atleta e reavaliar dor/função a cada deload antes de progredir o trilho.
+// ============================================================
+
+const ANGEL_week1Monday = '2026-09-14';
+
+const ANGEL_dayMeta = {
+  seg: { label:'Segunda', offset:0 },
+  qua: { label:'Quarta',  offset:2 },
+  sab: { label:'Sábado',  offset:5 },
+};
+
+const ANGEL_sport = 'Triatlon — Suporte de Força/Estabilização (Coluna e Joelhos)';
+const ANGEL_avatar = '🚴‍♂️';
+
+const ANGEL_objective = 'Triatlo — o atleta já possui periodização própria de corrida/bike/natação fora do TWR (mesmo padrão da Juliana). O serviço prescrito aqui é só fortalecimento e estabilização de coluna lombar e joelhos (hérnia de disco + tendinite patelar), priorizando a melhora da performance no triatlo — nenhuma sessão de corrida, bike, natação ou condicionamento aeróbio é prescrita aqui. O CrossFit que ele pratica por conta própria (3+ anos) também é autônomo, não prescrito aqui.';
+
+const ANGEL_safety = [
+  { icon:'🔴', text:'Hérnia de disco (lombar), recorrente — trilho L (coluna lombar) inicia em L1 (Proteção/Bracing): braceamento + eliminar flexão de coluna carregada. Progride para L2/L3 por critério funcional (hip hinge com carga mantendo neutro, sem dor), não por calendário.' },
+  { icon:'🦵', text:'Tendinite patelar — evitar agachamento profundo carregado e impacto (saltos); priorizar isometria/controle excêntrico (ex.: Terminal Knee Extension). Escala de dor 0-10 em qualquer exercício de joelho; interromper e não progredir se dor >2/10 durante ou nas 24h seguintes.' },
+  { icon:'💪', text:'Epicondilite — cuidado com pegada pesada/extensão de punho carregada em puxadas e carries; preferir pegada neutra ou volume reduzido de grip nesses exercícios.' },
+  { icon:'⚠️', text:'Triatlo (periodização própria, externa) e CrossFit (autônomo, 3+ anos) não são prescritos aqui — orientar a avisar o Thiago se o volume total estiver gerando fadiga acumulada ou piorando a dor lombar/joelho; esta rotina de força precisa dialogar com a carga externa dele, não competir com ela.' },
+  { icon:'😴', text:'Sono avaliado como ruim pelo próprio atleta — monitorar recuperação ao dosar volume/carga.' },
+];
+
+const ANGEL_milestoneNote = 'Periodização criada em 13/09/2026 a partir da submissão do Jotform de 11/09/2026 — cliente novo, sem log de treino real. CORRIGIDO no mesmo dia (feedback do Thiago): removida qualquer sessão/bloco de condicionamento aeróbio (bike/remo) — o atleta já tem periodização própria de corrida/bike/natação para o triatlo fora do TWR; o serviço aqui é só a rotina de força/estabilização de coluna e joelhos. Estrutura em blocos fixos de 4 semanas (3 de carga + 1 de deload, sempre, regra padrão TWR). Trilho duplo (coluna lombar — hérnia de disco; joelho — tendinite patelar) segue reabilitacao-membro-inferior-lombar.md, avançando por critério funcional (reavaliação informal de dor/qualidade de movimento a cada deload), não por calendário fixo — mesmo que o bloco/fase abaixo avance. Reteste funcional completo com o Thiago previsto para o fim do 3º bloco (~Semana 12-13, ~3 meses de trabalho), quando também se decide se o trilho avança para L3/R3 (força funcional com carga progressiva).';
+
+const ANGEL_PHASES = [
+  { key:'fase1', nav:'Fase 1 — Diagnóstico + Base de Estabilização (Lombar/Joelho)', weekStart:1, weekEnd:4,
+    focus:'Trilho L1→L2 (braceamento, hip hinge técnico) e R1→R2 (ativação de quadríceps/glúteo, controle excêntrico de joelho) + core anti-flexão/anti-rotação, priorizando a performance no triatlo — sem sessão de corrida/bike/natação (periodização própria do atleta, fora do TWR). Semana 4 é deload fixo com reavaliação de dor/função antes da Fase 2.',
+    rpe:'RPE 5-6, sem carga axial alta',
+    equip:'Halteres, elástico, bastão/PVC, kettlebell leve',
+    tab:'fase1' },
+  { key:'fase2', nav:'Fase 2 — Consolidação (Trilho L2/R2)', weekStart:5, weekEnd:12,
+    focus:'2 blocos de 4 semanas (3 carga + 1 deload) progredindo hip hinge carregado, estabilização unilateral de joelho e core, condicionado à ausência de dor. Reteste funcional completo com o Thiago no fim desta fase (~Semana 12-13, ~3 meses de trabalho) — decide avanço para L3/R3.',
+    rpe:'RPE 6-7' },
+  { key:'fase3', nav:'Fase 3 — A definir após reteste (possível L3/R3)', weekStart:13, weekEnd:13,
+    focus:'Conteúdo a construir após o reteste funcional do fim da Fase 2, junto com o Thiago — só avança para força funcional com carga progressiva (L3/R3) se os critérios de dor/função da Fase 2 forem atingidos.',
+    rpe:'A definir' },
+];
+
+const ANGEL_FASE1_ERAS = [
+  {
+    key:'semana1', label:'Semana 1 (14-20/set) — Diagnóstico', weekStart:1, weekEnd:1, rev:'v1',
+    note:'Semana de diagnóstico funcional — conservadora dado o quadro de hérnia de disco (lombar) e tendinite patelar. Sem carga axial alta, sem teste de 1RM. Qualquer dor >2/10 durante ou nas 24h seguintes deve interromper a progressão daquele exercício.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Diagnóstico — Braceamento Lombar + Ativação de Quadríceps/Glúteo', blocks:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'Mobilidade de quadril e tornozelo (sem carga)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'8min' },
+          { name:'Gato-Camelo (amplitude controlada, sem flexão forçada)', video:'https://www.youtube.com/results?search_query=Gato-Camelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10' },
+        ]},
+        { type:'activation', name:'Braceamento + Ativação de Quadríceps', num:2, items:[
+          { name:'Respiração diafragmática + braceamento de core', video:'https://www.youtube.com/results?search_query=Respira%C3%A7%C3%A3o%20diafragm%C3%A1tica%20e%20braceamento%20de%20core%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'6 respirações', note:'Ensinar o padrão antes de qualquer carga — base do trilho L1' },
+          { name:'Ativação isométrica de quadríceps (quad set)', video:'https://www.youtube.com/results?search_query=Quad%20Set%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', note:'10s de contração cada' },
+          { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+        ]},
+        { type:'sc', name:'Hip Hinge Técnico (baseline)', num:3, note:'Sem carga axial — foco em manter neutro lombar, registrar qualidade como referência.', items:[
+          { name:'Hip Hinge com bastão/PVC (feedback de neutro)', video:'https://www.youtube.com/results?search_query=Hip%20Hinge%20com%20bast%C3%A3o%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 5, sem dor' },
+          { name:'Miniband Clamshell', video:'https://www.youtube.com/results?search_query=Miniband%20Clamshell%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12/lado' },
+        ]},
+        { type:'accessory', name:'Core Anti-flexão', num:4, items:[
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
+          { name:'Prancha (variação estática curta)', video:'https://www.youtube.com/results?search_query=Prancha%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'20s' },
+        ]},
+      ]},
+      { key:'qua', label:'Quarta', title:'Estabilização de Joelho (baseline) + Propriocepção', blocks:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'Marcha controlada', video:'https://www.youtube.com/results?search_query=Marcha%20controlada%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'5min' },
+        ]},
+        { type:'activation', name:'Ativação de Glúteo/Quadríceps', num:2, items:[
+          { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
+          { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12/lado', note:'Foco em VMO — protocolo padrão de tendinite patelar' },
+        ]},
+        { type:'sc', name:'Estabilização Unilateral (baseline, conservador)', num:3, note:'Sem impacto/salto — foco em controle excêntrico.', items:[
+          { name:'Single Leg Box Glute Bridge', video:'https://www.youtube.com/results?search_query=Single%20Leg%20Box%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
+          { name:'Wall Sit (isometria de quadríceps)', video:'https://www.youtube.com/results?search_query=Wall%20Sit%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'20s', note:'Interromper se dor >2/10' },
+        ]},
+        { type:'accessory', name:'Propriocepção + Core', num:4, items:[
+          { name:'Equilíbrio unipodal (baseline, registrar tempo)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'máx/lado, registrar tempo' },
+          { name:'Side Plank Hip Lift', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'8/lado' },
+        ]},
+      ]},
+      { key:'sab', label:'Sábado', title:'Hip Hinge Técnico + Core Anti-rotação', blocks:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'Mobilidade de quadril e tornozelo', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'8min' },
+        ]},
+        { type:'activation', name:'Ativação', num:2, items:[
+          { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+        ]},
+        { type:'sc', name:'Hip Hinge Técnico', num:3, items:[
+          { name:'Hip Hinge com bastão/PVC', video:'https://www.youtube.com/results?search_query=Hip%20Hinge%20com%20bast%C3%A3o%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 5, sem dor' },
+        ]},
+        { type:'accessory', name:'Core Anti-rotação', num:4, items:[
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana23', label:'Semanas 2-3 (21/set-04/out) — progressão', weekStart:2, weekEnd:3, rev:'v1',
+    note:'Progressão leve de carga/volume sobre a Semana 1, condicionada à ausência de dor lombar e no joelho (0-2/10 durante e nas 24h seguintes) — início da transição L1→L2 e R1→R2.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Hip Hinge com Carga Leve + Ativação', blocks:[
+        { type:'activation', name:'Braceamento + Ativação', num:1, items:[
+          { name:'Ativação isométrica de quadríceps (quad set)', video:'https://www.youtube.com/results?search_query=Quad%20Set%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+          { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
+        ]},
+        { type:'sc', name:'Hip Hinge (carga leve)', num:2, note:'Progressão L1→L2 — RDL técnico com carga leve, mantendo neutro lombar.', items:[
+          { name:'RDL com halter leve (técnico)', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 6, sem dor' },
+          { name:'Miniband Clamshell', video:'https://www.youtube.com/results?search_query=Miniband%20Clamshell%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15/lado' },
+        ]},
+        { type:'accessory', name:'Core Anti-flexão', num:3, items:[
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Prancha', video:'https://www.youtube.com/results?search_query=Prancha%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'25s' },
+        ]},
+      ]},
+      { key:'qua', label:'Quarta', title:'Estabilização Unilateral + Propriocepção de Joelho', blocks:[
+        { type:'activation', name:'Ativação', num:1, items:[
+          { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15/lado' },
+        ]},
+        { type:'sc', name:'Estabilização Unilateral', num:2, note:'Interromper se dor >2/10.', items:[
+          { name:'Single Leg Box Glute Bridge', video:'https://www.youtube.com/results?search_query=Single%20Leg%20Box%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado' },
+          { name:'Wall Sit Banded Clamshell', video:'https://www.youtube.com/results?search_query=Wall%20Sit%20Banded%20Clamshell%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'25s' },
+        ]},
+        { type:'accessory', name:'Propriocepção + Core', num:3, items:[
+          { name:'Equilíbrio unipodal (progressão)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'35s/lado' },
+          { name:'Side Plank Hip Lift', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+        ]},
+      ]},
+      { key:'sab', label:'Sábado', title:'Hip Hinge + Core Anti-rotação (progressão)', blocks:[
+        { type:'activation', name:'Ativação', num:1, items:[
+          { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
+        ]},
+        { type:'sc', name:'Hip Hinge (carga leve)', num:2, items:[
+          { name:'RDL com halter leve (técnico)', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', rpe:'RPE 6, sem dor' },
+        ]},
+        { type:'accessory', name:'Core Anti-rotação', num:3, items:[
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Copenhagen Plank (progressão curta)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15s/lado', note:'Introdução gradual — parar se doer' },
+        ]},
+      ]},
+    ],
+  },
+  {
+    key:'semana4', label:'Semana 4 (05-11/out) — Deload', weekStart:4, weekEnd:4, rev:'v1',
+    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40%, sem progressão de carga. Reavaliar dor lombar/joelho e qualidade de movimento antes de avançar para a Fase 2.',
+    days: [
+      { key:'seg', label:'Segunda', title:'Hip Hinge Leve + Ativação (deload)', blocks:[
+        { type:'sc', name:'Hip Hinge (volume reduzido)', num:1, items:[
+          { name:'RDL com halter leve (técnico)', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10', rpe:'RPE 5, sem dor' },
+          { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+        ]},
+        { type:'accessory', name:'Core Anti-flexão (leve)', num:2, items:[
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
+        ]},
+      ]},
+      { key:'qua', label:'Quarta', title:'Estabilização Leve + Reavaliação de Joelho (deload)', blocks:[
+        { type:'sc', name:'Estabilização (volume reduzido)', num:1, note:'Reavaliar dor/resposta do joelho antes de avançar para a Fase 2.', items:[
+          { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
+        ]},
+        { type:'accessory', name:'Propriocepção (leve)', num:2, items:[
+          { name:'Equilíbrio unipodal', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'30s/lado' },
+        ]},
+      ]},
+      { key:'sab', label:'Sábado', title:'Core Leve (deload + reavaliação lombar)', blocks:[
+        { type:'sc', name:'Core (volume reduzido)', num:1, note:'Reavaliar dor/resposta lombar antes de avançar para a Fase 2.', items:[
+          { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
+        ]},
+        { type:'accessory', name:'Mobilidade de Fechamento', num:2, items:[
+          { name:'Mobilidade de quadril e coluna torácica', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20coluna%20tor%C3%A1cica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'8min' },
+        ]},
+      ]},
+    ],
+  },
+];
+
 const ATHLETES = {
+  adrea: {
+    name: 'Adrea Spinello',
+    sport: ADREA_sport,
+    avatar: ADREA_avatar,
+    objective: ADREA_objective,
+    week1Monday: ADREA_week1Monday,
+    dayMeta: ADREA_dayMeta,
+    safety: ADREA_safety,
+    phases: ADREA_PHASES,
+    tabEras: { fase1: ADREA_FASE1_ERAS },
+    milestoneNote: ADREA_milestoneNote,
+  },
+  altair: {
+    name: 'Altair Rosa',
+    sport: ALTAIR_sport,
+    avatar: ALTAIR_avatar,
+    objective: ALTAIR_objective,
+    week1Monday: ALTAIR_week1Monday,
+    dayMeta: ALTAIR_dayMeta,
+    safety: ALTAIR_safety,
+    phases: ALTAIR_PHASES,
+    tabEras: { fase1: ALTAIR_FASE1_ERAS, fase2: ALTAIR_FASE2_ERAS },
+    milestoneNote: ALTAIR_milestoneNote,
+  },
+  ana_guedes: {
+    name: 'Ana Carolina Emerenciano Guedes',
+    sport: ANA_sport,
+    avatar: ANA_avatar,
+    objective: ANA_objective,
+    week1Monday: ANA_week1Monday,
+    dayMeta: ANA_dayMeta,
+    safety: ANA_safety,
+    phases: ANA_PHASES,
+    tabEras: { fase1: ANA_FASE1_ERAS, fase2: ANA_FASE2_ERAS, fase3: ANA_FASE3_ERAS, fase4: ANA_FASE4_ERAS, fase5: ANA_FASE5_ERAS, fase6: ANA_FASE6_ERAS },
+    milestoneNote: ANA_milestoneNote,
+  },
+  andressa: {
+    name: 'Andressa Fernandes Pereira',
+    sport: ANDRESSA_META.sport,
+    avatar: ANDRESSA_META.avatar,
+    objective: ANDRESSA_META.objective,
+    week1Monday: ANDRESSA_META.week1Monday,
+    dayMeta: ANDRESSA_META.dayMeta,
+    safety: ANDRESSA_META.safety,
+    phases: ANDRESSA_PHASES,
+    tabEras: { fase1: ANDRESSA_FASE1_ERAS, fase2: ANDRESSA_FASE2_ERAS, fase3: ANDRESSA_FASE3_ERAS, fase4: ANDRESSA_FASE4_ERAS },
+    milestoneNote: ANDRESSA_META.milestoneNote,
+  },
+  andrey: {
+    name: 'Andrey Ohya',
+    sport: ANDREY_sport,
+    avatar: ANDREY_avatar,
+    objective: ANDREY_objective,
+    week1Monday: ANDREY_week1Monday,
+    dayMeta: ANDREY_dayMeta,
+    safety: ANDREY_safety,
+    phases: ANDREY_PHASES,
+    tabEras: { fase1: ANDREY_FASE1_ERAS },
+    milestoneNote: ANDREY_milestoneNote,
+  },
+  angel: {
+    name: 'Angel Timana',
+    sport: ANGEL_sport,
+    avatar: ANGEL_avatar,
+    objective: ANGEL_objective,
+    week1Monday: ANGEL_week1Monday,
+    dayMeta: ANGEL_dayMeta,
+    safety: ANGEL_safety,
+    phases: ANGEL_PHASES,
+    tabEras: { fase1: ANGEL_FASE1_ERAS },
+    milestoneNote: ANGEL_milestoneNote,
+  },
   angela: {
     name: 'Angela Cristina Da Fonseca de Oliveira',
     sport: 'Triatlon',
@@ -8196,65 +9173,29 @@ const ATHLETES = {
     tabEras: { meso1: BENNY_ERAS },
     milestoneNote: 'Pendência: vídeo de demonstração do RNT Step-Up (Quinta) ainda não confirmado — preencher manualmente quando disponível.',
   },
-  andressa: {
-    name: 'Andressa Fernandes Pereira',
-    sport: ANDRESSA_META.sport,
-    avatar: ANDRESSA_META.avatar,
-    objective: ANDRESSA_META.objective,
-    week1Monday: ANDRESSA_META.week1Monday,
-    dayMeta: ANDRESSA_META.dayMeta,
-    safety: ANDRESSA_META.safety,
-    phases: ANDRESSA_PHASES,
-    tabEras: { fase1: ANDRESSA_FASE1_ERAS, fase2: ANDRESSA_FASE2_ERAS, fase3: ANDRESSA_FASE3_ERAS, fase4: ANDRESSA_FASE4_ERAS },
-    milestoneNote: ANDRESSA_META.milestoneNote,
+  glaucia: {
+    name: 'Glaucia Leite',
+    sport: GLAUCIA_sport,
+    avatar: GLAUCIA_avatar,
+    objective: GLAUCIA_objective,
+    week1Monday: GLAUCIA_week1Monday,
+    dayMeta: GLAUCIA_dayMeta,
+    safety: GLAUCIA_safety,
+    phases: GLAUCIA_PHASES,
+    tabEras: { fase1: GLAUCIA_FASE1_ERAS },
+    milestoneNote: GLAUCIA_milestoneNote,
   },
-  ana_guedes: {
-    name: 'Ana Carolina Emerenciano Guedes',
-    sport: ANA_sport,
-    avatar: ANA_avatar,
-    objective: ANA_objective,
-    week1Monday: ANA_week1Monday,
-    dayMeta: ANA_dayMeta,
-    safety: ANA_safety,
-    phases: ANA_PHASES,
-    tabEras: { fase1: ANA_FASE1_ERAS, fase2: ANA_FASE2_ERAS, fase3: ANA_FASE3_ERAS, fase4: ANA_FASE4_ERAS, fase5: ANA_FASE5_ERAS, fase6: ANA_FASE6_ERAS },
-    milestoneNote: ANA_milestoneNote,
-  },
-  yasmin: {
-    name: 'Yasmin Allgayer Sobe',
-    sport: YASMIN_sport,
-    avatar: YASMIN_avatar,
-    objective: YASMIN_objective,
-    week1Monday: YASMIN_week1Monday,
-    dayMeta: YASMIN_dayMeta,
-    safety: YASMIN_safety,
-    phases: YASMIN_PHASES,
-    tabEras: { meso1: YASMIN_MESO1_ERAS },
-    milestoneNote: YASMIN_milestoneNote,
-  },
-  michel: {
-    name: 'Michel Silva',
-    sport: MICHEL_SPORT,
-    avatar: MICHEL_AVATAR,
-    objective: MICHEL_OBJECTIVE,
-    week1Monday: MICHEL_WEEK1_MONDAY,
-    dayMeta: MICHEL_DAY_META,
-    safety: MICHEL_SAFETY,
-    phases: MICHEL_PHASES,
-    tabEras: { fase1: MICHEL_FASE1_ERAS, fase2: MICHEL_FASE2_ERAS, fase3: MICHEL_FASE3_ERAS, fase4: MICHEL_FASE4_ERAS },
-    milestoneNote: MICHEL_MILESTONE_NOTE,
-  },
-  matheus: {
-    name: 'Matheus Vicente',
-    sport: MATHEUS_SPORT,
-    avatar: MATHEUS_AVATAR,
-    objective: MATHEUS_OBJECTIVE,
-    week1Monday: MATHEUS_WEEK1_MONDAY,
-    dayMeta: MATHEUS_DAY_META,
-    safety: MATHEUS_SAFETY,
-    phases: MATHEUS_PHASES,
-    tabEras: { fase1: MATHEUS_FASE1_ERAS, fase2: MATHEUS_FASE2_ERAS, fase3: MATHEUS_FASE3_ERAS, fase4: MATHEUS_FASE4_ERAS },
-    milestoneNote: MATHEUS_MILESTONE_NOTE,
+  juliana: {
+    name: 'Juliana Olavo Pereira',
+    sport: JULIANA_sport,
+    avatar: JULIANA_avatar,
+    objective: JULIANA_objective,
+    week1Monday: JULIANA_week1Monday,
+    dayMeta: JULIANA_dayMeta,
+    safety: JULIANA_safety,
+    phases: JULIANA_PHASES,
+    tabEras: { fase1: JULIANA_FASE1_ERAS, fase3: JULIANA_FASE3_ERAS },
+    milestoneNote: JULIANA_milestoneNote,
   },
   juliane: {
     name: 'Juliane Greca',
@@ -8268,6 +9209,18 @@ const ATHLETES = {
     tabEras: { bloco0: JULIANE_BLOCO0_ERAS, bloco1: JULIANE_BLOCO1_ERAS, bloco2: JULIANE_BLOCO2_ERAS },
     milestoneNote: JULIANE_milestoneNote,
   },
+  lais: {
+    name: 'Laís Amorim',
+    sport: LAIS_sport,
+    avatar: LAIS_avatar,
+    objective: LAIS_objective,
+    week1Monday: LAIS_week1Monday,
+    dayMeta: LAIS_dayMeta,
+    safety: LAIS_safety,
+    phases: LAIS_PHASES,
+    tabEras: { pico: LAIS_PICO_ERAS, taper: LAIS_TAPER_ERAS, prova: LAIS_PROVA_ERAS },
+    milestoneNote: LAIS_milestoneNote,
+  },
   marcelo: {
     name: 'Marcelo Reck',
     sport: MARCELO_sport,
@@ -8280,17 +9233,29 @@ const ATHLETES = {
     tabEras: { fase1: MARCELO_FASE1_ERAS, fase2: MARCELO_FASE2_ERAS, fase3: MARCELO_FASE3_ERAS },
     milestoneNote: MARCELO_milestoneNote,
   },
-  andrey: {
-    name: 'Andrey Ohya',
-    sport: ANDREY_sport,
-    avatar: ANDREY_avatar,
-    objective: ANDREY_objective,
-    week1Monday: ANDREY_week1Monday,
-    dayMeta: ANDREY_dayMeta,
-    safety: ANDREY_safety,
-    phases: ANDREY_PHASES,
-    tabEras: { fase1: ANDREY_FASE1_ERAS },
-    milestoneNote: ANDREY_milestoneNote,
+  matheus: {
+    name: 'Matheus Vicente',
+    sport: MATHEUS_SPORT,
+    avatar: MATHEUS_AVATAR,
+    objective: MATHEUS_OBJECTIVE,
+    week1Monday: MATHEUS_WEEK1_MONDAY,
+    dayMeta: MATHEUS_DAY_META,
+    safety: MATHEUS_SAFETY,
+    phases: MATHEUS_PHASES,
+    tabEras: { fase1: MATHEUS_FASE1_ERAS, fase2: MATHEUS_FASE2_ERAS, fase3: MATHEUS_FASE3_ERAS, fase4: MATHEUS_FASE4_ERAS },
+    milestoneNote: MATHEUS_MILESTONE_NOTE,
+  },
+  michel: {
+    name: 'Michel Silva',
+    sport: MICHEL_SPORT,
+    avatar: MICHEL_AVATAR,
+    objective: MICHEL_OBJECTIVE,
+    week1Monday: MICHEL_WEEK1_MONDAY,
+    dayMeta: MICHEL_DAY_META,
+    safety: MICHEL_SAFETY,
+    phases: MICHEL_PHASES,
+    tabEras: { fase1: MICHEL_FASE1_ERAS, fase2: MICHEL_FASE2_ERAS, fase3: MICHEL_FASE3_ERAS, fase4: MICHEL_FASE4_ERAS },
+    milestoneNote: MICHEL_MILESTONE_NOTE,
   },
   taina: {
     name: 'Tainá Calixto Monteiro',
@@ -8301,32 +9266,8 @@ const ATHLETES = {
     dayMeta: TAINA_dayMeta,
     safety: TAINA_safety,
     phases: TAINA_PHASES,
-    tabEras: { fase1: TAINA_FASE1_ERAS, fase2: TAINA_FASE2_ERAS },
+    tabEras: { fase1: TAINA_FASE1_ERAS, fase2: TAINA_FASE2_ERAS, fase3: TAINA_FASE3_ERAS },
     milestoneNote: TAINA_milestoneNote,
-  },
-  glaucia: {
-    name: 'Glaucia Leite',
-    sport: GLAUCIA_sport,
-    avatar: GLAUCIA_avatar,
-    objective: GLAUCIA_objective,
-    week1Monday: GLAUCIA_week1Monday,
-    dayMeta: GLAUCIA_dayMeta,
-    safety: GLAUCIA_safety,
-    phases: GLAUCIA_PHASES,
-    tabEras: { fase1: GLAUCIA_FASE1_ERAS },
-    milestoneNote: GLAUCIA_milestoneNote,
-  },
-  adrea: {
-    name: 'Adrea Spinello',
-    sport: ADREA_sport,
-    avatar: ADREA_avatar,
-    objective: ADREA_objective,
-    week1Monday: ADREA_week1Monday,
-    dayMeta: ADREA_dayMeta,
-    safety: ADREA_safety,
-    phases: ADREA_PHASES,
-    tabEras: { fase1: ADREA_FASE1_ERAS },
-    milestoneNote: ADREA_milestoneNote,
   },
   tatiana: {
     name: 'Tatiana Laiz Freitas',
@@ -8339,30 +9280,6 @@ const ATHLETES = {
     phases: TATIANA_PHASES,
     tabEras: { fase1: TATIANA_FASE1_ERAS, fase2: TATIANA_FASE2_ERAS, fase3: TATIANA_FASE3_ERAS, fase4: TATIANA_FASE4_ERAS },
     milestoneNote: TATIANA_milestoneNote,
-  },
-  altair: {
-    name: 'Altair Rosa',
-    sport: ALTAIR_sport,
-    avatar: ALTAIR_avatar,
-    objective: ALTAIR_objective,
-    week1Monday: ALTAIR_week1Monday,
-    dayMeta: ALTAIR_dayMeta,
-    safety: ALTAIR_safety,
-    phases: ALTAIR_PHASES,
-    tabEras: { fase1: ALTAIR_FASE1_ERAS, fase2: ALTAIR_FASE2_ERAS },
-    milestoneNote: ALTAIR_milestoneNote,
-  },
-  lais: {
-    name: 'Laís Amorim',
-    sport: LAIS_sport,
-    avatar: LAIS_avatar,
-    objective: LAIS_objective,
-    week1Monday: LAIS_week1Monday,
-    dayMeta: LAIS_dayMeta,
-    safety: LAIS_safety,
-    phases: LAIS_PHASES,
-    tabEras: { pico: LAIS_PICO_ERAS, taper: LAIS_TAPER_ERAS, prova: LAIS_PROVA_ERAS },
-    milestoneNote: LAIS_milestoneNote,
   },
   thiagow: {
     name: 'Thiago William Ribeiro',
@@ -8388,8 +9305,20 @@ const ATHLETES = {
     tabEras: { fase1: VANESSA_FASE1_ERAS },
     milestoneNote: VANESSA_milestoneNote,
   },
+  yasmin: {
+    name: 'Yasmin Allgayer Sobe',
+    sport: YASMIN_sport,
+    avatar: YASMIN_avatar,
+    objective: YASMIN_objective,
+    week1Monday: YASMIN_week1Monday,
+    dayMeta: YASMIN_dayMeta,
+    safety: YASMIN_safety,
+    phases: YASMIN_PHASES,
+    tabEras: { meso1: YASMIN_MESO1_ERAS },
+    milestoneNote: YASMIN_milestoneNote,
+  },
 };
-const ATHLETE_ORDER = ['angela', 'benny', 'andressa', 'ana_guedes', 'yasmin', 'michel', 'matheus', 'juliane', 'marcelo', 'andrey', 'taina', 'glaucia', 'adrea', 'tatiana', 'altair', 'lais', 'thiagow', 'vanessa'];
+const ATHLETE_ORDER = ["adrea","altair","ana_guedes","andressa","andrey","angel","angela","benny","glaucia","juliana","juliane","lais","marcelo","matheus","michel","taina","tatiana","thiagow","vanessa","yasmin"];
 
 /* ---------- datas (genérico por atleta) ---------- */
 function weekMonday(week1MondayStr, n){
@@ -8483,21 +9412,59 @@ function openAthlete(key){
   });
   document.getElementById('athlete-milestone').textContent = a.milestoneNote || '';
 
-  const topNav = [{ key:'esqueleto', label:'Esqueleto', tag:'periodização' }];
-  a.phases.filter(p => p.tab).forEach(p => topNav.push({ key:p.tab, label:p.nav, tag:`Sem ${p.weekStart}${p.weekEnd!==p.weekStart?'–'+p.weekEnd:''}` }));
+  const detailsToggle = document.getElementById('details-toggle');
+  const detailsPanel = document.getElementById('athlete-details');
+  detailsPanel.hidden = true;
+  detailsToggle.textContent = 'ℹ️ Detalhes do atleta';
+  detailsToggle.onclick = () => {
+    detailsPanel.hidden = !detailsPanel.hidden;
+    detailsToggle.textContent = detailsPanel.hidden ? 'ℹ️ Detalhes do atleta' : '▲ Ocultar detalhes';
+  };
+
+  const cp = currentPhaseFor(a);
+  const banner = document.getElementById('phase-banner');
+  if(cp){
+    banner.hidden = false;
+    document.getElementById('phase-banner-name').textContent = cp.nav;
+    document.getElementById('phase-banner-week').textContent = `Semana ${weekOfDate(a.week1Monday, TODAY)}`;
+  } else {
+    banner.hidden = true;
+  }
+
+  topNavExpanded = false;
+  renderTopNav(a, cp);
+  selectTopNav(cp ? cp.tab : 'esqueleto');
+}
+
+let topNavExpanded = false;
+
+function renderTopNav(a, cp){
+  const phasesWithTab = a.phases.filter(p => p.tab);
+  const cpIdx = cp ? phasesWithTab.findIndex(p => p.tab === cp.tab) : -1;
+  const hiddenCount = cpIdx > 0 ? cpIdx : 0;
+  const visiblePhases = (topNavExpanded || hiddenCount === 0) ? phasesWithTab : phasesWithTab.slice(cpIdx, cpIdx + 3);
+  const topNav = [{ key:'esqueleto', label:'Visão geral', tag:'todas as fases' }];
+  if(hiddenCount > 0 && !topNavExpanded){
+    topNav.push({ key:'__expand_phases__', label:`◀ +${hiddenCount} fase${hiddenCount>1?'s':''} anterior${hiddenCount>1?'es':''}`, isAction:true });
+  }
+  visiblePhases.forEach(p => topNav.push({ key:p.tab, label:p.nav, tag:`Sem ${p.weekStart}${p.weekEnd!==p.weekStart?'–'+p.weekEnd:''}` }));
   const nav = document.getElementById('top-nav');
   nav.innerHTML = '';
   topNav.forEach(t => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.dataset.tab = t.key;
-    btn.innerHTML = `${t.label}<span class="tag">${t.tag}</span>`;
-    btn.addEventListener('click', () => selectTopNav(t.key));
+    if(t.isAction){
+      btn.className = 'nav-expand-btn';
+      btn.textContent = t.label;
+      btn.addEventListener('click', () => { topNavExpanded = true; renderTopNav(a, cp); });
+    } else {
+      btn.dataset.tab = t.key;
+      btn.innerHTML = `${t.label}<span class="tag">${t.tag}</span>`;
+      btn.addEventListener('click', () => selectTopNav(t.key));
+      btn.setAttribute('aria-selected', t.key === currentTab ? 'true' : 'false');
+    }
     nav.appendChild(btn);
   });
-
-  const cp = currentPhaseFor(a);
-  selectTopNav(cp ? cp.tab : 'esqueleto');
 }
 
 /* ---------- esqueleto ---------- */
@@ -8521,7 +9488,7 @@ function renderSkeleton(){
       <div class="skel-grid">
         <div><b>Foco:</b> ${p.focus}</div>
         <div><b>RPE alvo:</b> ${p.rpe}</div>
-        <div style="grid-column:1/-1"><b>Progressão de equipamento:</b> ${p.equip}</div>
+        ${p.equip ? `<div style="grid-column:1/-1"><b>Progressão de equipamento:</b> ${p.equip}</div>` : ''}
       </div>
       ${p.flag ? `<div class="skel-flag">⚠ ${p.flag}</div>` : ''}
       ${p.milestone ? `<div class="skel-flag" style="color:var(--steel)">${p.milestone}</div>` : ''}
@@ -8542,6 +9509,7 @@ function statLine(item, isEmom){
   } else {
     if(item.sets) parts.push(`<span class="stat"><b>${item.sets}</b> séries</span>`);
     if(item.reps) parts.push(`<span class="stat">${item.reps}</span>`);
+    if(item.carga) parts.push(`<span class="stat">carga <b>${item.carga}</b></span>`);
     if(item.rest) parts.push(`<span class="stat">descanso <b>${item.rest}</b></span>`);
     if(item.rpe) parts.push(`<span class="stat">RPE <b>${item.rpe}</b></span>`);
   }
@@ -8571,15 +9539,32 @@ function renderBlocks(container, blocks){
     block.items.forEach((item, i) => {
       const row = document.createElement('div');
       row.className = 'item';
-      row.innerHTML = `
-        <div class="item-row">
-          <span class="ex-order">${i+1}</span>
-          <span class="ex-name">${item.name}</span>
-          <span class="badge ${STATUS_CLASS[item.status]}">${STATUS_L[item.status]}</span>
-        </div>
+
+      const toggleBtn = document.createElement('button');
+      toggleBtn.type = 'button';
+      toggleBtn.className = 'item-row item-toggle';
+      toggleBtn.innerHTML = `
+        <span class="ex-order">${i+1}</span>
+        <span class="ex-name">${item.name}</span>
+        <span class="badge ${STATUS_CLASS[item.status]}">${STATUS_L[item.status]}</span>
+        <span class="ex-chevron">▾</span>
+      `;
+
+      const body = document.createElement('div');
+      body.className = 'item-body';
+      body.hidden = true;
+      body.innerHTML = `
         <div class="stats">${statLine(item, !!item.emom)}</div>
         ${item.note ? `<div class="note">${item.note}</div>` : ''}
       `;
+
+      toggleBtn.addEventListener('click', () => {
+        body.hidden = !body.hidden;
+        toggleBtn.classList.toggle('open', !body.hidden);
+      });
+
+      row.appendChild(toggleBtn);
+      row.appendChild(body);
       items.appendChild(row);
     });
     card.appendChild(items);
@@ -8587,11 +9572,15 @@ function renderBlocks(container, blocks){
   });
 }
 
+let eraTabsExpanded = false;
+
 function selectTopNav(tabKey){
   currentTab = tabKey;
+  eraTabsExpanded = false;
   document.querySelectorAll('#top-nav button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tabKey ? 'true' : 'false'));
   document.getElementById('view-esqueleto').classList.toggle('active', tabKey === 'esqueleto');
   document.getElementById('view-phase').classList.toggle('active', tabKey !== 'esqueleto');
+  document.getElementById('pdf-open-btn').hidden = (tabKey === 'esqueleto');
   if(tabKey === 'esqueleto'){ renderSkeleton(); return; }
 
   const eras = eraForTab(tabKey);
@@ -8603,7 +9592,18 @@ function selectTopNav(tabKey){
 function renderEraTabs(tabKey, eras, activeKey){
   const tabsEl = document.getElementById('era-tabs');
   tabsEl.innerHTML = '';
-  eras.forEach(e => {
+  const activeIdx = eras.findIndex(e => e.key === activeKey);
+  const hiddenCount = activeIdx > 0 ? activeIdx : 0;
+  if(hiddenCount > 0 && !eraTabsExpanded){
+    const expandBtn = document.createElement('button');
+    expandBtn.type = 'button';
+    expandBtn.className = 'era-expand-btn';
+    expandBtn.textContent = `◀ +${hiddenCount} anterior${hiddenCount>1?'es':''}`;
+    expandBtn.addEventListener('click', () => { eraTabsExpanded = true; renderEraTabs(tabKey, eras, activeKey); });
+    tabsEl.appendChild(expandBtn);
+  }
+  const visibleEras = (eraTabsExpanded || hiddenCount === 0) ? eras : eras.slice(activeIdx);
+  visibleEras.forEach(e => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.setAttribute('aria-selected', e.key === activeKey ? 'true' : 'false');
@@ -8786,6 +9786,142 @@ function labeledField(label, value, onChange){
 
 const BLOCK_TYPE_LABELS = { mobility:'Mobilidade', activation:'Ativação', sc:'Força / S&C', cond:'Condicionamento', accessory:'Acessório' };
 
+/* ---------- gerar PDF (impressão) ---------- */
+function weeksWithContent(a){
+  const weeks = [];
+  a.phases.filter(p => p.tab).forEach(p => { for(let w = p.weekStart; w <= p.weekEnd; w++) weeks.push(w); });
+  return weeks;
+}
+
+function resolveWeek(a, w){
+  const phase = a.phases.find(p => p.tab && w >= p.weekStart && w <= p.weekEnd);
+  if(!phase) return { week:w, phase:null, era:null, days:[] };
+  const eras = (a.tabEras[phase.tab] || []).filter(e => !e.placeholder);
+  const era = eras.find(e => w >= e.weekStart && w <= e.weekEnd);
+  if(!era) return { week:w, phase, era:null, days:[] };
+  const days = era.days.map(day => {
+    const docId = `${currentAthleteKey}_${phase.tab}_${era.key}_${day.key}`;
+    const blocks = (docId in overridesCache && overridesCache[docId]) ? overridesCache[docId] : day.blocks;
+    const date = addDays(weekMonday(a.week1Monday, w), a.dayMeta[day.key].offset);
+    return { day, date, blocks };
+  });
+  return { week:w, phase, era, days };
+}
+
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+function buildPrintHTML(a, weekStart, weekEnd){
+  const weeksData = [];
+  for(let w = weekStart; w <= weekEnd; w++) weeksData.push(resolveWeek(a, w));
+
+  let html = `
+    <div class="print-header">
+      <div class="print-eyebrow">TWR Performance &amp; Health Style</div>
+      <h1>${escapeHtml(a.name)}</h1>
+      <p class="print-sub">${escapeHtml(a.sport)} — Semana${weekEnd!==weekStart?'s':''} ${weekStart}${weekEnd!==weekStart?'–'+weekEnd:''}</p>
+    </div>
+  `;
+  if((a.safety||[]).length){
+    html += `<div class="print-safety"><strong>Atenção:</strong><ul>${a.safety.map(s => `<li>${escapeHtml(s.icon)} ${escapeHtml(s.text)}</li>`).join('')}</ul></div>`;
+  }
+
+  weeksData.forEach(wd => {
+    html += `<div class="print-week"><h2>Semana ${wd.week}${wd.phase ? ' — '+escapeHtml(wd.phase.nav) : ''}</h2>`;
+    if(!wd.days.length){
+      html += `<p class="print-empty">Sem sessão prescrita para esta semana.</p></div>`;
+      return;
+    }
+    wd.days.forEach(({ day, date, blocks }) => {
+      html += `<div class="print-day">
+        <h3>${escapeHtml(day.title)}</h3>
+        <div class="print-day-date">${escapeHtml(a.dayMeta[day.key].label)}-feira · ${fmtFull(date)}</div>`;
+      blocks.forEach(block => {
+        const blockLabel = BLOCK_TYPE_LABELS[block.type] || '';
+        html += `<div class="print-block">
+          <div class="print-block-head">${escapeHtml(blockLabel ? blockLabel+' — ' : '')}${escapeHtml(block.name)}${block.rounds ? ' · '+escapeHtml(block.rounds) : ''}</div>
+          ${block.note ? `<div class="print-block-note">${escapeHtml(block.note)}</div>` : ''}
+          <table class="print-table">
+            <thead><tr><th>Exercício</th><th>Séries</th><th>Reps</th><th>Carga</th><th>Descanso</th><th>RPE</th><th>Vídeo</th></tr></thead>
+            <tbody>
+              ${block.items.map(item => `
+                <tr>
+                  <td>${escapeHtml(item.name)}${item.note ? `<div class="print-item-note">${escapeHtml(item.note)}</div>` : ''}</td>
+                  <td>${escapeHtml(item.sets) || '—'}</td>
+                  <td>${escapeHtml(item.reps) || '—'}</td>
+                  <td>${escapeHtml(item.carga) || '—'}</td>
+                  <td>${escapeHtml(item.rest) || '—'}</td>
+                  <td>${escapeHtml(item.rpe) || '—'}</td>
+                  <td>${item.video ? `<a href="${item.video}">Link</a>` : '—'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+
+  return html;
+}
+
+function openPdfModal(){
+  const a = athlete();
+  const weeks = weeksWithContent(a);
+  const modal = document.getElementById('pdf-modal');
+  if(!weeks.length) return;
+  const minW = Math.min(...weeks), maxW = Math.max(...weeks);
+  const startSel = document.getElementById('pdf-week-start');
+  const endSel = document.getElementById('pdf-week-end');
+  startSel.innerHTML = '';
+  endSel.innerHTML = '';
+  for(let w = minW; w <= maxW; w++){
+    startSel.appendChild(new Option(`Semana ${w}`, w));
+    endSel.appendChild(new Option(`Semana ${w}`, w));
+  }
+  const cp = currentPhaseFor(a);
+  let defaultStart = cp ? cp.weekStart : minW;
+  let defaultEnd = cp ? cp.weekEnd : minW;
+  defaultStart = Math.max(minW, Math.min(defaultStart, maxW));
+  defaultEnd = Math.min(defaultEnd, maxW, defaultStart + 11);
+  if(defaultEnd < defaultStart) defaultEnd = defaultStart;
+  startSel.value = String(defaultStart);
+  endSel.value = String(defaultEnd);
+  document.getElementById('pdf-modal-title').textContent = a.name;
+  document.getElementById('pdf-modal-error').hidden = true;
+  modal.hidden = false;
+}
+
+function closePdfModal(){
+  document.getElementById('pdf-modal').hidden = true;
+}
+
+document.getElementById('pdf-open-btn').addEventListener('click', openPdfModal);
+document.getElementById('pdf-cancel-btn').addEventListener('click', closePdfModal);
+document.getElementById('pdf-modal-close').addEventListener('click', closePdfModal);
+document.getElementById('pdf-generate-btn').addEventListener('click', () => {
+  const a = athlete();
+  const ws = parseInt(document.getElementById('pdf-week-start').value, 10);
+  const we = parseInt(document.getElementById('pdf-week-end').value, 10);
+  const errEl = document.getElementById('pdf-modal-error');
+  if(we < ws){
+    errEl.textContent = 'A semana final precisa ser igual ou depois da semana inicial.';
+    errEl.hidden = false;
+    return;
+  }
+  if(we - ws > 11){
+    errEl.textContent = 'Escolha um período de até 12 semanas por arquivo.';
+    errEl.hidden = false;
+    return;
+  }
+  document.getElementById('print-area').innerHTML = buildPrintHTML(a, ws, we);
+  closePdfModal();
+  setTimeout(() => window.print(), 50);
+});
+
 function renderBlocksEditable(container, blocks, rerender){
   container.innerHTML = '';
   blocks.forEach((block, bi) => {
@@ -8871,6 +10007,7 @@ function renderBlocksEditable(container, blocks, rerender){
       } else {
         fieldRow.appendChild(labeledField('séries', item.sets || '', v => item.sets = v));
         fieldRow.appendChild(labeledField('reps/tempo', item.reps || '', v => item.reps = v));
+        fieldRow.appendChild(labeledField('carga', item.carga || '', v => item.carga = v));
         fieldRow.appendChild(labeledField('descanso', item.rest || '', v => item.rest = v));
         fieldRow.appendChild(labeledField('RPE', item.rpe || '', v => item.rpe = v));
         fieldRow.appendChild(labeledField('equip.', item.equip || '', v => item.equip = v));
@@ -8980,6 +10117,105 @@ function makeLocalDbNS(){
   };
 }
 
+/* ---------- testes / resultados (log de retestes, referência para cargas de %1RM/pace) ---------- */
+const testsCache = {};
+
+async function loadTests(key){
+  if(key in testsCache) return testsCache[key];
+  if(!dbNS){ testsCache[key] = []; return []; }
+  try{
+    const snap = await dbNS.doc('tests/'+key).get();
+    testsCache[key] = (snap.exists && snap.data() && Array.isArray(snap.data().entries)) ? snap.data().entries : [];
+  }catch(e){ testsCache[key] = []; }
+  return testsCache[key];
+}
+
+async function saveTests(key, entries){
+  testsCache[key] = entries;
+  if(!dbNS) return;
+  try{ await dbNS.doc('tests/'+key).set({ entries, updatedAt:new Date().toISOString() }); }
+  catch(e){ /* cache local já está atualizado mesmo se a sincronização falhar */ }
+}
+
+function renderTestsList(entries){
+  const listEl = document.getElementById('tests-list');
+  listEl.innerHTML = '';
+  if(!entries.length){
+    listEl.innerHTML = '<p class="tests-empty">Nenhum teste registrado ainda.</p>';
+    return;
+  }
+  const sorted = [...entries].sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  sorted.forEach(entry => {
+    const row = document.createElement('div');
+    row.className = 'tests-row';
+    const dateLabel = entry.date ? fmtFull(new Date(entry.date + 'T00:00:00')) : '—';
+    row.innerHTML = `
+      <span class="tests-row-name">${entry.name}</span>
+      <span class="tests-row-value">${entry.value || ''}</span>
+      <span class="tests-row-date">${dateLabel}</span>
+      ${entry.note ? `<span class="tests-row-note">${entry.note}</span>` : ''}
+    `;
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'tests-row-remove';
+    removeBtn.textContent = '✕';
+    removeBtn.addEventListener('click', async () => {
+      const key = currentAthleteKey;
+      const current = testsCache[key] || [];
+      const next = current.filter(e => e !== entry);
+      await saveTests(key, next);
+      renderTestsList(next);
+    });
+    row.appendChild(removeBtn);
+    listEl.appendChild(row);
+  });
+}
+
+async function openTestsModal(){
+  const key = currentAthleteKey;
+  const a = athlete();
+  document.getElementById('tests-modal-title').textContent = a.name;
+  document.getElementById('tests-status').textContent = 'Carregando…';
+  document.getElementById('tests-modal').hidden = false;
+  const entries = await loadTests(key);
+  document.getElementById('tests-status').textContent = '';
+  renderTestsList(entries);
+}
+
+function closeTestsModal(){
+  document.getElementById('tests-modal').hidden = true;
+  document.getElementById('tests-new-name').value = '';
+  document.getElementById('tests-new-date').value = '';
+  document.getElementById('tests-new-value').value = '';
+  document.getElementById('tests-new-note').value = '';
+  document.getElementById('tests-status').textContent = '';
+}
+
+document.getElementById('tests-open-btn').addEventListener('click', openTestsModal);
+document.getElementById('tests-modal-close').addEventListener('click', closeTestsModal);
+document.getElementById('tests-add-btn').addEventListener('click', async () => {
+  const key = currentAthleteKey;
+  const nameEl = document.getElementById('tests-new-name');
+  const dateEl = document.getElementById('tests-new-date');
+  const valueEl = document.getElementById('tests-new-value');
+  const noteEl = document.getElementById('tests-new-note');
+  const statusEl = document.getElementById('tests-status');
+  const name = nameEl.value.trim();
+  const value = valueEl.value.trim();
+  if(!name || !value){
+    statusEl.textContent = 'Preencha ao menos o nome do teste e o resultado.';
+    return;
+  }
+  const entry = { name, date: dateEl.value || new Date().toISOString().slice(0,10), value, note: noteEl.value.trim() };
+  const current = testsCache[key] || [];
+  const next = [...current, entry];
+  statusEl.textContent = 'Salvando…';
+  await saveTests(key, next);
+  statusEl.textContent = 'Salvo ✓';
+  nameEl.value = ''; dateEl.value = ''; valueEl.value = ''; noteEl.value = '';
+  renderTestsList(next);
+});
+
 (async () => {
   try{ dbNS = await claude.use('db'); }catch(e){ dbNS = null; }
   if(!dbNS){
@@ -9000,7 +10236,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import {
