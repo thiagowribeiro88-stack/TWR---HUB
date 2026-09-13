@@ -10497,6 +10497,7 @@ function weekMonday(week1MondayStr, n){
 function addDays(d,n){ const r = new Date(d); r.setDate(r.getDate()+n); return r; }
 function fmt(d){ return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}); }
 function fmtFull(d){ return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
+function weekdayFull(label){ return (label === 'Sábado' || label === 'Domingo') ? label : `${label}-feira`; }
 const TODAY = new Date(); TODAY.setHours(0,0,0,0);
 function isToday(d){ return d.toDateString() === TODAY.toDateString(); }
 function weekOfDate(week1MondayStr, d){
@@ -10884,7 +10885,7 @@ function renderWeekDays(era, week, container, tabKey){
     editBtn.hidden = !dbNS;
     editBtn.addEventListener('click', () => enterEditMode(docId, day, blocksWrap, editBarSlot, () => renderDayBody()));
 
-    titleWrap.innerHTML = `<h3>${day.title}</h3><span class="meta ${todaySession?'today':''}">${a.dayMeta[day.key].label}-feira · ${fmtFull(date)}${todaySession ? ' · hoje' : ''}</span>`;
+    titleWrap.innerHTML = `<h3>${day.title}</h3><span class="meta ${todaySession?'today':''}">${weekdayFull(a.dayMeta[day.key].label)} · ${fmtFull(date)}${todaySession ? ' · hoje' : ''}</span>`;
     titleWrap.appendChild(editBtn);
 
     const showBlocks = (blocks, isOverride) => {
@@ -11003,7 +11004,7 @@ function buildPrintHTML(a, weekStart, weekEnd){
     wd.days.forEach(({ day, date, blocks }) => {
       html += `<div class="print-day">
         <h3>${escapeHtml(day.title)}</h3>
-        <div class="print-day-date">${escapeHtml(a.dayMeta[day.key].label)}-feira · ${fmtFull(date)}</div>`;
+        <div class="print-day-date">${escapeHtml(weekdayFull(a.dayMeta[day.key].label))} · ${fmtFull(date)}</div>`;
       blocks.forEach(block => {
         const blockLabel = BLOCK_TYPE_LABELS[block.type] || '';
         html += `<div class="print-block">
