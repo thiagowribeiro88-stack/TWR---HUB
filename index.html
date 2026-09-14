@@ -9680,7 +9680,7 @@ const JULIANA_safety = [
   { icon:'💊', text:'Uso de Donaren — sem contraindicação direta ao treino, mas observar energia/disposição ao dosar volume.' },
 ];
 
-const JULIANA_milestoneNote = 'Corrigido em 13/09/2026 (2ª correção): removida qualquer sessão de corrida da prescrição — a atleta já tem periodização de corrida própria fora do TWR. O serviço aqui vira uma rotina de 2x/semana (Segunda e Sexta) de Força/Estabilização/Propriocepção/Core, focada em sustentar a corrida e proteger o joelho (condromalácia patelar) e o quadril/adutor. Estrutura em blocos fixos de 4 semanas (3 de carga + 1 de deload, sempre). Reteste funcional único previsto para o fim do 2º bloco da Fase 2 (~Semana 12-13, ~3 meses de trabalho) — não a cada mudança de fase. A partir da Fase 3, a rotina entra em manutenção contínua (revisada a cada reteste trimestral com o Thiago). CORRIGIDO em 13/09/2026 (3ª correção, feedback do Thiago): a Fase 1 estava com sessões defasadas — bloco de mobilidade sumia nas Semanas 2-3 e 4, e a progressão de força ficava travada em variações leves/bodyweight. Fase 1 reforçada com mobilidade em toda semana e progressão real de carga (Hip Thrust com halter/barra, Lateral Lunge, Single-Leg Hip Thrust). A Fase 2 (Semanas 5-12), que estava completamente vazia, foi construída em 2 blocos de 4 semanas (3 carga + 1 deload) com progressão real de carga sobre a Fase 1 — mantido o formato de 2x/semana e sem nenhuma sessão de corrida/CrossFit, respeitando que ela já treina essas modalidades por conta própria todo dia.';
+const JULIANA_milestoneNote = 'Corrigido em 13/09/2026 (2ª correção): removida qualquer sessão de corrida da prescrição — a atleta já tem periodização de corrida própria fora do TWR. O serviço aqui vira uma rotina de 2x/semana (Segunda e Sexta) de Força/Estabilização/Propriocepção/Core, focada em sustentar a corrida e proteger o joelho (condromalácia patelar) e o quadril/adutor. Estrutura em blocos fixos de 4 semanas (3 de carga + 1 de deload, sempre). Reteste funcional único previsto para o fim do 2º bloco da Fase 2 (~Semana 12-13, ~3 meses de trabalho) — não a cada mudança de fase. A partir da Fase 3, a rotina entra em manutenção contínua (revisada a cada reteste trimestral com o Thiago). CORRIGIDO em 13/09/2026 (3ª correção, feedback do Thiago): a Fase 1 estava com sessões defasadas — bloco de mobilidade sumia nas Semanas 2-3 e 4, e a progressão de força ficava travada em variações leves/bodyweight. Fase 1 reforçada com mobilidade em toda semana e progressão real de carga (Hip Thrust com halter/barra, Lateral Lunge, Single-Leg Hip Thrust). A Fase 2 (Semanas 5-12), que estava completamente vazia, foi construída em 2 blocos de 4 semanas (3 carga + 1 deload) com progressão real de carga sobre a Fase 1 — mantido o formato de 2x/semana e sem nenhuma sessão de corrida/CrossFit, respeitando que ela já treina essas modalidades por conta própria todo dia. CORRIGIDO em 13/09/2026 (4ª correção, feedback do Thiago): densidade de exercícios ainda abaixo do padrão real de programas de força para corredores — pesquisado e confirmado (TrainingPeaks, Marathon Handbook, RunDNA) que o padrão de mercado é 6-8 exercícios por sessão, 3-5 séries. Todas as fases (1, 2 e o template da Fase 3) reforçadas para 5 exercícios no bloco de S&C + 3 no acessório (8 no total, mais mobilidade/ativação), adicionando padrões já consagrados em programas de corredor que faltavam (elevação de panturrilha — força de tendão de Aquiles, hip abduction em pé, side plank) — sempre respeitando a restrição de condromalácia patelar (sem agachamento profundo/impacto).';
 
 const JULIANA_PHASES = [
   { key:'fase1', nav:'Fase 1 — Base de Força e Estabilização', weekStart:1, weekEnd:4,
@@ -9701,8 +9701,8 @@ const JULIANA_PHASES = [
 
 const JULIANA_FASE1_ERAS = [
   {
-    key:'semana1', label:'Semana 1 (14-20/set) — Diagnóstico', weekStart:1, weekEnd:1, rev:'v3',
-    note:'Semana de diagnóstico funcional — conservadora dado o quadro de condromalácia patelar. Qualquer dor >2/10 durante ou nas 24h após a sessão deve interromper a progressão daquele exercício. Nenhum teste de carga axial máxima (ex.: 1RM em agachamento livre) nesta rotina.',
+    key:'semana1', label:'Semana 1 (14-20/set) — Diagnóstico', weekStart:1, weekEnd:1, rev:'v4 (densidade corrigida — 13/09/2026)',
+    note:'Semana de diagnóstico funcional — conservadora dado o quadro de condromalácia patelar. Qualquer dor >2/10 durante ou nas 24h após a sessão deve interromper a progressão daquele exercício. Nenhum teste de carga axial máxima (ex.: 1RM em agachamento livre) nesta rotina. Densidade calibrada pelo padrão real de programas de força para corredores (6-8 exercícios/sessão, 3-4 séries — TrainingPeaks, Marathon Handbook, RunDNA).',
     days: [
       { key:'seg', label:'Segunda', title:'Diagnóstico Funcional + Força de Quadril/Glúteo', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
@@ -9715,14 +9715,17 @@ const JULIANA_FASE1_ERAS = [
           { name:'Fire Hydrant', video:'https://www.youtube.com/results?search_query=Fire%20Hydrant%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10/lado' },
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12/lado', note:'Foco em VMO — protocolo padrão de condromalácia patelar' },
         ]},
-        { type:'sc', name:'Avaliação de Força (conservadora)', num:3, note:'Sem carga axial alta — registrar carga/reps usadas como referência inicial.', items:[
+        { type:'sc', name:'Avaliação de Força (conservadora)', num:3, note:'Sem carga axial alta — registrar carga/reps usadas como referência inicial. 5 exercícios no bloco principal (padrão real de programa de força para corredor).', items:[
           { name:'Goblet Squat (amplitude confortável, sem dor)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 5-6, sem dor', note:'Registrar carga — baseline' },
           { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
           { name:'Single-Leg RDL com halter leve', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado', note:'Baseline de equilíbrio + cadeia posterior' },
+          { name:'Banded Good Morning (hip hinge)', video:'https://www.youtube.com/results?search_query=Banded%20Good%20Morning%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12', note:'reforço de cadeia posterior — padrão de hinge relevante pra economia de corrida' },
+          { name:'Elevação de Panturrilha em pé (bilateral)', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20em%20p%C3%A9%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'15', note:'força de panturrilha/tendão de Aquiles — padrão em todo programa de força para corredor' },
         ]},
         { type:'accessory', name:'Propriocepção + Core', num:4, items:[
           { name:'Equilíbrio unipodal (baseline, registrar tempo)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'máx/lado, registrar tempo' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado' },
+          { name:'Side Plank (joelhos apoiados se necessário)', video:'https://www.youtube.com/results?search_query=Side%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'20s/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core', blocks:[
@@ -9733,20 +9736,24 @@ const JULIANA_FASE1_ERAS = [
           { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12' },
           { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'8/lado' },
         ]},
-        { type:'sc', name:'Estabilização Unilateral (baseline, conservador)', num:3, note:'Foco em controle excêntrico, não em carga — protocolo padrão de condromalácia patelar.', items:[
+        { type:'sc', name:'Estabilização Unilateral (baseline, conservador)', num:3, note:'Foco em controle excêntrico, não em carga — protocolo padrão de condromalácia patelar. 5 exercícios no bloco principal.', items:[
           { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
           { name:'Curtsy Step Down (controle excêntrico)', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado', note:'Amplitude curta — interromper se dor >2/10' },
+          { name:'Single-Leg Hip Thrust (banco)', video:'https://www.youtube.com/results?search_query=Single-Leg%20Hip%20Thrust%20%28banco%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12/lado', note:'glúteo médio — controle de valgo dinâmico na corrida' },
+          { name:'Elevação de Panturrilha unilateral', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12/lado' },
         ]},
         { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:4, items:[
           { name:'Copenhagen Plank (progressão curta, baseline)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'15-20s/lado, registrar tempo', note:'Trabalho excêntrico de adutor — parar se doer' },
           { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado' },
+          { name:'Side Plank Hip Lift', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'8/lado' },
         ]},
       ]},
     ],
   },
   {
-    key:'semana23', label:'Semanas 2-3 (21/set-04/out) — progressão', weekStart:2, weekEnd:3, rev:'v3',
-    note:'Progressão leve de carga/volume sobre a Semana 1, condicionada à ausência de dor no joelho (0-2/10 durante e nas 24h seguintes).',
+    key:'semana23', label:'Semanas 2-3 (21/set-04/out) — progressão', weekStart:2, weekEnd:3, rev:'v4 (densidade corrigida — 13/09/2026)',
+    note:'Progressão leve de carga/volume sobre a Semana 1, condicionada à ausência de dor no joelho (0-2/10 durante e nas 24h seguintes). Mantida a densidade de 5 exercícios no bloco principal + 3 no acessório.',
     days: [
       { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo + Propriocepção', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
@@ -9762,10 +9769,12 @@ const JULIANA_FASE1_ERAS = [
           { name:'Hip Thrust com halter/barra', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20com%20halter%2Fbarra%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12', note:'progressão de carga sobre o Glute Bridge da Semana 1' },
           { name:'Single-Leg RDL com halter', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
           { name:'Lateral Lunge (amplitude confortável)', video:'https://www.youtube.com/results?search_query=Lateral%20Lunge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado', note:'padrão de quadril no plano frontal — variedade de estímulo' },
+          { name:'Elevação de Panturrilha em pé (carga)', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20em%20p%C3%A9%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
         ]},
         { type:'accessory', name:'Propriocepção + Core', num:4, items:[
           { name:'Equilíbrio unipodal (progressão)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s/lado' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank', video:'https://www.youtube.com/results?search_query=Side%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'25s/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core', blocks:[
@@ -9780,17 +9789,20 @@ const JULIANA_FASE1_ERAS = [
           { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8/lado' },
           { name:'Curtsy Step Down', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado', note:'Interromper se dor >2/10' },
           { name:'Single-Leg Hip Thrust (banco)', video:'https://www.youtube.com/results?search_query=Single-Leg%20Hip%20Thrust%20%28banco%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Elevação de Panturrilha unilateral', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
         ]},
         { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:4, items:[
           { name:'Copenhagen Plank', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'20-25s/lado' },
           { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank Hip Lift', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
         ]},
       ]},
     ],
   },
   {
-    key:'semana4', label:'Semana 4 (05-11/out) — Deload', weekStart:4, weekEnd:4, rev:'v3',
-    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40%, sem progressão de carga. Reavaliar dor/resposta antes de avançar para a Fase 2.',
+    key:'semana4', label:'Semana 4 (05-11/out) — Deload', weekStart:4, weekEnd:4, rev:'v4 (densidade corrigida — 13/09/2026)',
+    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40% (menos séries), mas a sessão continua completa (mesmo número de exercícios das semanas de carga). Reavaliar dor/resposta antes de avançar para a Fase 2.',
     days: [
       { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo (deload)', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
@@ -9799,9 +9811,11 @@ const JULIANA_FASE1_ERAS = [
         { type:'sc', name:'Força (volume reduzido)', num:2, items:[
           { name:'Goblet Squat (amplitude confortável)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10', rpe:'RPE 5, sem dor' },
           { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+          { name:'Single-Leg RDL com halter leve', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
         ]},
         { type:'accessory', name:'Propriocepção (leve)', num:3, items:[
           { name:'Equilíbrio unipodal', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'30s/lado' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Leve + Core (deload + reavaliação)', blocks:[
@@ -9810,6 +9824,7 @@ const JULIANA_FASE1_ERAS = [
         ]},
         { type:'sc', name:'Estabilização (volume reduzido)', num:2, note:'Reavaliar dor/resposta do joelho e adutor antes de avançar para a Fase 2.', items:[
           { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
         { type:'accessory', name:'Core (leve)', num:3, items:[
           { name:'Copenhagen Plank (curto)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15s/lado' },
@@ -9833,15 +9848,17 @@ const JULIANA_FASE2_ERAS = [
           { name:'Lateral Band Walk', video:'https://www.youtube.com/results?search_query=Lateral%20Band%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15 passos cada direção' },
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15/lado' },
         ]},
-        { type:'sc', name:'Força', num:3, note:'Progressão real de carga — registrar peso usado a cada sessão.', items:[
+        { type:'sc', name:'Força', num:3, note:'Progressão real de carga — registrar peso usado a cada sessão. 5 exercícios no bloco principal.', items:[
           { name:'Barbell Hip Thrust', video:'https://www.youtube.com/results?search_query=Barbell%20Hip%20Thrust%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 7, sem dor', note:'progressão do Hip Thrust com halter da Fase 1' },
           { name:'RDL com barra (carga moderada)', video:'https://www.youtube.com/results?search_query=RDL%20com%20barra%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10' },
           { name:'Bulgarian Split Squat (halteres)', video:'https://www.youtube.com/results?search_query=Bulgarian%20Split%20Squat%20%28halteres%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado', note:'amplitude confortável, sem dor no joelho da frente' },
           { name:'Lateral Lunge com halter', video:'https://www.youtube.com/results?search_query=Lateral%20Lunge%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
+          { name:'Elevação de Panturrilha em pé (carga)', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20em%20p%C3%A9%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
         ]},
         { type:'accessory', name:'Propriocepção + Core', num:4, items:[
           { name:'Equilíbrio unipodal em superfície instável', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20superf%C3%ADcie%20inst%C3%A1vel%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s/lado' },
           { name:'Dead Bug com carga leve', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20com%20carga%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank', video:'https://www.youtube.com/results?search_query=Side%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'25s/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core', blocks:[
@@ -9852,21 +9869,24 @@ const JULIANA_FASE2_ERAS = [
           { name:'Glute Bridge unilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12/lado' },
           { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
-        { type:'sc', name:'Estabilização Unilateral', num:3, items:[
+        { type:'sc', name:'Estabilização Unilateral', num:3, note:'5 exercícios no bloco principal.', items:[
           { name:'RNT Split Squat (banda média)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20m%C3%A9dia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado' },
           { name:'Curtsy Step Down (box mais alto)', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado', note:'Interromper se dor >2/10' },
           { name:'Single-Leg Hip Thrust com carga', video:'https://www.youtube.com/results?search_query=Single-Leg%20Hip%20Thrust%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Elevação de Panturrilha unilateral', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
         ]},
         { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:4, items:[
           { name:'Copenhagen Plank (progressão)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'25-30s/lado' },
           { name:'Pallof Press (banda mais forte)', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank Hip Lift', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
         ]},
       ]},
     ],
   },
   {
-    key:'semana8', label:'Semana 8 (02-08/nov) — Deload', weekStart:8, weekEnd:8, rev:'v1',
-    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40%.',
+    key:'semana8', label:'Semana 8 (02-08/nov) — Deload', weekStart:8, weekEnd:8, rev:'v2 (densidade corrigida — 13/09/2026)',
+    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40% (menos séries), sessão continua completa.',
     days: [
       { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo (deload)', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
@@ -9875,9 +9895,11 @@ const JULIANA_FASE2_ERAS = [
         { type:'sc', name:'Força (volume reduzido)', num:2, items:[
           { name:'Barbell Hip Thrust (carga leve)', video:'https://www.youtube.com/results?search_query=Barbell%20Hip%20Thrust%20%28carga%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10', rpe:'RPE 5, sem dor' },
           { name:'RDL com halter leve', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+          { name:'Bulgarian Split Squat (halteres leves)', video:'https://www.youtube.com/results?search_query=Bulgarian%20Split%20Squat%20%28halteres%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
         ]},
         { type:'accessory', name:'Propriocepção (leve)', num:3, items:[
           { name:'Equilíbrio unipodal', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'30s/lado' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Leve + Core (deload)', blocks:[
@@ -9886,6 +9908,7 @@ const JULIANA_FASE2_ERAS = [
         ]},
         { type:'sc', name:'Estabilização (volume reduzido)', num:2, items:[
           { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
         { type:'accessory', name:'Core (leve)', num:3, items:[
           { name:'Copenhagen Plank (curto)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15s/lado' },
@@ -9906,15 +9929,17 @@ const JULIANA_FASE2_ERAS = [
           { name:'Lateral Band Walk (banda mais forte)', video:'https://www.youtube.com/results?search_query=Lateral%20Band%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15 passos cada direção' },
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15/lado' },
         ]},
-        { type:'sc', name:'Força', num:3, note:'Última progressão de carga antes do reteste funcional do fim da Fase 2.', items:[
+        { type:'sc', name:'Força', num:3, note:'Última progressão de carga antes do reteste funcional do fim da Fase 2. 5 exercícios no bloco principal.', items:[
           { name:'Barbell Hip Thrust (carga maior)', video:'https://www.youtube.com/results?search_query=Barbell%20Hip%20Thrust%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8', rpe:'RPE 7-8, sem dor' },
           { name:'RDL com barra (carga maior)', video:'https://www.youtube.com/results?search_query=RDL%20com%20barra%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8' },
           { name:'Bulgarian Split Squat (halteres mais pesados)', video:'https://www.youtube.com/results?search_query=Bulgarian%20Split%20Squat%20%28halteres%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
           { name:'Lateral Lunge com halter', video:'https://www.youtube.com/results?search_query=Lateral%20Lunge%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
+          { name:'Elevação de Panturrilha em pé (carga maior)', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20em%20p%C3%A9%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
         ]},
         { type:'accessory', name:'Propriocepção + Core', num:4, items:[
           { name:'Equilíbrio unipodal com perturbação (bola leve)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20com%20perturba%C3%A7%C3%A3o%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s/lado' },
           { name:'Dead Bug com carga', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank (progressão)', video:'https://www.youtube.com/results?search_query=Side%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30s/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core', blocks:[
@@ -9925,20 +9950,23 @@ const JULIANA_FASE2_ERAS = [
           { name:'Glute Bridge unilateral com carga', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20unilateral%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12/lado' },
           { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
-        { type:'sc', name:'Estabilização Unilateral', num:3, items:[
+        { type:'sc', name:'Estabilização Unilateral', num:3, note:'5 exercícios no bloco principal.', items:[
           { name:'RNT Split Squat (banda forte)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado' },
           { name:'Curtsy Step Down (box alto)', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado', note:'Interromper se dor >2/10' },
           { name:'Single-Leg Hip Thrust com carga', video:'https://www.youtube.com/results?search_query=Single-Leg%20Hip%20Thrust%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Standing Hip Abduction com banda (progressão)', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15/lado' },
+          { name:'Elevação de Panturrilha unilateral (carga)', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
         ]},
         { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:4, items:[
           { name:'Copenhagen Plank (progressão máxima)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30-35s/lado' },
           { name:'Pallof Press (banda forte)', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank Hip Lift (progressão)', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
         ]},
       ]},
     ],
   },
   {
-    key:'semana12', label:'Semana 12 (30/nov-06/dez) — Deload + Reteste', weekStart:12, weekEnd:12, rev:'v1',
+    key:'semana12', label:'Semana 12 (30/nov-06/dez) — Deload + Reteste', weekStart:12, weekEnd:12, rev:'v2 (densidade corrigida — 13/09/2026)',
     note:'Deload fixo (regra de 3 semanas de carga + 1 deload) + reteste funcional com o Thiago (~3 meses de trabalho) — decide progressão/ajuste da Fase 3.',
     days: [
       { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo (deload)', blocks:[
@@ -9948,9 +9976,11 @@ const JULIANA_FASE2_ERAS = [
         { type:'sc', name:'Força (volume reduzido)', num:2, items:[
           { name:'Barbell Hip Thrust (carga leve)', video:'https://www.youtube.com/results?search_query=Barbell%20Hip%20Thrust%20%28carga%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10', rpe:'RPE 5, sem dor' },
           { name:'RDL com halter leve', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
+          { name:'Bulgarian Split Squat (halteres leves)', video:'https://www.youtube.com/results?search_query=Bulgarian%20Split%20Squat%20%28halteres%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
         ]},
         { type:'accessory', name:'Propriocepção (leve)', num:3, items:[
           { name:'Equilíbrio unipodal (registrar tempo — reteste)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'máx/lado, registrar tempo' },
+          { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Leve + Core (deload + reteste)', blocks:[
@@ -9959,6 +9989,7 @@ const JULIANA_FASE2_ERAS = [
         ]},
         { type:'sc', name:'Estabilização (volume reduzido)', num:2, note:'Reteste funcional com o Thiago — comparar com a baseline da Semana 1 (dor, tempo de equilíbrio, qualidade de movimento).', items:[
           { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
         { type:'accessory', name:'Core (leve)', num:3, items:[
           { name:'Copenhagen Plank (curto, registrar tempo — reteste)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'registrar tempo máximo/lado' },
@@ -9971,36 +10002,49 @@ const JULIANA_FASE2_ERAS = [
 
 const JULIANA_FASE3_ERAS = [
   {
-    key:'template', label:'Semana 13 em diante (contínuo, revisão trimestral)', weekStart:13, weekEnd:13, rev:'v1',
-    note:'Rotina de manutenção — repete a lógica de blocos de 4 semanas (3 carga + 1 deload) da Fase 2, com pequenas variações de exercício para evitar monotonia. Revisar carga/volume a cada reteste trimestral com o Thiago; não estender sem esse retorno.',
+    key:'template', label:'Semana 13 em diante (contínuo, revisão trimestral)', weekStart:13, weekEnd:13, rev:'v2 (densidade corrigida — 13/09/2026)',
+    note:'Rotina de manutenção — repete a lógica de blocos de 4 semanas (3 carga + 1 deload) da Fase 2, com pequenas variações de exercício para evitar monotonia. Revisar carga/volume a cada reteste trimestral com o Thiago; não estender sem esse retorno. Densidade de 5 exercícios no bloco principal, padrão real de programa de força para corredor.',
     days: [
       { key:'seg', label:'Segunda', title:'Força de Quadril/Glúteo + Propriocepção (manutenção)', blocks:[
-        { type:'activation', name:'Ativação de Glúteo Médio/VMO', num:1, items:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'Mobilidade de quadril e tornozelo', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'8min' },
+        ]},
+        { type:'activation', name:'Ativação de Glúteo Médio/VMO', num:2, items:[
           { name:'Lateral Band Walk', video:'https://www.youtube.com/results?search_query=Lateral%20Band%20Walk%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12 passos cada direção' },
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
         ]},
-        { type:'sc', name:'Força', num:2, note:'Ajustar carga conforme resultado do reteste trimestral mais recente.', items:[
+        { type:'sc', name:'Força', num:3, note:'Ajustar carga conforme resultado do reteste trimestral mais recente.', items:[
           { name:'Goblet Squat (amplitude confortável)', video:'https://www.youtube.com/results?search_query=Goblet%20Squat%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 6-7, sem dor' },
-          { name:'Hip Thrust ou Glute Bridge', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
+          { name:'Hip Thrust ou Glute Bridge (com barra)', video:'https://www.youtube.com/results?search_query=Hip%20Thrust%20ou%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
           { name:'Single-Leg RDL com halter', video:'https://www.youtube.com/results?search_query=Single-Leg%20RDL%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Lateral Lunge com halter', video:'https://www.youtube.com/results?search_query=Lateral%20Lunge%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'8/lado' },
+          { name:'Elevação de Panturrilha em pé (carga)', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20em%20p%C3%A9%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
         ]},
-        { type:'accessory', name:'Propriocepção + Core', num:3, items:[
+        { type:'accessory', name:'Propriocepção + Core', num:4, items:[
           { name:'Equilíbrio unipodal (superfície instável, se disponível)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20superf%C3%ADcie%20inst%C3%A1vel%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'40s/lado' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank', video:'https://www.youtube.com/results?search_query=Side%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'30s/lado' },
         ]},
       ]},
       { key:'sex', label:'Sexta', title:'Estabilização Unilateral + Core (manutenção)', blocks:[
-        { type:'activation', name:'Ativação', num:1, items:[
+        { type:'mobility', name:'Aquecimento', num:1, items:[
+          { name:'Mobilidade de quadril e tornozelo', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'8min' },
+        ]},
+        { type:'activation', name:'Ativação', num:2, items:[
           { name:'Glute Bridge', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15' },
           { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
-        { type:'sc', name:'Estabilização Unilateral', num:2, items:[
+        { type:'sc', name:'Estabilização Unilateral', num:3, items:[
           { name:'RNT Split Squat (banda leve)', video:'https://www.youtube.com/results?search_query=RNT%20Split%20Squat%20%28banda%20leve%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'8/lado' },
           { name:'Curtsy Step Down', video:'https://www.youtube.com/results?search_query=Curtsy%20Step%20Down%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10/lado', note:'Interromper se dor >2/10' },
+          { name:'Single-Leg Hip Thrust com carga', video:'https://www.youtube.com/results?search_query=Single-Leg%20Hip%20Thrust%20com%20carga%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
+          { name:'Standing Hip Abduction com banda', video:'https://www.youtube.com/results?search_query=Standing%20Hip%20Abduction%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Elevação de Panturrilha unilateral', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20de%20Panturrilha%20unilateral%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
         ]},
-        { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:3, items:[
+        { type:'accessory', name:'Core Anti-rotação + Propriocepção', num:4, items:[
           { name:'Copenhagen Plank', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'20-25s/lado' },
           { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
+          { name:'Side Plank Hip Lift', video:'https://www.youtube.com/results?search_query=Side%20Plank%20Hip%20Lift%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
         ]},
       ]},
     ],
@@ -10047,7 +10091,7 @@ const ANGEL_safety = [
   { icon:'😴', text:'Sono avaliado como ruim pelo próprio atleta — monitorar recuperação ao dosar volume/carga.' },
 ];
 
-const ANGEL_milestoneNote = 'Periodização criada em 13/09/2026 a partir da submissão do Jotform de 11/09/2026 — cliente novo, sem log de treino real. CORRIGIDO no mesmo dia (feedback do Thiago): removida qualquer sessão/bloco de condicionamento aeróbio (bike/remo) — o atleta já tem periodização própria de corrida/bike/natação para o triatlo fora do TWR; o serviço aqui é só a rotina de força/estabilização de coluna e joelhos. Estrutura em blocos fixos de 4 semanas (3 de carga + 1 de deload, sempre, regra padrão TWR). CORRIGIDO novamente em 13/09/2026 (mesmo dia, 2ª correção): o objetivo real do Angel é ganho de força geral, não só suporte de lombar/joelho — reconstruída a Fase 1 em modelo de trilho duplo (ver reabilitacao-membro-inferior-lombar.md + hipertrofia.md da skill): tronco e membros superiores (peito, costas, ombro, bíceps, tríceps) seguem musculação construtiva normal, 1 grupo diferente por dia ao longo da semana; pernas/lombar continuam na progressão própria de coluna/joelho (trilho L/R) sem agachamento livre nem impacto — Leg Curl entra como o único exercício de perna "normal" de hipertrofia por não sobrecarregar a patela. Trilho lombar/joelho avança por critério funcional (reavaliação informal de dor/qualidade de movimento a cada deload), não por calendário fixo. Reteste funcional completo com o Thiago previsto para o fim do 3º bloco (~Semana 12-13, ~3 meses de trabalho), quando também se decide se o trilho avança para L3/R3 (força funcional com carga progressiva, incluindo possível reintrodução de agachamento).';
+const ANGEL_milestoneNote = 'Periodização criada em 13/09/2026 a partir da submissão do Jotform de 11/09/2026 — cliente novo, sem log de treino real. CORRIGIDO no mesmo dia (feedback do Thiago): removida qualquer sessão/bloco de condicionamento aeróbio (bike/remo) — o atleta já tem periodização própria de corrida/bike/natação para o triatlo fora do TWR; o serviço aqui é só a rotina de força/estabilização de coluna e joelhos. Estrutura em blocos fixos de 4 semanas (3 de carga + 1 de deload, sempre, regra padrão TWR). CORRIGIDO novamente em 13/09/2026 (mesmo dia, 2ª correção): o objetivo real do Angel é ganho de força geral, não só suporte de lombar/joelho — reconstruída a Fase 1 em modelo de trilho duplo (ver reabilitacao-membro-inferior-lombar.md + hipertrofia.md da skill): tronco e membros superiores (peito, costas, ombro, bíceps, tríceps) seguem musculação construtiva normal, 1 grupo diferente por dia ao longo da semana; pernas/lombar continuam na progressão própria de coluna/joelho (trilho L/R) sem agachamento livre nem impacto — Leg Curl entra como o único exercício de perna "normal" de hipertrofia por não sobrecarregar a patela. Trilho lombar/joelho avança por critério funcional (reavaliação informal de dor/qualidade de movimento a cada deload), não por calendário fixo. Reteste funcional completo com o Thiago previsto para o fim do 3º bloco (~Semana 12-13, ~3 meses de trabalho), quando também se decide se o trilho avança para L3/R3 (força funcional com carga progressiva, incluindo possível reintrodução de agachamento). CORRIGIDO em 13/09/2026 (3ª correção, feedback do Thiago): a densidade de exercícios ainda estava muito abaixo do padrão real de programas de hipertrofia full-body — pesquisado e confirmado (StrengthLog, Muscle & Strength, TTrening) que o padrão de mercado é 5-7 exercícios por sessão no bloco principal. Reconstruída toda a Fase 1 com 5 exercícios no bloco de S&C (2 push + 2 pull + 1 trilho de perna, variando por dia) e 4 no acessório, girando pelos principais grupos (peito, costas, ombro, bíceps, tríceps) ao longo da semana — mantendo intacta a restrição de perna/lombar (sem agachamento livre nem impacto).';
 
 const ANGEL_PHASES = [
   { key:'fase1', nav:'Fase 1 — Base de Musculação + Estabilização (Lombar/Joelho)', weekStart:1, weekEnd:4,
@@ -10065,10 +10109,10 @@ const ANGEL_PHASES = [
 
 const ANGEL_FASE1_ERAS = [
   {
-    key:'semana1', label:'Semana 1 (14-20/set) — Diagnóstico + Introdução à Musculação', weekStart:1, weekEnd:1, rev:'v2 (trilho duplo: musculação + lombar/joelho)',
-    note:'Semana de diagnóstico funcional na perna/lombar (conservadora dado o quadro de hérnia de disco e tendinite patelar — sem carga axial alta ali, sem teste de 1RM) combinada com introdução técnica à musculação de tronco (RPE moderado, foco em execução). Qualquer dor >2/10 na perna/lombar durante ou nas 24h seguintes deve interromper a progressão daquele exercício.',
+    key:'semana1', label:'Semana 1 (14-20/set) — Diagnóstico + Introdução à Musculação', weekStart:1, weekEnd:1, rev:'v3 (densidade corrigida — 13/09/2026)',
+    note:'Semana de diagnóstico funcional na perna/lombar (conservadora dado o quadro de hérnia de disco e tendinite patelar — sem carga axial alta ali, sem teste de 1RM) combinada com uma sessão de musculação de tronco de densidade real (5-7 exercícios/sessão, padrão de programas full-body de hipertrofia) — RPE moderado, foco em execução. Qualquer dor >2/10 na perna/lombar durante ou nas 24h seguintes deve interromper a progressão daquele exercício.',
     days: [
-      { key:'seg', label:'Segunda', title:'Diagnóstico Lombar/Joelho + Peito e Costas', blocks:[
+      { key:'seg', label:'Segunda', title:'Diagnóstico Lombar + Peito, Costas e Bíceps', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de quadril e tornozelo (sem carga)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'6min' },
           { name:'Gato-Camelo (amplitude controlada, sem flexão forçada)', video:'https://www.youtube.com/results?search_query=Gato-Camelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10' },
@@ -10078,18 +10122,21 @@ const ANGEL_FASE1_ERAS = [
           { name:'Respiração diafragmática + braceamento de core', video:'https://www.youtube.com/results?search_query=Respira%C3%A7%C3%A3o%20diafragm%C3%A1tica%20e%20braceamento%20de%20core%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'6 respirações', note:'Ensinar o padrão antes de qualquer carga — base do trilho L1' },
           { name:'Band Pull-Apart', video:'https://www.youtube.com/results?search_query=Band%20Pull-Apart%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'15' },
         ]},
-        { type:'sc', name:'Hip Hinge (trilho lombar, baseline) + Musculação de Tronco', num:3, note:'Hip Hinge sem carga axial (trilho L1, registrar qualidade como referência). Supino e Remada em carga técnica — RPE moderado, sem falha.', items:[
+        { type:'sc', name:'Hip Hinge (trilho lombar) + Peito/Costas', num:3, note:'Hip Hinge sem carga axial (trilho L1, registrar qualidade como referência). Restante em carga técnica — RPE moderado, sem falha. Densidade de sessão full-body real (5 exercícios no bloco principal).', items:[
           { name:'Hip Hinge com bastão/PVC (feedback de neutro)', video:'https://www.youtube.com/results?search_query=Hip%20Hinge%20com%20bast%C3%A3o%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 5, sem dor' },
           { name:'Supino Reto com halteres (técnico)', video:'https://www.youtube.com/results?search_query=Supino%20Reto%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 6, técnica' },
-          { name:'Remada Baixa (triângulo)', video:'https://www.youtube.com/results?search_query=Remada%20Baixa%20%28tri%C3%A2ngulo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+          { name:'Supino Inclinado com halteres', video:'https://www.youtube.com/results?search_query=Supino%20Inclinado%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 6, técnica', note:'ângulo superior do peito — segundo estímulo de push do dia' },
+          { name:'Remada Curvada com halteres', video:'https://www.youtube.com/results?search_query=Remada%20Curvada%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 6, técnica' },
+          { name:'Puxada Frontal na Polia', video:'https://www.youtube.com/results?search_query=Puxada%20Frontal%20na%20Polia%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12', note:'segundo estímulo de puxada — dorsal' },
         ]},
-        { type:'accessory', name:'Core Anti-flexão + Braço', num:4, items:[
+        { type:'accessory', name:'Core Anti-flexão + Bíceps/Ombro Posterior', num:4, items:[
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12/lado', note:'Foco em VMO — protocolo padrão de tendinite patelar' },
-          { name:'Rosca Direta com halteres (pegada neutra)', video:'https://www.youtube.com/results?search_query=Rosca%20Direta%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12', note:'Pegada neutra — cuidado com epicondilite' },
+          { name:'Rosca Direta com halteres (pegada neutra)', video:'https://www.youtube.com/results?search_query=Rosca%20Direta%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12', note:'Pegada neutra — cuidado com epicondilite' },
+          { name:'Face Pull (polia)', video:'https://www.youtube.com/results?search_query=Face%20Pull%20%28polia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'15', note:'saúde de ombro — equilibra o volume de push do dia' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'8/lado' },
         ]},
       ]},
-      { key:'qua', label:'Quarta', title:'Estabilização de Joelho + Ombros e Dorsal', blocks:[
+      { key:'qua', label:'Quarta', title:'Estabilização de Joelho + Ombros, Costas e Tríceps', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Marcha controlada', video:'https://www.youtube.com/results?search_query=Marcha%20controlada%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'5min' },
           { name:'Mobilidade de ombro (rotação externa/interna)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10' },
@@ -10097,31 +10144,37 @@ const ANGEL_FASE1_ERAS = [
         { type:'activation', name:'Ativação de Glúteo/Quadríceps', num:2, items:[
           { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
         ]},
-        { type:'sc', name:'Estabilização de Joelho (trilho, baseline) + Musculação de Tronco', num:3, note:'Single Leg Box Glute Bridge sem impacto (trilho R1, controle excêntrico). Desenvolvimento e Puxada em carga técnica.', items:[
+        { type:'sc', name:'Estabilização de Joelho (trilho) + Ombros/Costas', num:3, note:'Single Leg Box Glute Bridge sem impacto (trilho R1, controle excêntrico). Restante em carga técnica. Densidade full-body real (5 exercícios).', items:[
           { name:'Single Leg Box Glute Bridge', video:'https://www.youtube.com/results?search_query=Single%20Leg%20Box%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'8/lado' },
           { name:'Desenvolvimento com halteres (sentado)', video:'https://www.youtube.com/results?search_query=Desenvolvimento%20com%20halteres%20%28sentado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 6, amplitude confortável' },
+          { name:'Elevação Lateral com halteres', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20Lateral%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12', note:'segundo estímulo de ombro — deltoide lateral' },
           { name:'Puxada na Polia (pegada aberta)', video:'https://www.youtube.com/results?search_query=Puxada%20na%20Polia%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+          { name:'Remada Unilateral com halter (banco de apoio)', video:'https://www.youtube.com/results?search_query=Remada%20Unilateral%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10/lado', note:'segundo estímulo de puxada — dorsal unilateral' },
         ]},
         { type:'accessory', name:'Propriocepção + Tríceps', num:4, items:[
           { name:'Wall Sit (isometria de quadríceps)', video:'https://www.youtube.com/results?search_query=Wall%20Sit%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'20s', note:'Interromper se dor >2/10' },
-          { name:'Tríceps Corda (polia)', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Corda%20%28polia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12' },
+          { name:'Tríceps Corda (polia)', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Corda%20%28polia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+          { name:'Tríceps Testa com halteres', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Testa%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12', note:'segundo estímulo de tríceps' },
           { name:'Equilíbrio unipodal (baseline, registrar tempo)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'máx/lado, registrar tempo' },
         ]},
       ]},
-      { key:'sab', label:'Sábado', title:'Hip Hinge + Pernas Seguras + Braços', blocks:[
+      { key:'sab', label:'Sábado', title:'Hip Hinge + Pernas Seguras, Ombro e Braços', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de quadril e tornozelo', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'1', reps:'6min' },
         ]},
         { type:'activation', name:'Ativação', num:2, items:[
           { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12' },
         ]},
-        { type:'sc', name:'Hip Hinge (trilho) + Posterior de Coxa + Ombro', num:3, note:'Leg Curl é seguro pro joelho (sem carga axial/knee-dominant) — mantém volume de perna sem violar a restrição de agachamento/impacto.', items:[
+        { type:'sc', name:'Hip Hinge (trilho) + Posterior de Coxa, Peito e Ombro', num:3, note:'Leg Curl e Cadeira Adutora/Abdutora são seguros pro joelho (sem carga axial/knee-dominant) — mantém volume de perna sem violar a restrição de agachamento/impacto. Densidade full-body real (5 exercícios).', items:[
           { name:'Hip Hinge com bastão/PVC', video:'https://www.youtube.com/results?search_query=Hip%20Hinge%20com%20bast%C3%A3o%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', rpe:'RPE 5, sem dor' },
           { name:'Cadeira Flexora (Leg Curl) deitado', video:'https://www.youtube.com/results?search_query=Cadeira%20Flexora%20%28Leg%20Curl%29%20deitado%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
-          { name:'Elevação Lateral com halteres', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20Lateral%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12' },
+          { name:'Cadeira Adutora/Abdutora', video:'https://www.youtube.com/results?search_query=Cadeira%20Adutora%2FAbdutora%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'15', note:'volume de quadril seguro pro joelho — sem carga axial' },
+          { name:'Crucifixo com halteres (banco reto)', video:'https://www.youtube.com/results?search_query=Crucifixo%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12', note:'terceiro estímulo de peito da semana — isolamento' },
+          { name:'Remada Cavalinho (T-Bar ou barra)', video:'https://www.youtube.com/results?search_query=Remada%20Cavalinho%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'10', note:'terceiro estímulo de costas — fecha a semana' },
         ]},
-        { type:'accessory', name:'Core Anti-rotação + Braço', num:4, items:[
-          { name:'Rosca Martelo (pegada neutra)', video:'https://www.youtube.com/results?search_query=Rosca%20Martelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12', note:'Pegada neutra — protege o cotovelo (epicondilite)' },
+        { type:'accessory', name:'Core Anti-rotação + Braços', num:4, items:[
+          { name:'Rosca Martelo (pegada neutra)', video:'https://www.youtube.com/results?search_query=Rosca%20Martelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'3', reps:'12', note:'Pegada neutra — protege o cotovelo (epicondilite)' },
+          { name:'Tríceps Francês (halter, unilateral)', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Franc%C3%AAs%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'12/lado' },
           { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10/lado' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'novo', sets:'2', reps:'10/lado' },
         ]},
@@ -10129,10 +10182,10 @@ const ANGEL_FASE1_ERAS = [
     ],
   },
   {
-    key:'semana23', label:'Semanas 2-3 (21/set-04/out) — progressão', weekStart:2, weekEnd:3, rev:'v2 (trilho duplo)',
-    note:'Progressão real de carga na musculação de tronco (mais peso/mais séries) + progressão leve e condicionada à ausência de dor no trilho lombar/joelho (0-2/10 durante e nas 24h seguintes) — início da transição L1→L2 e R1→R2.',
+    key:'semana23', label:'Semanas 2-3 (21/set-04/out) — progressão', weekStart:2, weekEnd:3, rev:'v3 (densidade corrigida — 13/09/2026)',
+    note:'Progressão real de carga na musculação de tronco (mais peso/mais séries) + progressão leve e condicionada à ausência de dor no trilho lombar/joelho (0-2/10 durante e nas 24h seguintes) — início da transição L1→L2 e R1→R2. Mantida a densidade de 5 exercícios no bloco principal + 4 no acessório (padrão full-body real).',
     days: [
-      { key:'seg', label:'Segunda', title:'Hip Hinge com Carga Leve + Peito e Costas', blocks:[
+      { key:'seg', label:'Segunda', title:'Hip Hinge com Carga Leve + Peito, Costas e Bíceps', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de ombro e coluna torácica', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20ombro%20e%20coluna%20tor%C3%A1cica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8' },
         ]},
@@ -10140,18 +10193,21 @@ const ANGEL_FASE1_ERAS = [
           { name:'Ativação isométrica de quadríceps (quad set)', video:'https://www.youtube.com/results?search_query=Quad%20Set%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
           { name:'Band Pull-Apart', video:'https://www.youtube.com/results?search_query=Band%20Pull-Apart%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15' },
         ]},
-        { type:'sc', name:'Hip Hinge (progressão L1→L2) + Musculação de Tronco', num:3, note:'Progressão L1→L2 — RDL técnico com carga leve, mantendo neutro lombar. Supino e Remada sobem de carga/volume.', items:[
+        { type:'sc', name:'Hip Hinge (progressão L1→L2) + Peito/Costas', num:3, note:'Progressão L1→L2 — RDL técnico com carga leve, mantendo neutro lombar. Musculação sobe de carga/volume vs Semana 1.', items:[
           { name:'RDL com halter leve (técnico)', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', rpe:'RPE 6, sem dor' },
           { name:'Supino Reto com halteres', video:'https://www.youtube.com/results?search_query=Supino%20Reto%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 7', note:'+carga vs Semana 1' },
-          { name:'Remada Baixa (triângulo)', video:'https://www.youtube.com/results?search_query=Remada%20Baixa%20%28tri%C3%A2ngulo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
+          { name:'Supino Inclinado com halteres', video:'https://www.youtube.com/results?search_query=Supino%20Inclinado%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', rpe:'RPE 7' },
+          { name:'Remada Curvada com halteres', video:'https://www.youtube.com/results?search_query=Remada%20Curvada%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 7' },
+          { name:'Puxada Frontal na Polia', video:'https://www.youtube.com/results?search_query=Puxada%20Frontal%20na%20Polia%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
         ]},
-        { type:'accessory', name:'Core Anti-flexão + Braço', num:4, items:[
+        { type:'accessory', name:'Core Anti-flexão + Bíceps/Ombro Posterior', num:4, items:[
           { name:'Miniband Clamshell', video:'https://www.youtube.com/results?search_query=Miniband%20Clamshell%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15/lado' },
           { name:'Rosca Direta com halteres (pegada neutra)', video:'https://www.youtube.com/results?search_query=Rosca%20Direta%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+          { name:'Face Pull (polia)', video:'https://www.youtube.com/results?search_query=Face%20Pull%20%28polia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
         ]},
       ]},
-      { key:'qua', label:'Quarta', title:'Estabilização de Joelho + Ombros e Dorsal', blocks:[
+      { key:'qua', label:'Quarta', title:'Estabilização de Joelho + Ombros, Costas e Tríceps', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de ombro (rotação externa/interna)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10' },
         ]},
@@ -10159,31 +10215,37 @@ const ANGEL_FASE1_ERAS = [
           { name:'Bird Dog', video:'https://www.youtube.com/results?search_query=Bird%20Dog%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15/lado' },
         ]},
-        { type:'sc', name:'Estabilização de Joelho (progressão) + Musculação de Tronco', num:3, note:'Interromper progressão de joelho se dor >2/10. Desenvolvimento e Puxada sobem de carga/volume.', items:[
+        { type:'sc', name:'Estabilização de Joelho (progressão) + Ombros/Costas', num:3, note:'Interromper progressão de joelho se dor >2/10. Musculação sobe de carga/volume vs Semana 1.', items:[
           { name:'Single Leg Box Glute Bridge', video:'https://www.youtube.com/results?search_query=Single%20Leg%20Box%20Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
           { name:'Desenvolvimento com halteres (sentado)', video:'https://www.youtube.com/results?search_query=Desenvolvimento%20com%20halteres%20%28sentado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'10', rpe:'RPE 7' },
+          { name:'Elevação Lateral com halteres', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20Lateral%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
           { name:'Puxada na Polia (pegada aberta)', video:'https://www.youtube.com/results?search_query=Puxada%20na%20Polia%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
+          { name:'Remada Unilateral com halter (banco de apoio)', video:'https://www.youtube.com/results?search_query=Remada%20Unilateral%20com%20halter%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10/lado' },
         ]},
         { type:'accessory', name:'Propriocepção + Tríceps', num:4, items:[
           { name:'Wall Sit Banded Clamshell', video:'https://www.youtube.com/results?search_query=Wall%20Sit%20Banded%20Clamshell%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'25s' },
           { name:'Tríceps Corda (polia)', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Corda%20%28polia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+          { name:'Tríceps Testa com halteres', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Testa%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
           { name:'Equilíbrio unipodal (progressão)', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'35s/lado' },
         ]},
       ]},
-      { key:'sab', label:'Sábado', title:'Hip Hinge + Pernas Seguras + Braços', blocks:[
+      { key:'sab', label:'Sábado', title:'Hip Hinge + Pernas Seguras, Peito e Braços', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de quadril e tornozelo', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20tornozelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'6min' },
         ]},
         { type:'activation', name:'Ativação', num:2, items:[
           { name:'Glute Bridge bilateral', video:'https://www.youtube.com/results?search_query=Glute%20Bridge%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15' },
         ]},
-        { type:'sc', name:'Hip Hinge + Posterior de Coxa + Ombro', num:3, items:[
+        { type:'sc', name:'Hip Hinge + Posterior de Coxa, Peito e Costas', num:3, items:[
           { name:'RDL com halter leve (técnico)', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10', rpe:'RPE 6, sem dor' },
           { name:'Cadeira Flexora (Leg Curl) deitado', video:'https://www.youtube.com/results?search_query=Cadeira%20Flexora%20%28Leg%20Curl%29%20deitado%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'4', reps:'12' },
-          { name:'Elevação Lateral com halteres', video:'https://www.youtube.com/results?search_query=Eleva%C3%A7%C3%A3o%20Lateral%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+          { name:'Cadeira Adutora/Abdutora', video:'https://www.youtube.com/results?search_query=Cadeira%20Adutora%2FAbdutora%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'15' },
+          { name:'Crucifixo com halteres (banco reto)', video:'https://www.youtube.com/results?search_query=Crucifixo%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+          { name:'Remada Cavalinho (T-Bar ou barra)', video:'https://www.youtube.com/results?search_query=Remada%20Cavalinho%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'10' },
         ]},
-        { type:'accessory', name:'Core Anti-rotação + Braço', num:4, items:[
+        { type:'accessory', name:'Core Anti-rotação + Braços', num:4, items:[
           { name:'Rosca Martelo (pegada neutra)', video:'https://www.youtube.com/results?search_query=Rosca%20Martelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12' },
+          { name:'Tríceps Francês (halter, unilateral)', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Franc%C3%AAs%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12/lado' },
           { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'3', reps:'12/lado' },
           { name:'Copenhagen Plank (progressão curta)', video:'https://www.youtube.com/results?search_query=Copenhagen%20Plank%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'15s/lado', note:'Introdução gradual — parar se doer' },
         ]},
@@ -10191,45 +10253,49 @@ const ANGEL_FASE1_ERAS = [
     ],
   },
   {
-    key:'semana4', label:'Semana 4 (05-11/out) — Deload', weekStart:4, weekEnd:4, rev:'v2 (trilho duplo)',
-    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40% em tudo (musculação e trilho lombar/joelho). Reavaliar dor lombar/joelho e qualidade de movimento antes de avançar para a Fase 2.',
+    key:'semana4', label:'Semana 4 (05-11/out) — Deload', weekStart:4, weekEnd:4, rev:'v3 (densidade corrigida — 13/09/2026)',
+    note:'Deload fixo de fim de bloco (regra de 3 semanas de carga + 1 deload) — volume reduzido ~30-40% em tudo (musculação e trilho lombar/joelho): menos séries por exercício, mas a sessão continua completa (mesmo número de exercícios das semanas de carga). Reavaliar dor lombar/joelho e qualidade de movimento antes de avançar para a Fase 2.',
     days: [
-      { key:'seg', label:'Segunda', title:'Hip Hinge Leve + Peito/Costas (deload)', blocks:[
+      { key:'seg', label:'Segunda', title:'Hip Hinge Leve + Peito, Costas e Bíceps (deload)', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de ombro e coluna torácica', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20ombro%20e%20coluna%20tor%C3%A1cica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'6min' },
         ]},
-        { type:'sc', name:'Hip Hinge + Musculação (volume reduzido)', num:2, items:[
+        { type:'sc', name:'Hip Hinge + Peito/Costas (volume reduzido)', num:2, items:[
           { name:'RDL com halter leve (técnico)', video:'https://www.youtube.com/results?search_query=RDL%20com%20halter%20leve%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10', rpe:'RPE 5, sem dor' },
           { name:'Supino Reto com halteres (carga leve)', video:'https://www.youtube.com/results?search_query=Supino%20Reto%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12', rpe:'RPE 5' },
-          { name:'Remada Baixa (triângulo, carga leve)', video:'https://www.youtube.com/results?search_query=Remada%20Baixa%20%28tri%C3%A2ngulo%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+          { name:'Remada Curvada com halteres (carga leve)', video:'https://www.youtube.com/results?search_query=Remada%20Curvada%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12', rpe:'RPE 5' },
         ]},
-        { type:'accessory', name:'Core Anti-flexão (leve)', num:3, items:[
+        { type:'accessory', name:'Core Anti-flexão + Bíceps (leve)', num:3, items:[
+          { name:'Rosca Direta com halteres (carga leve)', video:'https://www.youtube.com/results?search_query=Rosca%20Direta%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
           { name:'Dead Bug', video:'https://www.youtube.com/results?search_query=Dead%20Bug%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'8/lado' },
         ]},
       ]},
-      { key:'qua', label:'Quarta', title:'Estabilização Leve + Ombros/Dorsal (deload + reavaliação joelho)', blocks:[
+      { key:'qua', label:'Quarta', title:'Estabilização Leve + Ombros, Costas e Tríceps (deload + reavaliação joelho)', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de ombro (rotação externa/interna)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20ombro%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'6' },
         ]},
-        { type:'sc', name:'Estabilização + Musculação (volume reduzido)', num:2, note:'Reavaliar dor/resposta do joelho antes de avançar para a Fase 2.', items:[
+        { type:'sc', name:'Estabilização + Ombros/Costas (volume reduzido)', num:2, note:'Reavaliar dor/resposta do joelho antes de avançar para a Fase 2.', items:[
           { name:'Terminal Knee Extension com banda', video:'https://www.youtube.com/results?search_query=Terminal%20Knee%20Extension%20com%20banda%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
           { name:'Desenvolvimento com halteres (carga leve)', video:'https://www.youtube.com/results?search_query=Desenvolvimento%20com%20halteres%20%28sentado%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12', rpe:'RPE 5' },
           { name:'Puxada na Polia (carga leve)', video:'https://www.youtube.com/results?search_query=Puxada%20na%20Polia%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
         ]},
-        { type:'accessory', name:'Propriocepção (leve)', num:3, items:[
+        { type:'accessory', name:'Propriocepção + Tríceps (leve)', num:3, items:[
+          { name:'Tríceps Corda (polia, carga leve)', video:'https://www.youtube.com/results?search_query=Tr%C3%ADceps%20Corda%20%28polia%29%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
           { name:'Equilíbrio unipodal', video:'https://www.youtube.com/results?search_query=Equil%C3%ADbrio%20unipodal%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'30s/lado' },
         ]},
       ]},
-      { key:'sab', label:'Sábado', title:'Core Leve + Braços (deload + reavaliação lombar)', blocks:[
+      { key:'sab', label:'Sábado', title:'Core Leve + Pernas Seguras, Peito e Braços (deload + reavaliação lombar)', blocks:[
         { type:'mobility', name:'Aquecimento', num:1, items:[
           { name:'Mobilidade de quadril e coluna torácica', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20coluna%20tor%C3%A1cica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'6min' },
         ]},
-        { type:'sc', name:'Core + Braço (volume reduzido)', num:2, note:'Reavaliar dor/resposta lombar antes de avançar para a Fase 2.', items:[
+        { type:'sc', name:'Core + Pernas/Peito (volume reduzido)', num:2, note:'Reavaliar dor/resposta lombar antes de avançar para a Fase 2.', items:[
           { name:'Pallof Press', video:'https://www.youtube.com/results?search_query=Pallof%20Press%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'10/lado' },
-          { name:'Rosca Martelo (carga leve)', video:'https://www.youtube.com/results?search_query=Rosca%20Martelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+          { name:'Cadeira Flexora (Leg Curl) deitado (carga leve)', video:'https://www.youtube.com/results?search_query=Cadeira%20Flexora%20%28Leg%20Curl%29%20deitado%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+          { name:'Crucifixo com halteres (carga leve)', video:'https://www.youtube.com/results?search_query=Crucifixo%20com%20halteres%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
         ]},
-        { type:'accessory', name:'Mobilidade de Fechamento', num:3, items:[
-          { name:'Mobilidade de quadril e coluna torácica', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20coluna%20tor%C3%A1cica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'8min' },
+        { type:'accessory', name:'Braços (leve)', num:3, items:[
+          { name:'Rosca Martelo (carga leve)', video:'https://www.youtube.com/results?search_query=Rosca%20Martelo%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'2', reps:'12' },
+          { name:'Mobilidade de quadril e coluna torácica (fechamento)', video:'https://www.youtube.com/results?search_query=Mobilidade%20de%20quadril%20e%20coluna%20tor%C3%A1cica%20exerc%C3%ADcio%20execu%C3%A7%C3%A3o', status:'ativo', sets:'1', reps:'8min' },
         ]},
       ]},
     ],
